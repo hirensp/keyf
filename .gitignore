@@ -1,6 +1,11 @@
-*.class
+# Product Directories (don't promot outputs)
+/keyf/build/
+/keyf/nbproject/ # don't force people to use NetBeans
+/keyf/dist/
 
-# Package Files #
+
+# Product Files (just in case these exist outside the Product Directories)
+*.class
 *.jar
 *.war
 *.ear
