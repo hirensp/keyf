@@ -2,6 +2,7 @@
 /build/
 /nbproject/
 /dist/
+/build.xml
 
 # Product Files (just in case these exist outside the Product Directories)
 *.class
