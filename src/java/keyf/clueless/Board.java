@@ -4,9 +4,9 @@ import java.util.EnumMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import keyf.clueless.data.Hallway;
-import keyf.clueless.data.Location;
-import keyf.clueless.data.Room;
+import keyf.clueless.data.location.Hallway;
+import keyf.clueless.data.location.Location;
+import keyf.clueless.data.location.Room;
 import keyf.clueless.data.Suspect;
 import keyf.clueless.data.Weapon;
 
@@ -78,10 +78,8 @@ public class Board
         // matter because they can't move back to their current location...)
         for (Location suspectLocation : suspectLocations.values())
         {
-            // Hallways can only be occupied by one Suspect at a time, Rooms can
-            // hold any number of Suspects.
-            // TODO Find a better way than an instanceof check
-            if (suspectLocation instanceof Hallway)
+            // Remove Locations that can only hold one Suspect (i.e., Hallways).
+            if (suspectLocation.isSingleOccupancy())
             {
                 availableLocations.remove(suspectLocation);
             }
@@ -119,7 +117,7 @@ public class Board
      * moved to any {@link Room}.
      *
      * @param weapon The weapon to move
-     * @param room The room to move the {@code weapon} to.
+     * @param room The room to move the {@code weapon} to
      */
     public void setRoom(Weapon weapon, Room room)
     {
