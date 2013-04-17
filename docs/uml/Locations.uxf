@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="12.0">
+  <zoom_level>10</zoom_level>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>160</x>
+      <y>260</y>
+      <w>290</w>
+      <h>320</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;enumeration&gt;&gt;
+Hallway
+--
+-neighbors: Set&lt;Room&gt;
+--
+STUDY_HALL,
+HALL_LOUNGE,
+STUDY_LIBRARY,
+HALL_BILLIARD_ROOM,
+LOUNGE_DINING_ROOM,
+LIBRARY_BILLIARD_ROOM,
+BILLIARD_ROOM_DINING_ROOM,
+LIBRARY_CONSERVATORY,
+BILLIARD_ROOM_BALLROOM,
+DINING_ROOM_KITCHEN,
+CONSERVATORY_BALLROOM,
+BALLROOM_KITCHEN;
+--
++getNeighbors(); Set&lt;? extends Location&gt;
++isSingleOcuupancy(): boolean</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>450</x>
+      <y>170</y>
+      <w>220</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>30;30;30;60;200;60;200;90</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>510</x>
+      <y>260</y>
+      <w>290</w>
+      <h>270</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;enumeration&gt;&gt;
+Room
+--
+-neighbors: Set&lt;Location&gt;
+--
+STUDY,
+HALL,
+LOUNGE,
+LIBRARY,
+BILLIARD_ROOM,
+DINING_ROOM,
+CONSERVATORY,
+BALLROOM,
+KITCHEN;
+--
++getNeighbors(); Set&lt;? extends Location&gt;
++isSingleOcuupancy(): boolean</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>450</x>
+      <y>170</y>
+      <w>220</w>
+      <h>420</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>30;30;30;380;200;380;200;400</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>270</x>
+      <y>170</y>
+      <w>230</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>210;30;210;60;30;60;30;90</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>510</x>
+      <y>570</y>
+      <w>290</w>
+      <h>220</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;enumeration&gt;&gt;
+Room
+--
+-neighbors: Set&lt;Location&gt;
+--
+COL_MUSTARD_START,
+PROF_PLUM_START,
+MR_GREEN_START,
+MRS_PEACOCK_START,
+MISS_SCARLET_SART,
+MRS_WHITE_START
+--
++getNeighbors(); Set&lt;? extends Location&gt;
++isSingleOcuupancy(): boolean</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>340</x>
+      <y>120</y>
+      <w>290</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+Location
+--
++getNeighbors(); Set&lt;? extends Location&gt;
++isSingleOcuupancy(): boolean</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
