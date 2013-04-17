@@ -1,11 +1,11 @@
-package keyf.clueless.data;
+package keyf.clueless.data.location;
 
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.Set;
 
 /**
- * Represents a hallway.
+ * Represents a hallway. Named by the {@link Room}s that separate them.
  *
  * @author Justin
  */
@@ -59,9 +59,6 @@ public enum Hallway implements Location
             Room.BALLROOM,
             Room.KITCHEN);
 
-    // TODO add initial starting locations of players that link to hallways (but
-    // no hallway links back).
-
     /**
      * Note that all hallways only have only Rooms for neighbors.
      */
@@ -72,7 +69,7 @@ public enum Hallway implements Location
      *
      * @param neighbors Only a List to make it easier to construct
      */
-    private Hallway(Room room1, Room room2)
+    private Hallway(Room room1, Room... room2)
     {
         Set<Room> neighbors = EnumSet.<Room>of(room1, room2);
 
@@ -80,9 +77,23 @@ public enum Hallway implements Location
         this.neighbors = Collections.unmodifiableSet(neighbors);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Set<Room> getNeighbors()
     {
         return neighbors;
+    }
+
+    /**
+     * Always returns {@code true} (hallways can only hold one {@link Suspect}.
+     *
+     * @return Always {@code true}
+     */
+    @Override
+    public boolean isSingleOccupancy()
+    {
+        return true;
     }
 }
