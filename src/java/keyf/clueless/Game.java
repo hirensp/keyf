@@ -1,7 +1,15 @@
 package keyf.clueless;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import keyf.clueless.data.Player;
+import keyf.clueless.data.Suspect;
+import keyf.clueless.data.card.Card;
 
 /**
  * Represents a single game of Clue-Less.
@@ -16,20 +24,33 @@ public class Game
     private final String identifier;
 
     /**
-     * The people playing this game.
-     */
-    private final List<Player> players;
-
-    /**
      * The board being used to play the game.
      */
     private final Board board;
 
-    public Game(String identifier, List<Player> players)
+    /**
+     * The people playing this game.
+     */
+    private final List<Player> players;
+
+    private final Solution solution;
+
+    /**
+     * Creates a new game. The true criminal, murder weapon, and room are
+     * decided, and all cards are assigned to the {@code players}.
+     * 
+     * @param identifier Uniquely identifies this game within the server.
+     * @param players The players of this game
+     */
+    public Game(String identifier, Map<String, Suspect> players)
     {
         this.identifier = identifier;
-        this.players = players;
         this.board = new Board();
+
+        // Set aside the solution and deal the rest of the cards to the players.
+        CardDealer dealer = new CardDealer();
+        this.solution = dealer.getSolution();
+        this.players = getPlayers(players, dealer);
     }
 
     public Board getBoard()
@@ -39,6 +60,53 @@ public class Game
 
     public List<Player> getPlayers()
     {
+        return players;
+    }
+
+    /**
+     * Assigns {@link Card}s to each of the {@code prePlayers}, and returns
+     * fully formed {@link Player}s. The returned list will have the same order
+     * as {@code prePlayers}.
+     * 
+     * @param prePlayers information needed to form a list of {@link Player}s
+     * @param dealer used to assign cards to the returned {@link Player}s
+     *
+     * @return never {@code null}
+     */
+    private static List<Player> getPlayers(Map<String, Suspect> prePlayers,
+                                           CardDealer dealer)
+    {
+        // The list of players that will be created
+        List<Player> players = new ArrayList<Player>();
+
+        // first, deal the cards to each player
+
+        Map<String, Set<Card>> assignedCards = new HashMap<String, Set<Card>>();
+
+        Iterator<String> playerIterator = prePlayers.keySet().iterator();
+        
+        while (dealer.hasMore())
+        {
+            // keep cycling around the players until the dealer is out of cards
+            if (!playerIterator.hasNext())
+            {
+                playerIterator = prePlayers.keySet().iterator();
+            }
+
+            String playerId = playerIterator.next();
+            Set<Card> playerCards = assignedCards.get(playerId);
+
+            if (playerCards == null)
+            {
+                // it was not in the map, create a new one.
+                playerCards = new HashSet<Card>();
+                assignedCards.put(playerId, playerCards);
+            }
+
+            playerCards.add(dealer.deal());
+        }
+                
+
         return players;
     }
 }
