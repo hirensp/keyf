@@ -38,7 +38,9 @@
                 </td>
             </tr>
         </table>
-
+        <h3>
+            Please Enter Your Name: <input type="text" name="player name">
+        </h3>
 </form>
     </body>
 </html>
