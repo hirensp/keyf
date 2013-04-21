@@ -25,7 +25,7 @@ public interface Location
      * so returns {@code false}, while a {@link Hallway} supports only a single
      * occupant, so returns {@code true}.
      *
-     * @return {@code true} if this room can only old a single occupant, {@code
+     * @return {@code true} if this room can only hold a single occupant, {@code
      *     false} otherwise.
      */
     public boolean isSingleOccupancy();

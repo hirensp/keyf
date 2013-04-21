@@ -26,7 +26,7 @@
             </tr>
             <tr>
                 <td><input type="radio" name="player" value="2" /></td>
-                <td><img src="" alt="Misses Scalet"/></td>                
+                <td><img src="" alt="Miss Scalet"/></td>                
             </tr>
             <tr>
                 <td> <input type="radio" name="player" value="3" /></td>
