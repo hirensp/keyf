@@ -17,10 +17,11 @@ public class Player
 
     public Player(String identifier, Suspect suspect, Set<Card> cards)
     {
-        // TODO add parameter (null) checks...
-        this.identifier = identifier;
-        this.suspect = suspect;
-        this.cards = Collections.unmodifiableSet(cards);
+        if(identifier!=null && suspect!=null && !cards.isEmpty()){
+            this.identifier = identifier;
+            this.suspect = suspect;
+            this.cards = Collections.unmodifiableSet(cards);
+        }
     }
 
     public String getIdentifier()

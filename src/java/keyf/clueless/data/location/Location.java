@@ -12,7 +12,7 @@ public interface Location
 {
     /**
      * Returns other {@link Location}s that are reachable from this {@link
-     * Location}. (Note that this class has no knowledge of {@link Character}
+     * Location}. (Note that this class has no knowledge of {@link Suspect}
      * locations.)
      *
      * @return {@link Location}s that are reachable from this {@link Location}.

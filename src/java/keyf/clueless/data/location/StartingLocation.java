@@ -19,7 +19,7 @@ public enum StartingLocation implements Location
 
     MRS_PEACOCK_START(Hallway.LIBRARY_CONSERVATORY),
 
-    MISS_SCARLET_SART(Hallway.HALL_LOUNGE),
+    MISS_SCARLET_START(Hallway.HALL_LOUNGE),
 
     MRS_WHITE_START(Hallway.BALLROOM_KITCHEN);
 

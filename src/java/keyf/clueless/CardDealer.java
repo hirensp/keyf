@@ -26,7 +26,7 @@ public class CardDealer
     private final Iterator<Card> dealer;
 
     /**
-     * Creates a new instance. This instance should only be used wile {@link
+     * Creates a new instance. This instance should only be used while {@link
      * hasNext()} returns {@code true}.
      */
     public CardDealer()
@@ -80,7 +80,7 @@ public class CardDealer
     }
 
     /**
-     * Randomly deals (returns) the next {@like Card}, or throws an exception if
+     * Randomly deals (returns) the next {@link Card}, or throws an exception if
      * there are no more cards to deal.
      *
      * @return the next random {@link Card}, never {@code null}.
