@@ -1,5 +1,7 @@
 package keyf.clueless.data;
 
+import static keyf.util.ParamUtil.*;
+
 import java.util.Collections;
 import java.util.Set;
 import keyf.clueless.data.card.Card;
@@ -17,11 +19,10 @@ public class Player
 
     public Player(String identifier, Suspect suspect, Set<Card> cards)
     {
-        if(identifier!=null && suspect!=null && !cards.isEmpty()){
-            this.identifier = identifier;
-            this.suspect = suspect;
-            this.cards = Collections.unmodifiableSet(cards);
-        }
+        this.identifier = requireNonNull(identifier);
+        this.suspect = requireNonNull(suspect);
+        this.cards = Collections.unmodifiableSet(
+                requireNonNullAndContainsNonNull(cards));
     }
 
     public String getIdentifier()
