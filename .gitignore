@@ -9,3 +9,4 @@
 *.jar
 *.war
 *.ear
+/web/.DS_Store
