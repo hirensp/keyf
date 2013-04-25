@@ -11,13 +11,13 @@ import keyf.clueless.action.PossibleAction;
  */
 public class State
 {
-    private final Set<PossibleAction> availableAtions;
+    private final Set<PossibleAction> availableActions;
 
     private final String logMessage;
 
     public State(Set<PossibleAction> availableActions, String logMessage)
     {
-        this.availableAtions = availableActions;
+        this.availableActions = availableActions;
         this.logMessage = logMessage;
     }
 }

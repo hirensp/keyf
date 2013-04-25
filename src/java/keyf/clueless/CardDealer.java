@@ -5,10 +5,10 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import keyf.clueless.data.card.Card;
-import keyf.clueless.data.card.RoomCard;
-import keyf.clueless.data.card.SuspectCard;
-import keyf.clueless.data.card.WeaponCard;
+import keyf.clueless.data.Item;
+import keyf.clueless.data.Suspect;
+import keyf.clueless.data.Weapon;
+import keyf.clueless.data.location.*;
 
 /**
  * Sets aside one {@link Card} each of the {@link SuspectCard}s, {@link 
@@ -23,7 +23,7 @@ public class CardDealer
 {
     private final Solution solution;
 
-    private final Iterator<Card> dealer;
+    private final Iterator<? extends Item> dealer;
 
     /**
      * Creates a new instance. This instance should only be used while {@link
@@ -31,9 +31,9 @@ public class CardDealer
      */
     public CardDealer()
     {
-        List<SuspectCard> suspects = Arrays.asList(SuspectCard.values());
-        List<WeaponCard> weapons = Arrays.asList(WeaponCard.values());
-        List<RoomCard> rooms = Arrays.asList(RoomCard.values());
+        List<Suspect> suspects = Arrays.asList(Suspect.values());
+        List<Weapon> weapons = Arrays.asList(Weapon.values());
+        List<Room> rooms = Arrays.asList(Room.values());
 
         Collections.shuffle(suspects);
         Collections.shuffle(weapons);
@@ -46,7 +46,7 @@ public class CardDealer
 
         // Place the rest into one big list, shuffle again, and make a "dealer"
 
-        List<Card> allCards = new ArrayList<Card>();
+        List<Item> allCards = new ArrayList<Item>();
         
         allCards.addAll(suspects);
         allCards.addAll(weapons);
@@ -80,15 +80,15 @@ public class CardDealer
     }
 
     /**
-     * Randomly deals (returns) the next {@link Card}, or throws an exception if
+     * Randomly deals (returns) the next {@link Item}, or throws an exception if
      * there are no more cards to deal.
      *
-     * @return the next random {@link Card}, never {@code null}.
+     * @return the next random {@link Item}, never {@code null}.
      *
      * @throws NoSuchElementException if there is no next card (see {@link
      *     #hasMore()})
      */
-    public Card deal()
+    public Item deal()
     {
         return dealer.next();
     }
