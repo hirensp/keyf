@@ -33,6 +33,8 @@ public class Game
      */
     private final List<Player> players;
 
+    private final TurnManager turnManager;
+
     private final Solution solution;
 
     private final Map<Player, State> currentState;
@@ -53,6 +55,7 @@ public class Game
         CardDealer dealer = new CardDealer();
         this.solution = dealer.getSolution();
         this.players = getPlayers(players, dealer);
+        this.turnManager = new TurnManager(this.players);
 
         this.currentState = new HashMap<Player, State>();
         // TODO initialize current states.
@@ -68,7 +71,12 @@ public class Game
         return players;
     }
 
-    public State getCurrentState(Player player)
+    public TurnManager getTurnManager()
+    {
+        return turnManager;
+    }
+
+    public State getState(Player player)
     {
         return currentState.get(player);
     }

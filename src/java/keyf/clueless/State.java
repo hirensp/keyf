@@ -13,8 +13,11 @@ public class State
 {
     private final Set<PossibleAction> availableAtions;
 
-    public State(Set<PossibleAction> availableActions)
+    private final String logMessage;
+
+    public State(Set<PossibleAction> availableActions, String logMessage)
     {
         this.availableAtions = availableActions;
+        this.logMessage = logMessage;
     }
 }
