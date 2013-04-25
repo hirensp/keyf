@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.Set;
 import keyf.clueless.data.Player;
 import keyf.clueless.data.Suspect;
-import keyf.clueless.data.card.Card;
+import keyf.clueless.data.Item;
 
 /**
  * Represents a single game of Clue-Less.
@@ -84,12 +84,12 @@ public class Game
     }
 
     /**
-     * Assigns {@link Card}s to each of the {@code prePlayers}, and returns
+     * Assigns {@link Item}s to each of the {@code prePlayers}, and returns
      * fully formed {@link Player}s. The returned list will have the same order
      * as {@code prePlayers}.
      * 
      * @param prePlayers information needed to form a list of {@link Player}s
-     * @param dealer used to assign cards to the returned {@link Player}s
+     * @param dealer used to assign {@codeItem}s to the returned {@link Player}s
      *
      * @return never {@code null}
      */
@@ -101,7 +101,7 @@ public class Game
 
         // first, deal the cards to each player
 
-        Map<String, Set<Card>> assignedCards = new HashMap<String, Set<Card>>();
+        Map<String, Set<Item>> assignedCards = new HashMap<String, Set<Item>>();
 
         Iterator<String> playerIterator = prePlayers.keySet().iterator();
         
@@ -114,12 +114,12 @@ public class Game
             }
 
             String playerId = playerIterator.next();
-            Set<Card> playerCards = assignedCards.get(playerId);
+            Set<Item> playerCards = assignedCards.get(playerId);
 
             if (playerCards == null)
             {
                 // it was not in the map, create a new one.
-                playerCards = new HashSet<Card>();
+                playerCards = new HashSet<Item>();
                 assignedCards.put(playerId, playerCards);
             }
 
