@@ -35,6 +35,8 @@ public class Game
 
     private final Solution solution;
 
+    private final Map<Player, State> currentState;
+
     /**
      * Creates a new game. The true criminal, murder weapon, and room are
      * decided, and all cards are assigned to the {@code players}.
@@ -51,6 +53,9 @@ public class Game
         CardDealer dealer = new CardDealer();
         this.solution = dealer.getSolution();
         this.players = getPlayers(players, dealer);
+
+        this.currentState = new HashMap<Player, State>();
+        // TODO initialize current states.
     }
 
     public Board getBoard()
@@ -61,6 +66,21 @@ public class Game
     public List<Player> getPlayers()
     {
         return players;
+    }
+
+    public State getCurrentState(Player player)
+    {
+        return currentState.get(player);
+    }
+
+    public void setState(Player player, State state)
+    {
+        currentState.put(player, state);
+    }
+
+    public Solution getSolution()
+    {
+        return solution;
     }
 
     /**
