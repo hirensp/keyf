@@ -7,9 +7,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import keyf.clueless.data.Item;
 import keyf.clueless.data.Player;
 import keyf.clueless.data.Suspect;
-import keyf.clueless.data.Item;
 
 /**
  * Represents a single game of Clue-Less.
@@ -33,6 +33,8 @@ public class Game
      */
     private final List<Player> players;
 
+    private final TurnManager turnManager;
+    
     private final Solution solution;
 
     private final Map<Player, State> currentState;
@@ -54,6 +56,7 @@ public class Game
         this.solution = dealer.getSolution();
         this.players = getPlayers(players, dealer);
 
+        this.turnManager=new TurnManager(this.players);
         this.currentState = new HashMap<Player, State>();
         // TODO initialize current states.
     }
@@ -66,6 +69,11 @@ public class Game
     public List<Player> getPlayers()
     {
         return players;
+    }
+    
+    public TurnManager getTurnManager()
+    {
+        return turnManager;
     }
 
     public State getCurrentState(Player player)
