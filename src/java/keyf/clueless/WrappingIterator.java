@@ -49,9 +49,24 @@ public class WrappingIterator<T>
         return current;
     }
 
-    public T current()
+    public T getCurrent()
     {
         return current;
+    }
+
+    public void setCurrent(T desiredCurrent)
+    {
+        if (!iterable.contains(desiredCurrent))
+        {
+            throw new IllegalArgumentException(
+                    "\"desiredCurrent\" must be contained "
+                    + "in this Wrapper but it is not.");
+        }
+
+        while (current != desiredCurrent)
+        {
+            current = next();
+        }
     }
 
     private List<T> makeCollection(Iterable<T> iter)

@@ -43,19 +43,19 @@ public class TurnManager
      */
     public Player getCurrentPlayer()
     {
-        return currentPlayer.current();
+        return currentPlayer.getCurrent();
     }
 
     /**
      * Returns the player upon whom action is required (may be the same as
-     * "current player" or different, such as when a player must respond to a
+     * "getCurrent player" or different, such as when a player must respond to a
      * suggestion).
      *
      * @return never {@code null}
      */
     public Player getCurrentlyActivePlayer()
     {
-        return currentlyActivePlayer.current();
+        return currentlyActivePlayer.getCurrent();
     }
 
     /**
@@ -66,13 +66,17 @@ public class TurnManager
      */
     public Player nextPlayer()
     {
+        // set the next player's turn (so long as that player is allowed to have
+        // a turn).
         do
         {
             currentPlayer.next();
         }
-        while (!disqualifiedPlayers.contains(currentPlayer.current()));
+        while (!disqualifiedPlayers.contains(currentPlayer.getCurrent()));
 
-        return currentPlayer.current();
+        // The player whose turn it now is is also the active player.
+        setCurrentPlayerActive();
+        return currentPlayer.getCurrent();
     }
 
     /**
@@ -83,5 +87,17 @@ public class TurnManager
     public Player nextActivePlayer()
     {
         return currentlyActivePlayer.next();
+    }
+
+    /**
+     * Sets the Player whose turn it currently is active (only needed when
+     * {@link #nextActivePlayer} is called after {@link #nextPlayer()}).
+     *
+     * @return The getCurrent (currently active) Player
+     */
+    public Player setCurrentPlayerActive()
+    {
+        currentlyActivePlayer.setCurrent(currentPlayer.getCurrent());
+        return currentlyActivePlayer.getCurrent();
     }
 }

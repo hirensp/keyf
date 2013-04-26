@@ -97,20 +97,28 @@ public class State
     {
         private final Set<PossibleAction> availableActions;
         private final Set<PossibleAction> temporarilyUnavailableActions;
-        private final String suspectMessage;
-        private final String logMessage;
+        private String suspectMessage;
+        private String logMessage;
 
-        public Builder(State state, String suspectMessage, String logMessage)
+        public Builder(State state)
         {
             this.availableActions = new HashSet<PossibleAction>(
                     state.getAvailableActions());
 
             this.temporarilyUnavailableActions = new HashSet<PossibleAction>(
                     state.getTemporarilyUnavailableActions());
+        }
 
-            this.suspectMessage = suspectMessage;
-
+        public Builder setLogMessage(String logMessage)
+        {
             this.logMessage = logMessage;
+            return this;
+        }
+
+        public Builder setSuspetMessage(String suspectMessage)
+        {
+            this.suspectMessage = suspectMessage;
+            return this;
         }
 
         /**
@@ -146,6 +154,12 @@ public class State
                 }
             }
             
+            return this;
+        }
+
+        public Builder clearActions()
+        {
+            availableActions.clear();
             return this;
         }
 
