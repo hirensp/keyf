@@ -6,18 +6,17 @@ import keyf.clueless.Game;
 import keyf.clueless.State;
 import keyf.clueless.data.Item;
 
-
 /**
  *
  * @author jonathanpomper
  */
-public class Refute implements Action{
-    
+public class Refute implements Action
+{    
     private final Item refuteItem;
 
     public Refute(Item item)
     {
-        this.refuteItem=item;
+        this.refuteItem = item;
     }
     
     /**

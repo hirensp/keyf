@@ -1,23 +1,191 @@
 package keyf.clueless;
 
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
+import keyf.clueless.action.Action;
 import keyf.clueless.action.PossibleAction;
+import static keyf.util.ParamUtil.*;
 
 /**
- * Represents the state of a {@link Game}. This is the indivisible state of a
- * {@link Game}.
+ * Represents the state of a {@link Game} for a particular {@link Player}.
  * 
  * @author justin
  */
 public class State
 {
+    /**
+     * All actions that a Player can currently make.
+     */
     private final Set<PossibleAction> availableActions;
 
+    /**
+     * Actions that a player will still be able to make, but should not
+     * currently have access to (such as when the player is waiting for a
+     * response from a suggestion).
+     */
+    private final Set<PossibleAction> temporarilyUnavailableActions;
+
+    // TODO --we might need a parameter that indicates who is saying the
+    //        "suspectMessage"
+    
+    /**
+     * A format string used for the speech bubble of a Character (may be
+     * different for each Player)
+     */
+    private final String suspectMessage;
+
+    /**
+     * Message that appears in the game log (will be the same for each player).
+     */
     private final String logMessage;
 
-    public State(Set<PossibleAction> availableActions, String logMessage)
+    /**
+     * Creates a new state.
+     *
+     * @param availableActions actions that are currently available to the
+     *     Player
+     * @param temporarilyUnavailableActions actions that the user cannot
+     *     currently use, but will be able to in the future
+     * @param suspectMessage message as said by the suspect
+     * @param logMessage message displayed in the log
+     */
+    public State(Set<PossibleAction> availableActions,
+                 Set<PossibleAction> temporarilyUnavailableActions,
+                 String suspectMessage,
+                 String logMessage)
     {
-        this.availableActions = availableActions;
+        this.availableActions = Collections.unmodifiableSet(
+                requireNonNullAndContainsNonNull(
+                        availableActions));
+
+        this.temporarilyUnavailableActions = Collections.unmodifiableSet(
+                requireNonNullAndContainsNonNull(
+                        temporarilyUnavailableActions));
+        
+        this.suspectMessage = suspectMessage;
+
         this.logMessage = logMessage;
+    }
+
+    public Set<PossibleAction> getAvailableActions()
+    {
+        return availableActions;
+    }
+
+    public Set<PossibleAction> getTemporarilyUnavailableActions()
+    {
+        return temporarilyUnavailableActions;
+    }
+
+    public String getSuspectMessage()
+    {
+        return suspectMessage;
+    }
+
+    public String getLogMessage()
+    {
+        return logMessage;
+    }
+
+    /**
+     * A convenient way to build new {@list State}s from preexisting {@list
+     * State}s.
+     */
+    public static class Builder
+    {
+        private final Set<PossibleAction> availableActions;
+        private final Set<PossibleAction> temporarilyUnavailableActions;
+        private final String suspectMessage;
+        private final String logMessage;
+
+        public Builder(State state, String suspectMessage, String logMessage)
+        {
+            this.availableActions = new HashSet<PossibleAction>(
+                    state.getAvailableActions());
+
+            this.temporarilyUnavailableActions = new HashSet<PossibleAction>(
+                    state.getTemporarilyUnavailableActions());
+
+            this.suspectMessage = suspectMessage;
+
+            this.logMessage = logMessage;
+        }
+
+        /**
+         * Adds the {@code action} to the list of availableActcions.
+         *
+         * @param action the action to add.
+         *
+         * @return this Builder instance.
+         */
+        public Builder addAction(PossibleAction action)
+        {
+            availableActions.add(action);
+            return this;
+        }
+
+        /**
+         * Removes the {@code action} from the list of availableActions.
+         *
+         * @param action the action to remove
+         * 
+         * @return this Builder instance.
+         */
+        public Builder removeAction(Action action)
+        {
+            for (Iterator<PossibleAction> it = availableActions.iterator();
+                 it.hasNext();)
+            {
+                PossibleAction possibleAction = it.next();
+                if (possibleAction.isMatchingAction(action))
+                {
+                    it.remove();
+                    break;
+                }
+            }
+            
+            return this;
+        }
+
+        /**
+         * Makes all actions temporarily unavailable (should be called after
+         * a call to {@link #addAction} or (@link #removeAction}).
+         *
+         * @return this Builder instance.
+         */
+        public Builder makeAllActionsTemporarilyUnavailable()
+        {
+            temporarilyUnavailableActions.addAll(availableActions);
+            availableActions.clear();
+            return this;
+        }
+
+        /**
+         * Makes all actions available.
+         * 
+         * @return this Builder instance.
+         */
+        public Builder makeAllActionsAvailable()
+        {
+            availableActions.addAll(temporarilyUnavailableActions);
+            temporarilyUnavailableActions.clear();
+            return this;
+        }
+
+        /**
+         * Builds the new State.
+         * 
+         * @return the new State object.
+         */
+        public State build()
+        {
+            return new State(
+                    availableActions,
+                    temporarilyUnavailableActions,
+                    suspectMessage,
+                    logMessage);
+        }
     }
 }
