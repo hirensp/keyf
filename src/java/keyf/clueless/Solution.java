@@ -1,21 +1,21 @@
 package keyf.clueless;
 
-import keyf.clueless.data.card.RoomCard;
-import keyf.clueless.data.card.SuspectCard;
-import keyf.clueless.data.card.WeaponCard;
+import keyf.clueless.data.location.Room;
+import keyf.clueless.data.Suspect;
+import keyf.clueless.data.*;
 
 /**
  * The "envelope" that contains the solution to the murder: the particular
- * {@link SuspectCard suspect}, {@link WeaponCard weapon} and {@link RoomCard
+ * {@link Suspect suspect}, {@link Weapon weapon} and {@link Room
  * room}.
  * 
  * @author justin
  */
 public class Solution
 {
-    private final SuspectCard muderer;
-    private final WeaponCard weapon;
-    private final RoomCard room;
+    private final Suspect muderer;
+    private final Weapon weapon;
+    private final Room room;
 
     /**
      * Creates a new solution.
@@ -24,9 +24,9 @@ public class Solution
      * @param weapon The weapon the murderer used
      * @param room The room he done it in!
      */
-    public Solution(SuspectCard muderer,
-                    WeaponCard weapon,
-                    RoomCard room)
+    public Solution(Suspect muderer,
+                    Weapon weapon,
+                    Room room)
     {
         this.muderer = muderer;
         this.weapon = weapon;
@@ -38,7 +38,7 @@ public class Solution
      *
      * @return never {@code null}
      */
-    public SuspectCard getMuderer()
+    public Suspect getMuderer()
     {
         return muderer;
     }
@@ -48,7 +48,7 @@ public class Solution
      *
      * @return never {@code null}
      */
-    public WeaponCard getWeapon()
+    public Weapon getWeapon()
     {
         return weapon;
     }
@@ -58,7 +58,7 @@ public class Solution
      *
      * @return never {@code null}
      */
-    public RoomCard getRoom()
+    public Room getRoom()
     {
         return room;
     }

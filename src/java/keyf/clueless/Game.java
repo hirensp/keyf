@@ -7,9 +7,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import keyf.clueless.data.Item;
 import keyf.clueless.data.Player;
 import keyf.clueless.data.Suspect;
-import keyf.clueless.data.card.Card;
 
 /**
  * Represents a single game of Clue-Less.
@@ -33,7 +33,11 @@ public class Game
      */
     private final List<Player> players;
 
+    private final TurnManager turnManager;
+
     private final Solution solution;
+
+    private final Map<Player, State> currentState;
 
     /**
      * Creates a new game. The true criminal, murder weapon, and room are
@@ -51,6 +55,9 @@ public class Game
         CardDealer dealer = new CardDealer();
         this.solution = dealer.getSolution();
         this.players = getPlayers(players, dealer);
+        this.turnManager = new TurnManager(this.players);
+        this.currentState = new HashMap<Player, State>();
+        // TODO initialize current states.
     }
 
     public Board getBoard()
@@ -62,14 +69,34 @@ public class Game
     {
         return players;
     }
+    
+    public TurnManager getTurnManager()
+    {
+        return turnManager;
+    }
+
+    public State getState(Player player)
+    {
+        return currentState.get(player);
+    }
+
+    public void setState(Player player, State state)
+    {
+        currentState.put(player, state);
+    }
+
+    public Solution getSolution()
+    {
+        return solution;
+    }
 
     /**
-     * Assigns {@link Card}s to each of the {@code prePlayers}, and returns
+     * Assigns {@link Item}s to each of the {@code prePlayers}, and returns
      * fully formed {@link Player}s. The returned list will have the same order
      * as {@code prePlayers}.
      * 
      * @param prePlayers information needed to form a list of {@link Player}s
-     * @param dealer used to assign cards to the returned {@link Player}s
+     * @param dealer used to assign {@codeItem}s to the returned {@link Player}s
      *
      * @return never {@code null}
      */
@@ -81,7 +108,7 @@ public class Game
 
         // first, deal the cards to each player
 
-        Map<String, Set<Card>> assignedCards = new HashMap<String, Set<Card>>();
+        Map<String, Set<Item>> assignedCards = new HashMap<String, Set<Item>>();
 
         Iterator<String> playerIterator = prePlayers.keySet().iterator();
         
@@ -94,12 +121,12 @@ public class Game
             }
 
             String playerId = playerIterator.next();
-            Set<Card> playerCards = assignedCards.get(playerId);
+            Set<Item> playerCards = assignedCards.get(playerId);
 
             if (playerCards == null)
             {
                 // it was not in the map, create a new one.
-                playerCards = new HashSet<Card>();
+                playerCards = new HashSet<Item>();
                 assignedCards.put(playerId, playerCards);
             }
 

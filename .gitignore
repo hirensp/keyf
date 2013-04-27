@@ -1,6 +1,7 @@
-# Product Directories (don't promot outputs)
+# Product Directories (don't promote outputs)
 /build/
 /dist/
+/web/.DS_Store
 
 # Product Files (just in case these exist outside the Product Directories)
 *.class
