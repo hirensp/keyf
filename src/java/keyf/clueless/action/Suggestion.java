@@ -3,10 +3,13 @@ package keyf.clueless.action;
 import keyf.clueless.Game;
 import keyf.clueless.State;
 import keyf.clueless.TurnManager;
+import keyf.clueless.data.Item;
 import keyf.clueless.data.Player;
 import keyf.clueless.data.Suspect;
 import keyf.clueless.data.Weapon;
 import keyf.clueless.data.location.Room;
+
+import java.util.Set;
 
 import static keyf.util.ParamUtil.requireNonNull;
 
@@ -43,11 +46,9 @@ public class Suggestion implements Action
 
         Player currentPlayer = turnManager.getCurrentPlayer();
 
-        // Set the next player active.
-        turnManager.nextActivePlayer();
-
-        // This Player will have to answer the suggestion.
-        Player activePlayer = turnManager.getCurrentlyActivePlayer();
+        // Set the next player active; this Player will have to answer the
+        // suggestion.
+        Player activePlayer = turnManager.nextActivePlayer();
 
         for (Player player : game.getPlayers())
         {
@@ -60,8 +61,21 @@ public class Suggestion implements Action
             }
             else if (activePlayer.equals(player))
             {
-                // TODO add the PossibleRefute action
-//                stateBuilder.addAction()
+                Set<? extends Item> activePlayerCards = player.getCards();
+
+                if (activePlayerCards.contains(suspect)
+                        || activePlayerCards.contains(weapon)
+                        || activePlayerCards.contains(room))
+                {
+                    // active player contains at least one card that can refute
+                    // the suggestion.
+                    stateBuilder.addAction(new PossibleRefutal(player));
+                }
+                else
+                {
+                    // The player cannot refute the suggestion
+                    stateBuilder.addAction(new PossibleUnableToRefute());
+                }
             }
 
             stateBuilder.setSuspetMessage(

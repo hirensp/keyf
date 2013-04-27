@@ -4,7 +4,7 @@ import keyf.clueless.data.Player;
 
 /**
  * Represents something a {@link Player} can do (such as Move, Suggest, Accuse,
- * etc).
+ * etc). Allows the player to form a corresponding {@link Action}.
  * 
  * @author justin
  */

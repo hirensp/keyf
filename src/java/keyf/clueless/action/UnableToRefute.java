@@ -3,7 +3,15 @@ package keyf.clueless.action;
 import keyf.clueless.Game;
 import keyf.clueless.State;
 import keyf.clueless.TurnManager;
+import keyf.clueless.data.Item;
 import keyf.clueless.data.Player;
+import keyf.clueless.data.Suspect;
+import keyf.clueless.data.Weapon;
+import keyf.clueless.data.location.Room;
+
+import java.util.Set;
+
+import static keyf.util.ParamUtil.requireNonNull;
 
 /**
  * A Player should only see this action if they have no cards that can refute
@@ -16,6 +24,26 @@ public class UnableToRefute implements Action
 
     private final static String LOG_MESSAGE
             = "{0} was unable to refute the suggestion.";
+
+    private final Suspect suspect;
+
+    private final Weapon weapon;
+
+    private final Room room;
+
+    /**
+     * Creates a new instnace.
+     *
+     * @param suspect the suspect that could not be refuted
+     * @param weapon the weapon that could not be refuted
+     * @param room the room that could not be refuted
+     */
+    public UnableToRefute(Suspect suspect, Weapon weapon, Room room)
+    {
+        this.suspect = requireNonNull(suspect);
+        this.weapon = requireNonNull(weapon);
+        this.room = requireNonNull(room);
+    }
 
     @Override
     public void performAction(Game game)
@@ -51,18 +79,19 @@ public class UnableToRefute implements Action
                 }
                 else
                 {
+                    Set<? extends Item> playerCards = player.getCards();
+
                     // The next player needs to answer the suggestion.
-                    // TODO - how can we tell if the next player has the
-                    //        appropriate cards?
-//                    if (player.getCards().contains(weapon/suspect/room))
-//                    {
-                    stateBuilder.addAction(new PossibleRefutal(player));
-//                    }
-//                    else
-//                    {
-                    // TODO - need new PossibleAction.
-//                    state.Builder.addAction(new PossibleUnableToRefute);
-//                      }
+                    if (playerCards.contains(suspect)
+                            || playerCards.contains(weapon)
+                            || playerCards.contains(room))
+                    {
+                        stateBuilder.addAction(new PossibleRefutal(player));
+                    }
+                    else
+                    {
+                        stateBuilder.addAction(new PossibleUnableToRefute());
+                    }
                 }
             }
 
