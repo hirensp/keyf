@@ -133,8 +133,17 @@ public class Game
 
             playerCards.add(dealer.deal());
         }
-                
 
+        // Finally, create all the players
+        for (Map.Entry<String, Suspect> prePlayer : prePlayers.entrySet())
+        {
+            players.add(
+                    new Player(
+                            prePlayer.getKey(),
+                            prePlayer.getValue(),
+                            assignedCards.get(prePlayer.getKey())));
+        }
+                
         return players;
     }
 }
