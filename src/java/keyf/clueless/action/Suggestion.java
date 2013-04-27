@@ -8,6 +8,8 @@ import keyf.clueless.data.Suspect;
 import keyf.clueless.data.Weapon;
 import keyf.clueless.data.location.Room;
 
+import static keyf.util.ParamUtil.requireNonNull;
+
 /**
  *
  * @author justin
@@ -26,9 +28,9 @@ public class Suggestion implements Action
 
     public Suggestion(Suspect suspect, Weapon weapon, Room room)
     {
-        this.suspect = suspect;
-        this.weapon = weapon;
-        this.room = room;
+        this.suspect = requireNonNull(suspect);
+        this.weapon = requireNonNull(weapon);
+        this.room = requireNonNull(room);
     }
 
     @Override

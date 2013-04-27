@@ -8,7 +8,9 @@ import keyf.clueless.data.Player;
 import static keyf.util.ParamUtil.*;
 
 /**
- * Action that refutes another Player's suggestion.
+ * Action that refutes another Player's suggestion. A Player should only see
+ * this action if they have a card that can refute the Suggestion. (The card(s)
+ * that can refute the Suggestion may or may not be identified in some way.)
  * 
  * @author jonathanpomper
  */
