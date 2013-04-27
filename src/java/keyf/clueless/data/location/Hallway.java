@@ -1,5 +1,7 @@
 package keyf.clueless.data.location;
 
+import keyf.clueless.data.Suspect;
+
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.Set;
@@ -67,11 +69,12 @@ public enum Hallway implements Location
     /**
      * Create new instance.
      *
-     * @param neighbors Only a List to make it easier to construct
+     * @param room1 the first room adjacent to this Hallway
+     * @param room2 the remaining rooms adjacent to this hallway
      */
     private Hallway(Room room1, Room... room2)
     {
-        Set<Room> neighbors = EnumSet.<Room>of(room1, room2);
+        Set<Room> neighbors = EnumSet.of(room1, room2);
 
         // Make unmodifiable so that we don't accidentally change it!
         this.neighbors = Collections.unmodifiableSet(neighbors);

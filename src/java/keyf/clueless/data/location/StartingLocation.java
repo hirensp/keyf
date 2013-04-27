@@ -31,7 +31,7 @@ public enum StartingLocation implements Location
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     @Override
     public Set<Hallway> getNeighbors()

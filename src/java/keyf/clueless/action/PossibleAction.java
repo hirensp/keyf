@@ -1,6 +1,6 @@
 package keyf.clueless.action;
 
-import keyf.clueless.action.Action;
+import keyf.clueless.data.Player;
 
 /**
  * Represents something a {@link Player} can do (such as Move, Suggest, Accuse,

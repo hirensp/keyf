@@ -1,10 +1,12 @@
 package keyf.clueless.data.location;
 
+import keyf.clueless.data.Item;
+import keyf.clueless.data.Suspect;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
-import keyf.clueless.data.Item;
 
 /**
  * Represents a room.
@@ -28,56 +30,56 @@ public enum Room implements Location, Item
     // neighbors).
     static
     {
-        STUDY.neighbors = Collections.<Location>unmodifiableSet(
-                new HashSet(Arrays.asList(
+        STUDY.neighbors = Collections.unmodifiableSet(
+                new HashSet<Location>(Arrays.asList(
                         Hallway.STUDY_LIBRARY,
                         Hallway.STUDY_HALL,
                         KITCHEN)));
 
-        HALL.neighbors = Collections.<Location>unmodifiableSet(
-                new HashSet(Arrays.asList(
+        HALL.neighbors = Collections.unmodifiableSet(
+                new HashSet<Location>(Arrays.asList(
                         Hallway.STUDY_HALL,
                         Hallway.HALL_BILLIARD_ROOM,
                         Hallway.HALL_LOUNGE)));
 
-        LOUNGE.neighbors = Collections.<Location>unmodifiableSet(
-                new HashSet(Arrays.asList(
+        LOUNGE.neighbors = Collections.unmodifiableSet(
+                new HashSet<Location>(Arrays.asList(
                         Hallway.HALL_LOUNGE,
                         Hallway.LOUNGE_DINING_ROOM,
                         CONSERVATORY)));
 
-        LIBRARY.neighbors = Collections.<Location>unmodifiableSet(
-                new HashSet(Arrays.asList(
+        LIBRARY.neighbors = Collections.unmodifiableSet(
+                new HashSet<Location>(Arrays.asList(
                         Hallway.STUDY_LIBRARY,
                         Hallway.LIBRARY_BILLIARD_ROOM,
                         Hallway.LIBRARY_CONSERVATORY)));
 
-        BILLIARD_ROOM.neighbors = Collections.<Location>unmodifiableSet(
-                new HashSet(Arrays.asList(
+        BILLIARD_ROOM.neighbors = Collections.unmodifiableSet(
+                new HashSet<Location>(Arrays.asList(
                         Hallway.LIBRARY_BILLIARD_ROOM,
                         Hallway.HALL_BILLIARD_ROOM,
                         Hallway.BILLIARD_ROOM_DINING_ROOM,
                         Hallway.BILLIARD_ROOM_BALLROOM)));
 
-        DINING_ROOM.neighbors = Collections.<Location>unmodifiableSet(
-                new HashSet(Arrays.asList(
+        DINING_ROOM.neighbors = Collections.unmodifiableSet(
+                new HashSet<Location>(Arrays.asList(
                         Hallway.BILLIARD_ROOM_DINING_ROOM,
                         Hallway.LOUNGE_DINING_ROOM,
                         Hallway.DINING_ROOM_KITCHEN)));
 
-        CONSERVATORY.neighbors = Collections.<Location>unmodifiableSet(
-                new HashSet(Arrays.asList(
+        CONSERVATORY.neighbors = Collections.unmodifiableSet(
+                new HashSet<Location>(Arrays.asList(
                         Hallway.LIBRARY_CONSERVATORY,
                         Hallway.CONSERVATORY_BALLROOM,
                         LOUNGE)));
-        BALLROOM.neighbors = Collections.<Location>unmodifiableSet(
-                new HashSet(Arrays.asList(
+        BALLROOM.neighbors = Collections.unmodifiableSet(
+                new HashSet<Location>(Arrays.asList(
                         Hallway.CONSERVATORY_BALLROOM,
                         Hallway.BILLIARD_ROOM_BALLROOM,
                         Hallway.BALLROOM_KITCHEN)));
 
-        KITCHEN.neighbors = Collections.<Location>unmodifiableSet(
-                new HashSet(Arrays.asList(
+        KITCHEN.neighbors = Collections.unmodifiableSet(
+                new HashSet<Location>(Arrays.asList(
                         Hallway.BALLROOM_KITCHEN,
                         Hallway.DINING_ROOM_KITCHEN,
                         STUDY)));

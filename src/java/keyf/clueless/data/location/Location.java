@@ -1,5 +1,8 @@
 package keyf.clueless.data.location;
 
+import keyf.clueless.data.Suspect;
+import keyf.clueless.data.Weapon;
+
 import java.util.Set;
 
 /**

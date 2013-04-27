@@ -38,7 +38,7 @@ public class Solution
      *
      * @return never {@code null}
      */
-    public Suspect getMuderer()
+    public Suspect getMurderer()
     {
         return muderer;
     }

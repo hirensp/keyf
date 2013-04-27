@@ -1,12 +1,15 @@
 package keyf.clueless;
 
+import static keyf.util.ParamUtil.requireNonNullAndContainsNonNull;
+
+import keyf.clueless.action.Action;
+import keyf.clueless.action.PossibleAction;
+import keyf.clueless.data.Player;
+
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
-import keyf.clueless.action.Action;
-import keyf.clueless.action.PossibleAction;
-import static keyf.util.ParamUtil.*;
 
 /**
  * Represents the state of a {@link Game} for a particular {@link Player}.

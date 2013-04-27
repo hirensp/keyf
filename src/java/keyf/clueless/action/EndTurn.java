@@ -14,7 +14,7 @@ public class EndTurn implements Action
 
     /**
      *
-     * @param player The player who has elected to end his/her turn.
+     * @param playerEndingTurn The player who has elected to end his/her turn.
      */
     public EndTurn(Player playerEndingTurn)
     {

@@ -16,8 +16,11 @@ public class Refute implements Action
 {    
     private final Item refuteItem;
 
-    private static String REFUTAL_MESSAGE = "I can refute that suggestion! {0}";
-    private static String LOG_MESSAGE = "{0} refuted the suggestion.";
+    private final static  String REFUTAL_MESSAGE
+            = "I can refute that suggestion! {0}";
+
+    private final static String LOG_MESSAGE
+            = "{0} refuted the suggestion.";
 
     /**
      * The item that refutes a suggestion.

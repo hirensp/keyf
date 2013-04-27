@@ -1,10 +1,12 @@
 package keyf.clueless;
 
+import static keyf.util.ParamUtil.requireNonNullAndContainsNonNull;
+
+import keyf.clueless.data.Player;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import keyf.clueless.data.Player;
-import static keyf.util.ParamUtil.*;
 
 /**
  * Manages whose players turn it is, as well as who action is currently waiting
