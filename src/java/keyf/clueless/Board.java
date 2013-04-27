@@ -32,7 +32,17 @@ public class Board
 
     public Board()
     {
-        // TODO fill in the suspectLocations and weaponLocations
+        // Initialize the starting location of each character
+        for (Suspect suspect : Suspect.values())
+        {
+            suspectLocations.put(suspect, suspect.getStartingLocation());
+        }
+
+        // Initialize the starting room of each weapon
+        for (Weapon weapon : Weapon.values())
+        {
+            weaponRooms.put(weapon, weapon.getStartingRoom());
+        }
     }
 
     /**
