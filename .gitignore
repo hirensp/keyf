@@ -1,11 +1,15 @@
 # Product Directories (don't promot outputs)
 /build/
-/nbproject/
 /dist/
-/build.xml
 
 # Product Files (just in case these exist outside the Product Directories)
 *.class
 *.jar
 *.war
 *.ear
+
+#IDE files
+/nbproject/
+/build.xml
+*.iml
+.idea/

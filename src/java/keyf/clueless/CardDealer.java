@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
+
 import keyf.clueless.data.card.Card;
 import keyf.clueless.data.card.RoomCard;
 import keyf.clueless.data.card.SuspectCard;
@@ -12,10 +14,10 @@ import keyf.clueless.data.card.WeaponCard;
 
 /**
  * Sets aside one {@link Card} each of the {@link SuspectCard}s, {@link 
- * WeaponCard}s, and {@link RoomCard}s for the {@like #getSolution() solution}, 
+ * WeaponCard}s, and {@link RoomCard}s for the {@link #getSolution() solution},
  * and iterates over the rest of the {@link SuspectCard}s, {@link WeaponCard}s,
  * and {@link RoomCard}s, returning a random {@link Card} on each call to {@link
- * next}.
+ * #deal}.
  * 
  * @author justin
  */
@@ -27,7 +29,7 @@ public class CardDealer
 
     /**
      * Creates a new instance. This instance should only be used while {@link
-     * hasNext()} returns {@code true}.
+     * #hasMore()} returns {@code true}.
      */
     public CardDealer()
     {
