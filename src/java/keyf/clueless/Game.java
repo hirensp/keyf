@@ -37,6 +37,7 @@ public class Game
 
     private final Solution solution;
 
+    // TODO maybe this should be Map<Player, Queue<State>>
     private final Map<Player, State> currentState;
 
     /**

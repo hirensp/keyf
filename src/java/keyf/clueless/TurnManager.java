@@ -82,6 +82,18 @@ public class TurnManager
     }
 
     /**
+     * Disqualifies the {@link #getCurrentPlayer() current player} and sets the
+     * {@link #nextPlayer() next player} active.
+     *
+     * @return the next player whose turn it now is.
+     */
+    public Player disqualifyCurrentPlayer()
+    {
+        disqualifiedPlayers.add(currentPlayer.getCurrent());
+        return nextPlayer();
+    }
+
+    /**
      * Makes the player after the currently active player the new active player
      *
      * @return The newly active player
