@@ -3,7 +3,7 @@ package keyf.clueless;
 import static keyf.util.ParamUtil.requireNonNullAndContainsNonNull;
 
 import keyf.clueless.action.Action;
-import keyf.clueless.action.PossibleAction;
+import keyf.clueless.action.OfferAction;
 import keyf.clueless.data.Player;
 
 import java.util.Collections;
@@ -21,14 +21,14 @@ public class State
     /**
      * All actions that a Player can currently make.
      */
-    private final Set<PossibleAction> availableActions;
+    private final Set<OfferAction> availableActions;
 
     /**
      * Actions that a player will still be able to make, but should not
      * currently have access to (such as when the player is waiting for a
      * response from a suggestion).
      */
-    private final Set<PossibleAction> temporarilyUnavailableActions;
+    private final Set<OfferAction> temporarilyUnavailableActions;
 
     // TODO --we might need a parameter that indicates who is saying the
     //        "suspectMessage"
@@ -54,8 +54,8 @@ public class State
      * @param suspectMessage message as said by the suspect
      * @param logMessage message displayed in the log
      */
-    public State(Set<PossibleAction> availableActions,
-                 Set<PossibleAction> temporarilyUnavailableActions,
+    public State(Set<OfferAction> availableActions,
+                 Set<OfferAction> temporarilyUnavailableActions,
                  String suspectMessage,
                  String logMessage)
     {
@@ -72,12 +72,12 @@ public class State
         this.logMessage = logMessage;
     }
 
-    public Set<PossibleAction> getAvailableActions()
+    public Set<OfferAction> getAvailableActions()
     {
         return availableActions;
     }
 
-    public Set<PossibleAction> getTemporarilyUnavailableActions()
+    public Set<OfferAction> getTemporarilyUnavailableActions()
     {
         return temporarilyUnavailableActions;
     }
@@ -98,17 +98,17 @@ public class State
      */
     public static class Builder
     {
-        private final Set<PossibleAction> availableActions;
-        private final Set<PossibleAction> temporarilyUnavailableActions;
+        private final Set<OfferAction> availableActions;
+        private final Set<OfferAction> temporarilyUnavailableActions;
         private String suspectMessage;
         private String logMessage;
 
         public Builder(State state)
         {
-            this.availableActions = new HashSet<PossibleAction>(
+            this.availableActions = new HashSet<OfferAction>(
                     state.getAvailableActions());
 
-            this.temporarilyUnavailableActions = new HashSet<PossibleAction>(
+            this.temporarilyUnavailableActions = new HashSet<OfferAction>(
                     state.getTemporarilyUnavailableActions());
         }
 
@@ -131,7 +131,7 @@ public class State
          *
          * @return this Builder instance.
          */
-        public Builder addAction(PossibleAction action)
+        public Builder addAction(OfferAction action)
         {
             availableActions.add(action);
             return this;
@@ -146,10 +146,10 @@ public class State
          */
         public Builder removeAction(Action action)
         {
-            for (Iterator<PossibleAction> it = availableActions.iterator();
+            for (Iterator<OfferAction> it = availableActions.iterator();
                  it.hasNext();)
             {
-                PossibleAction possibleAction = it.next();
+                OfferAction possibleAction = it.next();
                 if (possibleAction.isMatchingAction(action))
                 {
                     it.remove();

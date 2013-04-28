@@ -8,16 +8,16 @@ import keyf.clueless.data.Player;
  * 
  * @author justin
  */
-public interface PossibleAction
+public interface OfferAction
 {
     /**
      * Returns {@code true} if the {@code action} corresponds to this {@link
-     * PossibleAction} (e.g., {@link Move} corresponds to {@link PossibleMove}).
+     * OfferAction} (e.g., {@link Move} corresponds to {@link PossibleMove}).
      *
      * @param action The action to check for correspondence.
      *
      * @return {@code true} if the {@code action} corresponds to this {@link
-     *     PossibleAction}, {@code false} otherwise.
+     *     OfferAction}, {@code false} otherwise.
      */
     boolean isMatchingAction(Action action);
 }
