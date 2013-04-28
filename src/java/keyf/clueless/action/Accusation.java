@@ -20,12 +20,26 @@ public class Accusation implements Action
     private final Suspect suspect;
     private final Weapon weapon;
     private final Room room;
+    private final String HE_WON_MESSAGE;
+    private final String GAME_WIN_MESSAGE;
+    private final String YOU_WON_MESSAGE;
+    private final String YOU_LOST_MESSAGE;
+    private final String HE_LOST_MESSAGE;
+    private final String GAME_LOSS_MESSAGE;
 
     public Accusation(Suspect suspect, Weapon weapon, Room room)
     {
         this.suspect = requireNonNull(suspect);
         this.weapon = requireNonNull(weapon);
         this.room = requireNonNull(room);
+        this.HE_WON_MESSAGE= "I was correct! It was {0} in the {1} with the {2}."+
+                "I won!";
+        this.GAME_WIN_MESSAGE = "{0} wins the game!";
+        this.YOU_WON_MESSAGE="Congraulations! You Won!";
+        this.YOU_LOST_MESSAGE="I'm sorry, your accusation was incorrect. You have"+
+                "lost the game";
+        this.HE_LOST_MESSAGE="{0} has made a false accusation. He has lost the game.";
+        this.GAME_LOSS_MESSAGE="{0} has made a false accusation. He has lost the game.";
     }
 
     /**
@@ -50,7 +64,15 @@ public class Accusation implements Action
             {
                 if (won)
                 {
-                    // TODO win the game!!!
+                        State.Builder stateBuilder
+                                =new State.Builder(game.getState(player));
+                        //just trying to follow how Justin did it. Don't really 
+                        //know how it the String.format should be done... 
+                        stateBuilder.setSuspetMessage(String.format(YOU_WON_MESSAGE));
+                        stateBuilder.setLogMessage(String.format(GAME_WIN_MESSAGE, 
+                                player));
+                        game.setState(player, stateBuilder.build());
+                        turnManager.disqualifyCurrentPlayer();
                 }
                 else
                 {
@@ -70,11 +92,28 @@ public class Accusation implements Action
             {
                 if (won)
                 {
-                    // condolences to other players
+                    State.Builder stateBuilder
+                          =new State.Builder(game.getState(player));
+                    //just trying to follow how Justin did it. Don't really 
+                    //know how it the String.format should be done... 
+                    stateBuilder.setSuspetMessage(String.format(HE_WON_MESSAGE, 
+                          suspect, room, weapon));
+                    stateBuilder.setLogMessage(String.format(GAME_WIN_MESSAGE, 
+                          player));
+                    game.setState(player, stateBuilder.build());
+                    turnManager.disqualifyCurrentPlayer();
                 }
                 else
                 {
-
+                   State.Builder stateBuilder
+                           =new State.Builder(game.getState(player));
+                   //just trying to follow how Justin did it. Don't really 
+                   //know how it the String.format should be done... 
+                   stateBuilder.setSuspetMessage(String.format(HE_LOST_MESSAGE, 
+                           player));
+                   stateBuilder.setLogMessage(String.format(GAME_LOSS_MESSAGE, 
+                           player));
+                   game.setState(player, stateBuilder.build());
                 }
             }
         }

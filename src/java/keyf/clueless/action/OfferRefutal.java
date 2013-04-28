@@ -11,11 +11,11 @@ import java.util.Set;
  *
  * @author Justin
  */
-public class PossibleRefutal implements OfferAction
+public class OfferRefutal implements OfferAction
 {
     private final Set<Item> cards = new HashSet<Item>();
 
-    public PossibleRefutal(Player playerMakingRefutal)
+    public OfferRefutal(Player playerMakingRefutal)
     {
         cards.addAll(playerMakingRefutal.getCards());
     }

@@ -9,16 +9,16 @@ import java.util.Set;
  *
  * @author justin
  */
-public class PossibleMove implements OfferAction
+public class OfferMove implements OfferAction
 {
     private final Set<Location> possibleLocations;
     
     /**
-     * Creates a new PossibleMove.
+     * Creates a new OfferMove.
      *
      * @param possibleLocations The set of Locations a player could move.
      */
-    public PossibleMove(Set<Location> possibleLocations)
+    public OfferMove(Set<Location> possibleLocations)
     {
         this.possibleLocations = Collections.unmodifiableSet(possibleLocations);
     }

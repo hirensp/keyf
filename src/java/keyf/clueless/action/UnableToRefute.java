@@ -86,11 +86,11 @@ public class UnableToRefute implements Action
                             || playerCards.contains(weapon)
                             || playerCards.contains(room))
                     {
-                        stateBuilder.addAction(new PossibleRefutal(player));
+                        stateBuilder.addAction(new OfferRefutal(player));
                     }
                     else
                     {
-                        stateBuilder.addAction(new PossibleUnableToRefute());
+                        stateBuilder.addAction(new OfferUnableToRefute());
                     }
                 }
             }

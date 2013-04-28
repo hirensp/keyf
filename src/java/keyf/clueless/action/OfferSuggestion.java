@@ -6,7 +6,7 @@ import keyf.clueless.data.location.Room;
  *
  * @author justin
  */
-public class PossibleSuggestion extends PossibleOffer
+public class OfferSuggestion extends OfferOffer
 {
     /**
      * The room that the player can use when making a suggestion (his/her
@@ -14,7 +14,7 @@ public class PossibleSuggestion extends PossibleOffer
      */
     private final Room possibleRoom;
 
-    public PossibleSuggestion(Room possibleRoom)
+    public OfferSuggestion(Room possibleRoom)
     {
         this.possibleRoom = possibleRoom;
     }

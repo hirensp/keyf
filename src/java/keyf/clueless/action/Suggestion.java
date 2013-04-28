@@ -69,12 +69,12 @@ public class Suggestion implements Action
                 {
                     // active player contains at least one card that can refute
                     // the suggestion.
-                    stateBuilder.addAction(new PossibleRefutal(player));
+                    stateBuilder.addAction(new OfferRefutal(player));
                 }
                 else
                 {
                     // The player cannot refute the suggestion
-                    stateBuilder.addAction(new PossibleUnableToRefute());
+                    stateBuilder.addAction(new OfferUnableToRefute());
                 }
             }
 

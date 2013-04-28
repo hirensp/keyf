@@ -9,7 +9,7 @@ import keyf.clueless.data.location.Room;
  *
  * @author justin
  */
-public class PossibleAccusation extends PossibleOffer
+public class OfferAccusation extends OfferOffer
 {
     private final Set<Room> possibleRooms
             = Collections.unmodifiableSet(EnumSet.allOf(Room.class));
