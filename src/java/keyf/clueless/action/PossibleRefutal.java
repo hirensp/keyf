@@ -11,7 +11,7 @@ import java.util.Set;
  *
  * @author Justin
  */
-public class PossibleRefutal implements PossibleAction
+public class PossibleRefutal implements OfferAction
 {
     private final Set<Item> cards = new HashSet<Item>();
 

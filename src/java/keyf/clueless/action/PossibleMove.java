@@ -9,7 +9,7 @@ import java.util.Set;
  *
  * @author justin
  */
-public class PossibleMove implements PossibleAction
+public class PossibleMove implements OfferAction
 {
     private final Set<Location> possibleLocations;
     

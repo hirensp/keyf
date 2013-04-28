@@ -11,7 +11,7 @@ import keyf.clueless.data.Weapon;
  *
  * @author justin
  */
-abstract class PossibleOffer implements PossibleAction
+abstract class PossibleOffer implements OfferAction
 {
     /**
      * All the possible suspects a player could use when making a suggestion.
