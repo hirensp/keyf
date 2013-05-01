@@ -3,13 +3,11 @@ package keyf.clueless;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import keyf.clueless.data.Item;
 import keyf.clueless.data.Player;
-import keyf.clueless.data.Suspect;
 
 /**
  * Represents a single game of Clue-Less.
@@ -45,9 +43,9 @@ public class Game
      * decided, and all cards are assigned to the {@code players}.
      * 
      * @param identifier Uniquely identifies this game within the server.
-     * @param players The players of this game
+     * @param players The players of this game in turn order
      */
-    public Game(String identifier, Map<String, Suspect> players)
+    public Game(String identifier, List<PrePlayer> players)
     {
         this.identifier = identifier;
         this.board = new Board();
@@ -101,7 +99,7 @@ public class Game
      *
      * @return never {@code null}
      */
-    private static List<Player> getPlayers(Map<String, Suspect> prePlayers,
+    private static List<Player> getPlayers(List<PrePlayer> prePlayers,
                                            CardDealer dealer)
     {
         // The list of players that will be created
@@ -109,39 +107,35 @@ public class Game
 
         // first, deal the cards to each player
 
-        Map<String, Set<Item>> assignedCards = new HashMap<String, Set<Item>>();
+        Map<PrePlayer, Set<Item>> assignedCards
+                = new HashMap<PrePlayer, Set<Item>>();
 
-        Iterator<String> playerIterator = prePlayers.keySet().iterator();
+        WrappingIterator<PrePlayer> prePlayerIterator
+                = new WrappingIterator<PrePlayer>(prePlayers);
         
         while (dealer.hasMore())
         {
-            // keep cycling around the players until the dealer is out of cards
-            if (!playerIterator.hasNext())
-            {
-                playerIterator = prePlayers.keySet().iterator();
-            }
-
-            String playerId = playerIterator.next();
-            Set<Item> playerCards = assignedCards.get(playerId);
+            PrePlayer prePlayer = prePlayerIterator.next();
+            Set<Item> playerCards = assignedCards.get(prePlayer);
 
             if (playerCards == null)
             {
                 // it was not in the map, create a new one.
                 playerCards = new HashSet<Item>();
-                assignedCards.put(playerId, playerCards);
+                assignedCards.put(prePlayer, playerCards);
             }
 
             playerCards.add(dealer.deal());
         }
 
-        // Finally, create all the players
-        for (Map.Entry<String, Suspect> prePlayer : prePlayers.entrySet())
+        // Finally, create all the players (in turn order)
+        for (PrePlayer prePlayer : prePlayers)
         {
             players.add(
                     new Player(
-                            prePlayer.getKey(),
-                            prePlayer.getValue(),
-                            assignedCards.get(prePlayer.getKey())));
+                            prePlayer.getName(),
+                            prePlayer.getSuspect(),
+                            assignedCards.get(prePlayer)));
         }
                 
         return players;
