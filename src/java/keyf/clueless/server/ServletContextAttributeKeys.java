@@ -8,4 +8,6 @@ package keyf.clueless.server;
 public final class ServletContextAttributeKeys
 {
     public static final String GAME_MANAGER = "GameManager";
+
+    public static final String GAME = "Game";
 }
