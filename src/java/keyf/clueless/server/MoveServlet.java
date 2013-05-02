@@ -34,7 +34,7 @@ public class MoveServlet extends HttpServlet
             throws ServletException, IOException
     {
         ServletContext servletContext = request.getServletContext();
-        Game game = (Game) servletContext.getAttribute("GAME");
+        Game game = (Game) servletContext.getAttribute(ServletContextAttributeKeys.GAME);
 
         synchronized(game)
         {

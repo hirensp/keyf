@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+<web-app version="3.0"
+         xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
     <servlet>
         <servlet-name>MoveServlet</servlet-name>
         <servlet-class>keyf.clueless.server.MoveServlet</servlet-class>
@@ -17,6 +20,10 @@
         <servlet-class>keyf.clueless.server.UnableToRefuteServlet</servlet-class>
     </servlet>
     <servlet-mapping>
+        <servlet-name>SuggestionServlet</servlet-name>
+        <servlet-class>keyf.clueless.server.SuggestionServlet</servlet-class>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>MoveServlet</servlet-name>
         <url-pattern>/MoveServlet</url-pattern>
     </servlet-mapping>
@@ -31,6 +38,10 @@
     <servlet-mapping>
         <servlet-name>UnableToRefuteServlet</servlet-name>
         <url-pattern>/UnableToRefuteServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SuggestionServlet</servlet-name>
+        <url-pattern>/SuggestionServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
