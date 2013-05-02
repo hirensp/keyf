@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app version="3.0"
-         xmlns="http://java.sun.com/xml/ns/javaee"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
     <servlet>
         <servlet-name>MoveServlet</servlet-name>
         <servlet-class>keyf.clueless.server.MoveServlet</servlet-class>
@@ -18,6 +15,10 @@
     <servlet>
         <servlet-name>UnableToRefuteServlet</servlet-name>
         <servlet-class>keyf.clueless.server.UnableToRefuteServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PollServlet</servlet-name>
+        <servlet-class>keyf.clueless.server.PollServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>SuggestionServlet</servlet-name>
@@ -42,6 +43,12 @@
     <servlet-mapping>
         <servlet-name>SuggestionServlet</servlet-name>
         <url-pattern>/SuggestionServlet</url-pattern>
+    
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; 7f8d7fb11ac970d903bc55e6a6799c5c26369114
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PollServlet</servlet-name>
+        <url-pattern>/PollServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

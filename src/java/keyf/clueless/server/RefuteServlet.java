@@ -1,7 +1,6 @@
 package keyf.clueless.server;
 
 import java.io.IOException;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -31,8 +30,7 @@ public class RefuteServlet extends HttpServlet
                           HttpServletResponse response)
             throws ServletException, IOException
     {
-        ServletContext servletContext = request.getServletContext();
-        Game game = (Game) servletContext.getAttribute(
+        Game game = (Game) request.getServletContext().getAttribute(
                 ServletContextAttributeKeys.GAME);
 
         synchronized(game)
