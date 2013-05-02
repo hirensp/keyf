@@ -1,19 +1,21 @@
 package keyf.clueless.server;
 
 import java.io.IOException;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import keyf.clueless.Game;
-import keyf.clueless.action.EndTurn;
+import keyf.clueless.action.UnableToRefute;
+import keyf.clueless.data.Suspect;
+import keyf.clueless.data.Weapon;
+import keyf.clueless.data.location.Room;
 
 /**
  *
  * @author justin
  */
-public class EndTurnServlet extends HttpServlet
+public class UnableToRefuteServlet extends HttpServlet
 {
     /**
      * Handles the HTTP
@@ -30,17 +32,21 @@ public class EndTurnServlet extends HttpServlet
                           HttpServletResponse response)
             throws ServletException, IOException
     {
-        ServletContext servletContext = request.getServletContext();
-        Game game = (Game) servletContext.getAttribute(
+        Game game = (Game) request.getServletContext().getAttribute(
                 ServletContextAttributeKeys.GAME);
 
         synchronized(game)
         {
-            EndTurn endTurn = new EndTurn();
-            endTurn.performAction(game);
+            UnableToRefute unableToRefute = new UnableToRefute(
+                    Suspect.valueOf(request.getParameter("Suspect")),
+                    Weapon.valueOf(request.getParameter("Weapon")),
+                    Room.valueOf(request.getParameter("Room")));
+
+            unableToRefute.performAction(game);
         }
 
-        request.getRequestDispatcher("EndTurn.jsp").forward(request, response);
+        request.getRequestDispatcher("UnableToRefute.jsp")
+                .forward(request, response);
     }
 
     /**
