@@ -118,7 +118,7 @@ public class State
             return this;
         }
 
-        public Builder setSuspetMessage(String suspectMessage)
+        public Builder setSuspectMessage(String suspectMessage)
         {
             this.suspectMessage = suspectMessage;
             return this;

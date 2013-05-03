@@ -1,11 +1,10 @@
 package keyf.clueless.action;
 
-import static keyf.util.ParamUtil.requireNonNull;
-
 import keyf.clueless.Game;
 import keyf.clueless.State;
 import keyf.clueless.data.Player;
 import keyf.clueless.data.location.Location;
+import static keyf.util.ParamUtil.requireNonNull;
 
 /**
  *
@@ -44,7 +43,7 @@ public class Move implements Action
         for (Player player : game.getPlayers())
         {
             State.Builder stateBuilder
-                    = new State.Builder(game.getState(player));
+                    = new State.Builder(game.getLatestState(player));
 
             if (player.equals(currentPlayer))
             {
@@ -53,7 +52,7 @@ public class Move implements Action
             }
             else
             {
-                stateBuilder.setSuspetMessage(String.format(
+                stateBuilder.setSuspectMessage(String.format(
                         MOVE_MESSAGE, location));
             }
 
@@ -61,7 +60,7 @@ public class Move implements Action
             stateBuilder.setLogMessage(String.format(
                     LOG_MESSAGE, currentPlayer.getIdentifier(), location));
 
-            game.setState(player, stateBuilder.build());
+            game.addState(player, stateBuilder.build());
         }
     }
 }

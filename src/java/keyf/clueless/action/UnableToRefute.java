@@ -1,5 +1,6 @@
 package keyf.clueless.action;
 
+import java.util.Set;
 import keyf.clueless.Game;
 import keyf.clueless.State;
 import keyf.clueless.TurnManager;
@@ -8,9 +9,6 @@ import keyf.clueless.data.Player;
 import keyf.clueless.data.Suspect;
 import keyf.clueless.data.Weapon;
 import keyf.clueless.data.location.Room;
-
-import java.util.Set;
-
 import static keyf.util.ParamUtil.requireNonNull;
 
 /**
@@ -62,7 +60,7 @@ public class UnableToRefute implements Action
         for (Player player : game.getPlayers())
         {
             State.Builder stateBuilder
-                    = new State.Builder(game.getState(player));
+                    = new State.Builder(game.getLatestState(player));
 
             if (formerlyActive.equals(player))
             {
@@ -95,12 +93,12 @@ public class UnableToRefute implements Action
                 }
             }
 
-            stateBuilder.setSuspetMessage(SUSPECT_MESSAGE);
+            stateBuilder.setSuspectMessage(SUSPECT_MESSAGE);
 
             stateBuilder.setLogMessage(
                     String.format(LOG_MESSAGE, formerlyActive.getIdentifier()));
 
-            game.setState(player, stateBuilder.build());
+            game.addState(player, stateBuilder.build());
         }
     }
 }

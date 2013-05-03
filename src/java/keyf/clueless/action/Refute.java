@@ -54,13 +54,13 @@ public class Refute implements Action
         for (Player player : game.getPlayers())
         {
             State.Builder stateBuilder 
-                    = new State.Builder(game.getState(player));
+                    = new State.Builder(game.getLatestState(player));
 
             if (player.equals(currentPlayer))
             {
                 // For the player that made the suggestion, add the refuteItem
                 // to the message
-                stateBuilder.setSuspetMessage(
+                stateBuilder.setSuspectMessage(
                         String.format(REFUTAL_MESSAGE, refuteItem))
                         .makeAllActionsAvailable();
             }
@@ -69,7 +69,7 @@ public class Refute implements Action
                 // For all other players, ensure they have no actions, and
                 // that they see the message (without the item)
                 stateBuilder.clearActions();
-                stateBuilder.setSuspetMessage(REFUTAL_MESSAGE);
+                stateBuilder.setSuspectMessage(REFUTAL_MESSAGE);
             }
 
             // Add the log message to all player's states.
@@ -77,7 +77,7 @@ public class Refute implements Action
                     LOG_MESSAGE, currentlyActivePlayer.getIdentifier()));
 
             //Updates messages and log all players via game.setState().
-            game.setState(player, stateBuilder.build());
+            game.addState(player, stateBuilder.build());
         }
 
         // Return control to the player whose turn it currently is.

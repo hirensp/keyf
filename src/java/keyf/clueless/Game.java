@@ -1,6 +1,7 @@
 package keyf.clueless;
 
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -31,12 +32,22 @@ public class Game
      */
     private final List<Player> players;
 
+    /**
+     * Manages the turns of this Game's players.
+     */
     private final TurnManager turnManager;
 
+    /**
+     * The solution to this Game.
+     */
     private final Solution solution;
 
-    // TODO maybe this should be Map<Player, Queue<State>>
-    private final Map<Player, State> currentState;
+    /**
+     * Holds each player's State, where the top of the queue is the oldest
+     * state, and the bottom the newest. Will always hold at least one (the
+     * latest) State.
+     */
+    private final Map<Player, Deque<State>> currentState;
 
     /**
      * Creates a new game. The true criminal, murder weapon, and room are
@@ -55,7 +66,7 @@ public class Game
         this.solution = dealer.getSolution();
         this.players = getPlayers(players, dealer);
         this.turnManager = new TurnManager(this.players);
-        this.currentState = new HashMap<Player, State>();
+        this.currentState = new HashMap<Player, Deque<State>>();
         // TODO initialize current states.
     }
 
@@ -74,14 +85,60 @@ public class Game
         return turnManager;
     }
 
-    public State getState(Player player)
+    /**
+     * Returns the oldest {@link State} of the given {@code player}.
+     * <p/>
+     * This is intended to be called by the {@link PollServlet} used to send
+     * messages back to the clients
+     *
+     * @param player The player whose state is requested.
+     *
+     * @return the latest {@link State} of the {@code player}, never {@code
+     *     null}
+     */
+    public State getLatestState(Player player)
     {
-        return currentState.get(player);
+        State state;
+
+        if (currentState.get(player).size() == 1)
+        {
+            // get and does NOT remove
+            state = currentState.get(player).getFirst();
+        }
+        else // > 1
+        {
+            // get and remove
+            state = currentState.get(player).pollFirst();
+        }
+
+        return state;
     }
 
-    public void setState(Player player, State state)
+    /**
+     * Returns the newest {@link State} of the given {@code player}.
+     * <p/>
+     * This is intended to be called by the {@link Action} classes.
+     *
+     * @param player The player whose state is requested.
+     *
+     * @return the newest {@link State} of the {@code player}, never {@code
+     *     null}.
+     */
+    public State getNewestState(Player player)
     {
-        currentState.put(player, state);
+        return currentState.get(player).getLast();
+    }
+
+    /**
+     * Adds the {@code state} to the end of the queue of {@link State}s for the
+     * given {@code player}.
+     * 
+     * @param player the player whose state is updated
+     * @param state the state of that player
+     */
+    public void addState(Player player, State state)
+    {
+        currentState.get(player).addLast(state);
     }
 
     public Solution getSolution()

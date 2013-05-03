@@ -1,9 +1,13 @@
 package keyf.clueless.action;
 
+import keyf.clueless.Board;
 import keyf.clueless.Game;
 import keyf.clueless.State;
 import keyf.clueless.TurnManager;
 import keyf.clueless.data.Player;
+import keyf.clueless.data.Suspect;
+import keyf.clueless.data.location.Location;
+import keyf.clueless.data.location.Room;
 
 /**
  * Ends the {@link TurnManager#getCurrentPlayer() current player's} turn.
@@ -26,22 +30,50 @@ public class EndTurn implements Action
         TurnManager turnManager = game.getTurnManager();
 
         Player currentPlayer = turnManager.getCurrentPlayer();
-
+        Player nextPlayer = turnManager.nextPlayer();
+        
         for (Player player : game.getPlayers())
         {
-            State.Builder builder = new State.Builder(game.getState(player));
+            State.Builder builder = new State.Builder(
+                    game.getLatestState(player));
 
-            if (player.equals(currentPlayer))
+            if (currentPlayer.equals(player))
             {
                 builder.clearActions();
             }
+            else if (nextPlayer.equals(player))
+            {
+                builder.clearActions();
 
-            builder.setSuspetMessage(SUSPECT_MESSAGE);
+                Board board = game.getBoard();
+
+                Suspect suspect = nextPlayer.getSuspect();
+                Location currentLocation = board.getLocation(suspect);
+
+                
+                builder.addAction(new OfferMove(
+                        board.getAvailableLocations(suspect)));
+
+                // If it is a room (hallways are single occupancy) add the
+                // suggest action
+                if (currentLocation instanceof Room
+                        /* && moved here on another's suggestion */)
+                {
+                    builder.addAction(
+                            new OfferSuggestion((Room) currentLocation));
+                }
+
+                builder.addAction(new OfferAccusation());
+
+//                builder.addAction(new OfferEndTurn());
+            }
+
+            builder.setSuspectMessage(SUSPECT_MESSAGE);
             builder.setLogMessage(LOG_MESSAGE);
 
-            game.setState(player, builder.build());
+            game.addState(player, builder.build());
         }
 
-        turnManager.nextPlayer();
+        
     }
 }

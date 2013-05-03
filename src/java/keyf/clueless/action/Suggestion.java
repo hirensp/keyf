@@ -1,5 +1,6 @@
 package keyf.clueless.action;
 
+import java.util.Set;
 import keyf.clueless.Game;
 import keyf.clueless.State;
 import keyf.clueless.TurnManager;
@@ -8,9 +9,6 @@ import keyf.clueless.data.Player;
 import keyf.clueless.data.Suspect;
 import keyf.clueless.data.Weapon;
 import keyf.clueless.data.location.Room;
-
-import java.util.Set;
-
 import static keyf.util.ParamUtil.requireNonNull;
 
 /**
@@ -53,7 +51,7 @@ public class Suggestion implements Action
         for (Player player : game.getPlayers())
         {
             State.Builder stateBuilder
-                    = new State.Builder(game.getState(player));
+                    = new State.Builder(game.getLatestState(player));
 
             if (currentPlayer.equals(player))
             {
@@ -78,13 +76,13 @@ public class Suggestion implements Action
                 }
             }
 
-            stateBuilder.setSuspetMessage(
+            stateBuilder.setSuspectMessage(
                     String.format(SUSPECT_MESSAGE, suspect, weapon, room));
 
             stateBuilder.setLogMessage(
                     String.format(LOG_MESSAGE, suspect, weapon, room));
 
-            game.setState(player, stateBuilder.build());
+            game.addState(player, stateBuilder.build());
         }
     }
 }
