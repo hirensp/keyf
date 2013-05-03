@@ -6,7 +6,7 @@ import keyf.clueless.data.location.Room;
  *
  * @author justin
  */
-public class OfferSuggestion extends OfferOffer
+public class OfferSuggestion implements OfferAction
 {
     /**
      * The room that the player can use when making a suggestion (his/her

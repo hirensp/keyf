@@ -5,7 +5,6 @@ package keyf.clueless.action;
  */
 public class OfferUnableToRefute implements OfferAction
 {
-
     /**
      * {@inheritDoc}
      */
