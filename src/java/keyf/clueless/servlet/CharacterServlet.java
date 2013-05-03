@@ -12,7 +12,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import keyf.clueless.GameManager;
 import keyf.clueless.data.Player;
+import keyf.clueless.data.Suspect;
 
 /**
  *
@@ -80,15 +82,13 @@ public class CharacterServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        String strChar;
-        
-        strChar = request.getParameter("character");
-        
+                
+        Suspect _suspect = Suspect.valueOf(request.getParameter("character"));
+        String name = request.getParameter("player_name");
         //instantiate player and assign card 
-        if (!strChar.isEmpty()){
-            
-            
+        if (!_suspect.name().equals(null)){
+            GameManager _manager = new GameManager();
+            _manager.addClientData(name, _suspect);
             response.sendRedirect("play.jsp");
         }
         else{

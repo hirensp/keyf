@@ -35,25 +35,20 @@
                 //}
             
                // Array selectedCards []  = Suspect.values();
+            
+               //GameManager gManage = new GameManager();
+               //gManage.createGame();
+               //gManage.addClientData(name, Suspect.);
                         
+            for(Suspect s : Suspect.values()){                
+                out.println("<tr>");
+                    out.println("<td><input type='radio' name='character' value='"+ s.name() +"'> </td> ");
+                    out.println("<td><img src='images/"+ s.name() +".jpg' alt='"+ s.name() +"' width='70' height='100' ></td>");                    out.println("</td>");
+                out.println("</tr>");
+            }
+                
+               
             %>
-            <tr>
-                <td><input type="radio" name="character" value="1" /> </td>
-                <td><img src="" alt="Misses Scalet"/></td>
-            </tr>
-            <tr>
-<<<<<<< HEAD
-                <td><input type="radio" name="player" value="2" /></td>
-                <td><img src="" alt="Miss Scalet"/></td>                
-=======
-                <td><input type="radio" name="character" value="2" /></td>
-                <td><img src="" alt="Professor Plum"/></td>                
->>>>>>> changes to ui
-            </tr>
-            <tr>
-                <td> <input type="radio" name="character" value="3" /></td>
-                <td><img src="" alt="Col Mustard"/></td>                
-            </tr>
             <tr>
                 <td colspan="2">
                     <input type="submit" value="Play" name="btnPlay" />
@@ -66,7 +61,7 @@
             </tr>
         </table>
         <h3>
-            Please Enter Your Name: <input type="text" name="player name">
+            Please Enter Your Name: <input type="text" name="player_name">
         </h3>
 </form>
     </body>
