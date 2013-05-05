@@ -1,5 +1,7 @@
 package keyf.clueless.action;
 
+import keyf.clueless.action.offer.OfferRefutal;
+import keyf.clueless.action.offer.OfferUnableToRefute;
 import java.util.Set;
 import keyf.clueless.Game;
 import keyf.clueless.State;

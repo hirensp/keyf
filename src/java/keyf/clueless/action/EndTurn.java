@@ -1,5 +1,8 @@
 package keyf.clueless.action;
 
+import keyf.clueless.action.offer.OfferSuggestion;
+import keyf.clueless.action.offer.OfferAccusation;
+import keyf.clueless.action.offer.OfferMove;
 import keyf.clueless.Board;
 import keyf.clueless.Game;
 import keyf.clueless.State;

@@ -1,5 +1,6 @@
-package keyf.clueless.action;
+package keyf.clueless.action.offer;
 
+import keyf.clueless.action.Action;
 import keyf.clueless.data.Player;
 
 /**

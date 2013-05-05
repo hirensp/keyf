@@ -3,7 +3,7 @@ package keyf.clueless;
 import static keyf.util.ParamUtil.requireNonNullAndContainsNonNull;
 
 import keyf.clueless.action.Action;
-import keyf.clueless.action.OfferAction;
+import keyf.clueless.action.offer.OfferAction;
 import keyf.clueless.data.Player;
 
 import java.util.Collections;

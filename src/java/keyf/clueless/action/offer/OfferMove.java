@@ -1,9 +1,12 @@
-package keyf.clueless.action;
+package keyf.clueless.action.offer;
 
+import keyf.clueless.action.offer.OfferAction;
 import keyf.clueless.data.location.Location;
 
 import java.util.Collections;
 import java.util.Set;
+import keyf.clueless.action.Action;
+import keyf.clueless.action.Move;
 
 /**
  *

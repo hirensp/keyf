@@ -1,4 +1,8 @@
-package keyf.clueless.action;
+package keyf.clueless.action.offer;
+
+import keyf.clueless.action.Action;
+import keyf.clueless.action.UnableToRefute;
+import keyf.clueless.action.offer.OfferAction;
 
 /**
  * Allows a Player to say that he/she cannot refute a Suggestion.

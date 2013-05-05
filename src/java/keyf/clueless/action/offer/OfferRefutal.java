@@ -1,10 +1,13 @@
-package keyf.clueless.action;
+package keyf.clueless.action.offer;
 
+import keyf.clueless.action.offer.OfferAction;
 import keyf.clueless.data.Item;
 import keyf.clueless.data.Player;
 
 import java.util.HashSet;
 import java.util.Set;
+import keyf.clueless.action.Action;
+import keyf.clueless.action.Refute;
 
 /**
  * Allows a Player to refute a {@link Suggestion}.
