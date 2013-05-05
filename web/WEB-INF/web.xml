@@ -46,8 +46,8 @@
         <servlet-class>keyf.clueless.server.PollServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>GameManagerServlet</servlet-name>
-        <servlet-class>keyf.clueless.server.GameManagerServlet</servlet-class>
+        <servlet-name>GameManagerAddingPlayersServlet</servlet-name>
+        <servlet-class>keyf.clueless.server.GameManagerAddingPlayersServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AccusationServlet</servlet-name>
@@ -86,8 +86,8 @@
         <url-pattern>/UnableToRefuteServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>GameManagerServlet</servlet-name>
-        <url-pattern>/GameManagerServlet</url-pattern>
+        <servlet-name>GameManagerAddingPlayersServlet</servlet-name>
+        <url-pattern>/GameManagerAddingPlayersServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>60</session-timeout>

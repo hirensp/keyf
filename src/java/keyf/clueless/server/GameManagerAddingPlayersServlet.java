@@ -16,7 +16,7 @@ import keyf.clueless.data.Suspect;
  *
  * @author justin
  */
-public class GameManagerServlet extends HttpServlet
+public class GameManagerAddingPlayersServlet extends HttpServlet
 {
     /**
      * Handles the HTTP

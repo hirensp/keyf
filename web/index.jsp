@@ -39,7 +39,7 @@ $(function() {
 
       /* Send the data using post and put the results in a div */
         $.ajax({
-          url: "GameManagerServlet",
+          url: "GameManagerAddingPlayersServlet",
           type: "post",
           data: { name:    $('input[name=name]').val(),
                   suspect: $('radio[name=suspect]').val()},
