@@ -79,6 +79,30 @@ public class Game
     {
         return players;
     }
+
+    /**
+     * Returns the {@link Player} with the given {@code name} or {@code null} if
+     * there is no {@link Player} with that name.
+     *
+     * @param name The {@link Player#getName()} of the desired player
+     *
+     * @return A Player or {@code null}
+     */
+    public Player getPlayerByName(String name)
+    {
+        Player desiredPlayer = null;
+
+        for (Player player : players)
+        {
+            if (player.getIdentifier().equals(name))
+            {
+                desiredPlayer = player;
+                break;
+            }
+        }
+
+        return desiredPlayer;
+    }
     
     public TurnManager getTurnManager()
     {
