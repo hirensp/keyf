@@ -47,8 +47,6 @@
     <servlet-mapping>
         <servlet-name>SuggestionServlet</servlet-name>
         <url-pattern>/SuggestionServlet</url-pattern>
-    
-&gt;&gt;&gt;&gt;&gt;&gt;&gt; 7f8d7fb11ac970d903bc55e6a6799c5c26369114
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>PollServlet</servlet-name>
