@@ -26,27 +26,46 @@
         <%-- TODO This should be in its own file --%>
         <script>
 $(function() {
-    $('#PlayerSelection').on('submit', function(e) {
-        $.ajax('clueless/GameManagerServlet', {
-            dataType: 'json',
-            data: { name:    $('input[name=name]').val(),
-                    suspect: $('radio[name=name]').val()}})
-        .done(function(data) {
-            elm = document.getElementById('#PlayerSelection');
-            elm.parentNode.removeChild(elm);
+    $("#PlayerSelection").submit(function(event) {
+
+      /* stop form from submitting normally */
+      event.preventDefault();
+
+      /*clear result div*/
+       //$("#result").html('');
+
+      /* get some values from elements on the page: */
+       var values = $(this).serialize();
+
+      /* Send the data using post and put the results in a div */
+        $.ajax({
+          url: "GameManagerServlet",
+          type: "post",
+          data: { name:    $('input[name=name]').val(),
+                  suspect: $('radio[name=suspect]').val()},
+          success: function() {
+              elm = document.getElementById('PlayerSelection');
+              elm.parentNode.removeChild(elm);
+              alert("success");
+               $("#result").html('submitted successfully');
+          },
+          error:function() {
+              alert("failure");
+              $("#result").html('there is error while submit');
+          }
         });
-        return false;
     });
 });
         </script>
 
         <h1>Welcome to Keyf Clue-Less Board Game</h1>
-        <form method="POST" id="PlayerSelection">
+        <form  method="POST" id="PlayerSelection">
             <p>
-                Please Enter Your Name: <input type="text" name="name" required="required"/>
+                <label for="name">Please Enter Your Name:</label>
+                <input type="text" name="name" id="name" required="required"/><br/>
+                <label for="suspectTable">Please select a suspect:</label>
             </p>
-            <p>Please select a suspect:</p>
-            <table>
+            <table id="suspectTable">
                 <%
                     List<Suspect> suspects = Arrays.asList(Suspect.values());
                     Iterator<Suspect> iterator = suspects.iterator();
@@ -61,7 +80,7 @@ $(function() {
                                 + "src='images/"+ suspect.name() +".jpg' "
                                 + "alt='"+ suspect.name()
                                 + "' width='70' height='100' >");
-                                out.println("</td>");
+                        out.println("</td>");
                     }
                     out.println("</tr>");
 
@@ -81,13 +100,11 @@ $(function() {
                 %>
                 <tr>
                     <td colspan="2">
-                        <input type="submit" method="POST" value="Select Suspect" />
+                        <input type="submit" value="Select Suspect" />
                     </td>
                 </tr>
             </table>
         </form>
-                <form id="Start_Game" method="POST" action="GameManager">
-                    <input type="submit" value="Start Game" name="btnStart" />
-                </form>
+                <input type="submit" method="POST" action="GameManagerServlet" value="Start Game" name="btnStart" />
     </body>
 </html>
