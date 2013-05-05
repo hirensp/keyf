@@ -18,52 +18,57 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Welcome to Keyf Clue-Less Board Game</title>
     </head>
-    <body><form name="Select_Player" method="POST" action="Character">
-        
+    <body>
         <h1>Welcome to Keyf Clue-Less Board Game</h1>
-        <h2>Please select a player.  </h2>
-        <table>
-            <tr>
-                <th>Select</th>
-                <th>Player Name</th>
-            </tr>
-            
-            <%
-            //ArrayList al = new Suspect.values();
-                //for(Suspect suspect : Suspect.values()){
-                //    suspect.compareTo(Suspect.COL_MUSTARD);
-                //}
-            
-               // Array selectedCards []  = Suspect.values();
-            
-               //GameManager gManage = new GameManager();
-               //gManage.createGame();
-               //gManage.addClientData(name, Suspect.);
-                        
-            for(Suspect s : Suspect.values()){                
-                out.println("<tr>");
-                    out.println("<td><input type='radio' name='character' value='"+ s.name() +"'> </td> ");
-                    out.println("<td><img src='images/"+ s.name() +".jpg' alt='"+ s.name() +"' width='70' height='100' ></td>");                    out.println("</td>");
-                out.println("</tr>");
-            }
-                
-               
-            %>
-            <tr>
-                <td colspan="2">
-                    <input type="submit" value="Play" name="btnPlay" />
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <input type="submit" value="Start Game" name="btnStart"
-                </td>
-            </tr>
-        </table>
-        <h3>
-            Please Enter Your Name: <input type="text" name="player_name">
-        </h3>
-</form>
+        <form name="Select_Player" method="POST" action="Character">
+            <h3>
+                Please Enter Your Name: <input type="text" name="player_name" required="required"/>
+            </h3>
+            <h2>Please select a suspect.</h2>
+            <table>
+                <tr>
+                    <th>Select</th>
+                    <th>Suspect</th>
+                </tr>
+                <%
+                    List<Suspect> suspects = Arrays.asList(Suspect.values());
+                    Iterator<Suspect> iterator = suspects.iterator();
+
+                    // Show all Suspects
+                    out.println("<tr>");
+                    while (iterator.hasNext())
+                    {
+                        Suspect suspect = iterator.next();
+                            out.println("<td>");
+                            out.println("<img "
+                                    + "src='images/"+ suspect.name() +".jpg' "
+                                    + "alt='"+ suspect.name()
+                                    + "' width='70' height='100' >");
+                                    out.println("</td>");
+                    }
+                    out.println("</tr>");
+
+                    // show the radio buttons
+                    out.println("<tr>");
+                    for(Suspect s : Suspect.values())
+                    {
+                        out.println("<td>");
+                        out.print("<input type='radio' "
+                                + "name='character' "
+                                + "value='"+ s.name() +"'>");
+                        out.println("</td>");
+                    }
+                    out.println("</tr>");
+                %>
+                <tr>
+                    <td colspan="2">
+                        <input type="submit" value="Play" name="btnPlay" />
+                    </td>
+                </tr>
+            </table>
+        </form>
+                <form name="Start_Game" method="POST" action="GameManager">
+                    <input type="submit" value="Start Game" name="btnStart" />
+                </form>
     </body>
 </html>
-
