@@ -10,16 +10,8 @@
         <servlet-class>keyf.clueless.server.AccusationServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>EndTurnServlet</servlet-name>
-        <servlet-class>keyf.clueless.server.EndTurnServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>MoveServlet</servlet-name>
         <servlet-class>keyf.clueless.server.MoveServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>AccusationServlet</servlet-name>
-        <servlet-class>keyf.clueless.server.AccusationServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Refute</servlet-name>
@@ -37,10 +29,6 @@
         <servlet-name>UnableToRefuteServlet</servlet-name>
         <servlet-class>keyf.clueless.server.UnableToRefuteServlet</servlet-class>
     </servlet>
-    <servlet-mapping>
-        <servlet-name>AccusationServlet</servlet-name>
-        <url-pattern>/AccusationServlet</url-pattern>
-    </servlet-mapping>
     <servlet>
         <servlet-name>PollServlet</servlet-name>
         <servlet-class>keyf.clueless.server.PollServlet</servlet-class>
@@ -62,20 +50,12 @@
         <url-pattern>/MoveServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>AccusationServlet</servlet-name>
-        <url-pattern>/AccusationServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>PollServlet</servlet-name>
         <url-pattern>/PollServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Refute</servlet-name>
         <url-pattern>/Refute</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>EndTurnServlet</servlet-name>
-        <url-pattern>/EndTurnServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SuggestionServlet</servlet-name>
