@@ -5,18 +5,18 @@
 package keyf.clueless.server;
 
 import java.io.IOException;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import keyf.clueless.GameManager;
-import keyf.clueless.data.Suspect;
 
 /**
  *
  * @author justin
  */
-public class GameManagerAddingPlayersServlet extends HttpServlet
+public class StartGameServlet extends HttpServlet
 {
     /**
      * Handles the HTTP
@@ -33,15 +33,22 @@ public class GameManagerAddingPlayersServlet extends HttpServlet
                           HttpServletResponse response)
             throws ServletException, IOException
     {
-        GameManager gameManager = (GameManager) request.getServletContext()
-                .getAttribute(ServletContextAttributeKeys.GAME_MANAGER);
+        ServletContext context = request.getServletContext();
+
+        GameManager gameManager = (GameManager) 
+                context.getAttribute(ServletContextAttributeKeys.GAME_MANAGER);
 
         synchronized (gameManager)
         {
-            gameManager.addClientData(
-                    (String) request.getParameter("name"),
-                    Suspect.valueOf((String) request.getParameter("suspect")));
+            if (gameManager.canCreateGame())
+            {
+                context.setAttribute(
+                        ServletContextAttributeKeys.GAME,
+                        gameManager.createGame());
+            }
         }
+
+        
     }
 
     /**

@@ -24,7 +24,7 @@ public class GameManager
      */
     private final List<PrePlayer> prePlayers = new LinkedList<PrePlayer>();
 
-    public boolean canMakeGame()
+    public boolean canCreateGame()
     {
         return prePlayers.size() > 3;
     }
@@ -43,9 +43,9 @@ public class GameManager
     public Game createGame()
     {
         // double check that we can actually make a Game.
-        if (canMakeGame())
+        if (canCreateGame())
         {
-            // canMakeGame() insures we have at least 3 players.
+            // canCreateGame() insures we have at least 3 players.
             // If there are less than six, start the game with that number of
             //     players.
             // Otherwise, start the game with 6 players (0 through 5)

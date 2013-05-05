@@ -31,18 +31,12 @@ $(function() {
       /* stop form from submitting normally */
       event.preventDefault();
 
-      /*clear result div*/
-       //$("#result").html('');
-
-      /* get some values from elements on the page: */
-       var values = $(this).serialize();
-
       /* Send the data using post and put the results in a div */
         $.ajax({
-          url: "GameManagerAddingPlayersServlet",
+          url: "GameManagerAddingPlayers",
           type: "post",
           data: { name:    $('input[name=name]').val(),
-                  suspect: $('radio[name=suspect]').val()},
+                  suspect: $('input[name=suspect]').val()},
           success: function() {
               elm = document.getElementById('PlayerSelection');
               elm.parentNode.removeChild(elm);
@@ -105,6 +99,6 @@ $(function() {
                 </tr>
             </table>
         </form>
-                <input type="submit" method="POST" action="GameManagerServlet" value="Start Game" name="btnStart" />
+                <input type="submit" method="POST" action="StartGame" value="Start Game" name="btnStart" />
     </body>
 </html>
