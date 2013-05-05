@@ -9,6 +9,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import keyf.clueless.GameManager;
+import keyf.clueless.data.Suspect;
 
 /**
  *
@@ -31,7 +33,15 @@ public class GameManagerServlet extends HttpServlet
                           HttpServletResponse response)
             throws ServletException, IOException
     {
-        request.getAttribute("name");
+        GameManager gameManager = (GameManager) request.getServletContext()
+                .getAttribute(ServletContextAttributeKeys.GAME_MANAGER);
+
+        synchronized (gameManager)
+        {
+            gameManager.addClientData(
+                    (String) request.getAttribute("name"),
+                    Suspect.valueOf((String) request.getAttribute("suspect")));
+        }
     }
 
     /**
