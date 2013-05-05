@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app version="3.0"
-         xmlns="http://java.sun.com/xml/ns/javaee"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
-                             http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee                              http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
     <listener>
         <listener-class>
             keyf.clueless.server.GameManagerInitializer
@@ -22,12 +18,16 @@
         <servlet-class>keyf.clueless.server.MoveServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>PollServlet</servlet-name>
-        <servlet-class>keyf.clueless.server.PollServlet</servlet-class>
+        <servlet-name>AccusationServlet</servlet-name>
+        <servlet-class>keyf.clueless.server.AccusationServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Refute</servlet-name>
         <servlet-class>keyf.clueless.server.RefuteServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EndTurnServlet</servlet-name>
+        <servlet-class>keyf.clueless.server.EndTurnServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>SuggestionServlet</servlet-name>
@@ -36,6 +36,18 @@
     <servlet>
         <servlet-name>UnableToRefuteServlet</servlet-name>
         <servlet-class>keyf.clueless.server.UnableToRefuteServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AccusationServlet</servlet-name>
+        <url-pattern>/AccusationServlet</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>PollServlet</servlet-name>
+        <servlet-class>keyf.clueless.server.PollServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GameManagerServlet</servlet-name>
+        <servlet-class>keyf.clueless.server.GameManagerServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AccusationServlet</servlet-name>
@@ -50,12 +62,20 @@
         <url-pattern>/MoveServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>AccusationServlet</servlet-name>
+        <url-pattern>/AccusationServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>PollServlet</servlet-name>
         <url-pattern>/PollServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Refute</servlet-name>
         <url-pattern>/Refute</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EndTurnServlet</servlet-name>
+        <url-pattern>/EndTurnServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SuggestionServlet</servlet-name>
@@ -65,9 +85,11 @@
         <servlet-name>UnableToRefuteServlet</servlet-name>
         <url-pattern>/UnableToRefuteServlet</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GameManagerServlet</servlet-name>
+        <url-pattern>/GameManagerServlet</url-pattern>
+    </servlet-mapping>
     <session-config>
-        <session-timeout>
-            60
-        </session-timeout>
+        <session-timeout>60</session-timeout>
     </session-config>
 </web-app>

@@ -9,7 +9,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import keyf.clueless.Game;
+import keyf.clueless.State;
+import keyf.clueless.data.Player;
 
 /**
  *
@@ -36,14 +39,18 @@ public class PollServlet extends HttpServlet
         Game game = (Game) request.getServletContext().getAttribute(
                 ServletContextAttributeKeys.GAME);
 
+        HttpSession session = request.getSession();
+
         synchronized(game)
         {
-            String name = request.getParameter("name");
+            // The Player that's polling
+            Player player  = game.getPlayerByName(
+                    (String) session.getAttribute("name"));
 
             // Get this player's state.
-            // game.getState(player);
-            
-            // TODO make some desisions based on that state.
+            State state = game.getLatestState(player);
+
+            response.setContentType("application/json");
         }
     }
 }
