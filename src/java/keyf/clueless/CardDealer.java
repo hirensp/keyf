@@ -17,12 +17,12 @@ import keyf.clueless.data.Weapon;
 import keyf.clueless.data.location.Room;
 
 /**
- * Sets aside one {@link Card} each of the {@link SuspectCard}s, {@link 
+ * Sets aside one {@link Card} each of the {@link SuspectCard}s, {@link
  * WeaponCard}s, and {@link RoomCard}s for the {@link #getSolution() solution},
  * and iterates over the rest of the {@link SuspectCard}s, {@link WeaponCard}s,
  * and {@link RoomCard}s, returning a random {@link Card} on each call to {@link
  * #deal}.
- * 
+ *
  * @author justin
  */
 public class CardDealer
@@ -37,9 +37,14 @@ public class CardDealer
      */
     public CardDealer()
     {
-        List<Suspect> suspects = Arrays.asList(Suspect.values());
-        List<Weapon> weapons = Arrays.asList(Weapon.values());
-        List<Room> rooms = Arrays.asList(Room.values());
+        List<Suspect> suspects = new ArrayList<Suspect>(
+                Arrays.asList(Suspect.values()));
+
+        List<Weapon> weapons = new ArrayList<Weapon>(
+                Arrays.asList(Weapon.values()));
+
+        List<Room> rooms = new ArrayList<Room>(
+                Arrays.asList(Room.values()));
 
         Collections.shuffle(suspects);
         Collections.shuffle(weapons);
@@ -53,7 +58,7 @@ public class CardDealer
         // Place the rest into one big list, shuffle again, and make a "dealer"
 
         List<Item> allCards = new ArrayList<Item>();
-        
+
         allCards.addAll(suspects);
         allCards.addAll(weapons);
         allCards.addAll(rooms);

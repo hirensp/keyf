@@ -19,7 +19,7 @@
         <%-- This gives us jQuery and must be at the top of all our pages that use jQuery --%>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <title>Welcome to Keyf Clue-Less Board Game</title>
     </head>
     <body>
@@ -120,11 +120,11 @@ $(function() {
                 </tr>
             </table>
         </form>
-                <p id="waiting">
-
-                </p>
-                <div id="startGame" style="display: none">
-           <input type="submit" method="POST" action="StartGame" value="Start Game" name="btnStart" />
-       </div>
+        <p id="waiting"></p>
+        <div id="startGame" style="display: none">
+            <form action="StartGame" method="POST">
+                <input type="submit" value="Start Game" />
+            </form>
+        </div>
     </body>
 </html>

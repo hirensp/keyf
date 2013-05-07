@@ -39,7 +39,7 @@
     </servlet>
     <servlet>
         <servlet-name>StartGame</servlet-name>
-        <servlet-class>keyf.clueless.server.StarGameServlet</servlet-class>
+        <servlet-class>keyf.clueless.server.StartGameServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>PollStartGame</servlet-name>
