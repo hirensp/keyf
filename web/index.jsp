@@ -1,4 +1,4 @@
-<%-- 
+<%--
     Document   : index
     Created on : Mar 29, 2013, 12:02:45 AM
     Author     : hp
@@ -9,13 +9,13 @@
 <!DOCTYPE html>
 <html xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core">
     <head>
-        <%@ page 
+        <%@ page
         language="java"
         contentType="text/html; charset=ISO-8859-1"
         pageEncoding="ISO-8859-1"
         import="java.util.*, keyf.clueless.*"
         %>
-        
+
         <%-- This gives us jQuery and must be at the top of all our pages that use jQuery --%>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
@@ -43,13 +43,34 @@ $(function() {
               alert("success");
                $("#result").html('submitted successfully');
           },
-          error:function() {
+          error: function() {
               alert("failure");
               $("#result").html('there is error while submit');
           }
         });
     });
 });
+        </script>
+        <script>
+(function poll() {
+    setTimeout(function() {
+        $.ajax({
+            url: 'PollStartGame',
+            type: 'GET',
+            success: function(data) {
+                if (data.canCreateGame) {
+                    document.getElementById('StartGame').style.display = 'block';
+                }
+            },
+            error: function(data) {
+                //alert("poll failed");
+            },
+            dataType: 'json',
+            complete: poll,
+            timeout: 2000
+        });
+    }, 5000);
+})();
         </script>
 
         <h1>Welcome to Keyf Clue-Less Board Game</h1>
@@ -99,6 +120,8 @@ $(function() {
                 </tr>
             </table>
         </form>
-                <input type="submit" method="POST" action="StartGame" value="Start Game" name="btnStart" />
+                <div id="StartGame" style="display: none">
+           <input type="submit" method="POST" action="StartGame" value="Start Game" name="btnStart" />
+       </div>
     </body>
 </html>

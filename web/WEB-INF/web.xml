@@ -39,7 +39,11 @@
     </servlet>
     <servlet>
         <servlet-name>StartGame</servlet-name>
-        <servlet-class>keyf.clueless.server.StartGameServlet</servlet-class>
+        <servlet-class>keyf.clueless.server.StarGameServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PollStartGame</servlet-name>
+        <servlet-class>keyf.clueless.server.PollStartGameServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Accusation</servlet-name>
@@ -76,6 +80,10 @@
     <servlet-mapping>
         <servlet-name>StartGame</servlet-name>
         <url-pattern>/StartGame</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PollStartGame</servlet-name>
+        <url-pattern>/PollStartGame</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>60</session-timeout>

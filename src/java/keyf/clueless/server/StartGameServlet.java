@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import keyf.clueless.GameManager;
 
 /**
+ * Responsible for starting the {@link Game}.
  *
  * @author justin
  */
@@ -35,7 +36,7 @@ public class StartGameServlet extends HttpServlet
     {
         ServletContext context = request.getServletContext();
 
-        GameManager gameManager = (GameManager) 
+        GameManager gameManager = (GameManager)
                 context.getAttribute(ServletContextAttributeKeys.GAME_MANAGER);
 
         synchronized (gameManager)
@@ -48,7 +49,7 @@ public class StartGameServlet extends HttpServlet
             }
         }
 
-        
+        // TODO send to PollServelet?
     }
 
     /**

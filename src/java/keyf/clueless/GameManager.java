@@ -26,7 +26,7 @@ public class GameManager
 
     public boolean canCreateGame()
     {
-        return prePlayers.size() > 3;
+        return prePlayers.size() >= 3;
     }
 
     public void addClientData(String name, Suspect suspect)
