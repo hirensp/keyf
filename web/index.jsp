@@ -40,12 +40,10 @@ $(function() {
           success: function() {
               elm = document.getElementById('PlayerSelection');
               elm.parentNode.removeChild(elm);
-              alert("success");
-               $("#result").html('submitted successfully');
+              $("#waiting").text('waiting on other players...');
           },
           error: function() {
               alert("failure");
-              $("#result").html('there is error while submit');
           }
         });
     });
@@ -59,17 +57,19 @@ $(function() {
             type: 'GET',
             success: function(data) {
                 if (data.canCreateGame) {
-                    document.getElementById('StartGame').style.display = 'block';
+                    $("#waiting").hide();
+                    $('#startGame').show();
                 }
             },
             error: function(data) {
                 //alert("poll failed");
             },
             dataType: 'json',
+            // Poll until we are able to create the game.
             complete: poll,
-            timeout: 2000
+            timeout: 1000
         });
-    }, 5000);
+    }, 2000);
 })();
         </script>
 
@@ -120,7 +120,10 @@ $(function() {
                 </tr>
             </table>
         </form>
-                <div id="StartGame" style="display: none">
+                <p id="waiting">
+
+                </p>
+                <div id="startGame" style="display: none">
            <input type="submit" method="POST" action="StartGame" value="Start Game" name="btnStart" />
        </div>
     </body>

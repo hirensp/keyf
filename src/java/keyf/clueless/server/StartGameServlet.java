@@ -49,7 +49,8 @@ public class StartGameServlet extends HttpServlet
             }
         }
 
-        // TODO send to PollServelet?
+        // forward to the Game page servlet.
+        request.getRequestDispatcher("game.jsp").forward(request, response);
     }
 
     /**
