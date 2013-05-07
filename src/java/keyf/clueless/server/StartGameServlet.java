@@ -50,7 +50,7 @@ public class StartGameServlet extends HttpServlet
         }
 
         // forward to the Game page servlet.
-        request.getRequestDispatcher("play.jsp").forward(request, response);
+        request.getRequestDispatcher("play.html").forward(request, response);
     }
 
     /**

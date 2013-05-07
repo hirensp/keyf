@@ -36,10 +36,16 @@ public class GameManagerAddingPlayersServlet extends HttpServlet
         GameManager gameManager = (GameManager) request.getServletContext()
                 .getAttribute(ServletContextAttributeKeys.GAME_MANAGER);
 
+        String name = (String) request.getParameter("name");
+
+        request.getSession().setAttribute(
+                ServletContextAttributeKeys.SESSION_PLAYER_ID,
+                name);
+        
         synchronized (gameManager)
         {
             gameManager.addClientData(
-                    (String) request.getParameter("name"),
+                    name,
                     Suspect.valueOf((String) request.getParameter("suspect")));
         }
     }

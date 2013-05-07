@@ -2,14 +2,16 @@ package keyf.clueless.server;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
+import java.util.Set;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import keyf.clueless.Game;
-import keyf.clueless.GameManager;
 import keyf.clueless.data.Item;
 import keyf.clueless.data.Player;
+import org.json.JSONObject;
 
 /**
  * The first Servlet to serve clients with the Game page.
@@ -42,14 +44,33 @@ public class InitializeGameServlet extends HttpServlet
         Game game = (Game) request.getServletContext()
                 .getAttribute(ServletContextAttributeKeys.GAME);
 
-        StringBuilder stringBuilder = new StringBuilder();
+        List<Player> players;
+        Set<? extends Item> cards;
 
+        // synchronize for as short of a time as possible
         synchronized (game)
         {
-            // TODO form message.
+            players = game.getPlayers();
+
+            cards = game.getPlayerByName(
+                    (String) request.getSession().getAttribute(
+                            ServletContextAttributeKeys.SESSION_PLAYER_ID))
+                                    .getCards();
         }
-        
-        out.write(stringBuilder.toString());
+
+        JSONObject json = new JSONObject();
+
+        for (Player player : players)
+        {
+            json.accumulate("players", getPlayerHtml(player));
+        }
+
+        for (Item card : cards)
+        {
+            json.accumulate("cards", getCardHtml(card));
+        }
+
+        out.write(json.toString());
     }
 
     /**
