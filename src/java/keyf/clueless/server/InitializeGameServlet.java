@@ -78,7 +78,7 @@ public class InitializeGameServlet extends HttpServlet
      * appears in the list of cards.
      *
      * Example return value:
-     * <div id="RopeCard">
+     * <div id="RopeCard" style="float: left">
      *     <img src="imges/Rope.jpg" alt="Rope" hight="155" width="100" />
      * </div>
      *
@@ -97,7 +97,7 @@ public class InitializeGameServlet extends HttpServlet
      *
      * Example return value (I don't know if this is exactly what you'll need,
      * but I'll try to get the piping all in place so you can test):
-     * <div id="player.getIdentifier()">
+     * <div id="player.getIdentifier()" style="float: left">
      *     <img src="images/COL_MUSTARD.jpg" alt="Col Mustard" hight="155" width="100" />
      *     <p>
      *         Player ID (name) from player.getIdentifier().

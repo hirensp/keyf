@@ -9,12 +9,32 @@ and open the template in the editor.
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
         <link rel="stylesheet" href="css/game.css" />
+
+        <script>
+            window.onload = $($.ajax({
+                url: 'InitializeGame',
+                type: 'post',
+                dataType: 'json',
+                success: function(data) {
+                    $.each(data.players, function(index, player) {
+                        var playerSplash = document.getElementById('players');
+                        playerSplash.appendChild($('<div/>').html(player).contents());
+                    });
+
+                    $.each(data.cards, function(index, card) {
+                        var playerCards = document.getElementById('cards');
+                        playerCards.appendChild($('<div/>').html(card).contents());
+                    });
+                },
+                error: function() {
+                    alert('failure');
+                }}));
+        </script>
     </head>
     <body>
         <table id="main" class="fullPage" border="0">
             <tr>
                 <td id="players" colspan="2" >
-                    Players
                 </td>
             </tr>
             <tr>
@@ -207,7 +227,7 @@ and open the template in the editor.
                             <td>Detective Notes</td>
                         </tr>
                         <tr>
-                            <td>Cards</td>
+                            <td id="cards" />
                         </tr>
                         <tr>
                             <td>Log</td>
