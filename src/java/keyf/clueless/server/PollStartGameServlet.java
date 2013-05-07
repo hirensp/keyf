@@ -17,9 +17,10 @@ import keyf.clueless.GameManager;
 public class PollStartGameServlet extends HttpServlet
 {
     /**
-     * Handles the HTTP
-     * <code>GET</code> method.
-     *
+     * Returns a JSON object that answers whether or not the game is ready to
+     * start:
+     * { "canCreateGame": true/false }
+     * 
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -32,7 +33,6 @@ public class PollStartGameServlet extends HttpServlet
             throws ServletException, IOException
     {
         response.setContentType("application/json");
-
 
         PrintWriter out = response.getWriter();
 

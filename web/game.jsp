@@ -1,4 +1,4 @@
-<%-- 
+<%--
     Document   : game
     Created on : Apr 23, 2013, 11:31:25 PM
     Author     : hp
@@ -40,132 +40,10 @@
             border:1px solid black;
             text-align:center;
         }
-        
+
     </style>
 </head>
 <body>
-    <table cellpadding="0" cellspacing="0" class="main">
-        <tr>
-            <td id="study_hall" colspan="3" rowspan="3" class="room">
-                Study</td>
-            <td class="hallway_sides">
-                &nbsp;</td>
-            <td id="hall_room" colspan="3" rowspan="3" class="room">
-                Hall</td>
-            <td id="miss_scarlet" class="hallway_sides">
-                &nbsp;</td>
-            <td id="lounge_room" colspan="3" rowspan="3" class="room">
-                Lounge</td>
-        </tr>
-        <tr>
-            <td id="study_hall" class="hallway_hori">
-                &nbsp;
-            </td>
-            <td id="hall_lounge" class="hallway_hori">
-                &nbsp;</td>
-        </tr>
-        <tr>
-            <td class="hallway_sides">
-                &nbsp;</td>
-            <td class="hallway_sides">
-                &nbsp;</td>
-        </tr>
-        <tr>
-            <td id="professor_plum" class="hallway_sides">
-                &nbsp;</td>
-            <td id="study_library" class="hallway_verti">
-                &nbsp;</td>
-            <td class="hallway_sides">
-                &nbsp;</td>
-            <td class="hallway_sides">
-                &nbsp;</td>
-            <td class="hallway_sides">
-                &nbsp;</td>
-            <td id="hall_billard" class="hallway_verti">
-                &nbsp;</td>
-            <td class="hallway_sides">
-                &nbsp;</td>
-            <td class="hallway_sides">
-                &nbsp;</td>
-            <td class="hallway_sides">
-                &nbsp;</td>
-            <td id="lounge_dinning" class="hallway_verti">
-                &nbsp;</td>
-            <td id="col_mustard" class="hallway_sides">
-                &nbsp;</td>
-        </tr>
-        <tr>
-            <td id="library_room" colspan="3" rowspan="3" class="room">
-                Library</td>
-            <td class="hallway_sides">
-                &nbsp;</td>
-            <td id="billard_room" colspan="3" rowspan="3" class="room">
-                Billard Room</td>
-            <td class="hallway_sides">
-                &nbsp;</td>
-            <td id="dinning_room" colspan="3" rowspan="3" class="room">
-                Dinning Room</td>
-        </tr>
-        <tr>
-            <td id="library_billard" class="hallway_hori"> 
-                &nbsp;</td>
-            <td id="billard_dinning" class="hallway_hori">
-                &nbsp;</td>
-        </tr>
-        <tr>
-            <td class="hallway_sides">
-                &nbsp;</td>
-            <td class="hallway_sides">
-                &nbsp;</td>
-        </tr>
-        <tr>
-            <td id="mrs_peacock" class="hallway_sides">
-                &nbsp;</td>
-            <td id="library_conversatory" class="hallway_verti">
-                &nbsp;</td>
-            <td class="style15">
-                &nbsp;</td>
-            <td class="hallway_sides">
-                &nbsp;</td>
-            <td class="hallway_sides">
-                &nbsp;</td>
-            <td id="billard_ball" class="hallway_verti">
-                &nbsp;</td>
-            <td class="hallway_sides">
-                &nbsp;</td>
-            <td class="hallway_sides">
-                &nbsp;</td>
-            <td class="hallway_sides">
-                &nbsp;</td>
-            <td id="dinning_kitchen" class="hallway_verti">
-                &nbsp;</td>
-            <td class="hallway_sides">
-                &nbsp;</td>
-        </tr>
-        <tr>
-            <td id="conversatory_room" colspan="3" rowspan="3" class="room">
-                Conversatory</td>
-            <td class="hallway_sides">
-                &nbsp;</td>
-            <td id="ball_room" colspan="3" rowspan="3" class="room">
-                Ball Room</td>
-            <td class="hallway_sides">
-                &nbsp;</td>
-            <td id="kitchen_room" colspan="3" rowspan="3" class="room">
-                Kitchen</td>
-        </tr>
-        <tr>
-            <td id="conversatory_ball" class="hallway_hori">
-                &nbsp;</td>
-            <td id="ball_kitchen" class="hallway_hori">
-                &nbsp;</td>
-        </tr>
-        <tr>
-            <td id="mr_green" class="hallway_sides">
-                &nbsp;</td>
-            <td id="mrs_white" class="hallway_sides">
-                &nbsp;</td>
-        </tr>
-    </table>
+
 </body>
 </html>
