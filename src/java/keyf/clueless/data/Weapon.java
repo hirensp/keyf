@@ -8,20 +8,18 @@ import keyf.clueless.data.location.Room;
  */
 public enum Weapon implements Item
 {
-    KNIFE(Room.KITCHEN, "KNIFE"),
-    CANDLESTICK(Room.DINING_ROOM, "CANDLESTICK"),
-    REVOLVER(Room.STUDY, "REVOLVER"),
-    ROPE(Room.BALLROOM, "ROPE"),
-    LEAD_PIPE(Room.CONSERVATORY, "LEAD_PIPE"),
-    WRENCH(Room.LOUNGE, "WRENCH");
+    KNIFE(Room.KITCHEN),
+    CANDLESTICK(Room.DINING_ROOM),
+    REVOLVER(Room.STUDY),
+    ROPE(Room.BALLROOM),
+    LEAD_PIPE(Room.CONSERVATORY),
+    WRENCH(Room.LOUNGE);
 
     private final Room startingRoom;
-    private final String description;
 
-    private Weapon(Room startingRoom, String description)
+    private Weapon(Room startingRoom)
     {
         this.startingRoom = startingRoom;
-        this.description = description;
     }
 
     /**
@@ -34,8 +32,10 @@ public enum Weapon implements Item
     {
         return startingRoom;
     }
+
+    @Override
     public String getDescription()
     {
-        return description;
+        return this.name();
     }
 }

@@ -8,20 +8,18 @@ import keyf.clueless.data.location.StartingLocation;
  */
 public enum Suspect implements Item
 {
-    COL_MUSTARD(StartingLocation.COL_MUSTARD_START, "COL_MUSTARD"),
-    PROF_PLUM(StartingLocation.PROF_PLUM_START, "PROF_PLUM"),
-    MR_GREEN(StartingLocation.MR_GREEN_START, "MR_GREEN"),
-    MRS_PEACOCK(StartingLocation.MRS_PEACOCK_START, "MRS_PEACOCK"),
-    MISS_SCARLET(StartingLocation.MISS_SCARLET_START, "MISS_SCARLET"),
-    MRS_WHITE(StartingLocation.MRS_WHITE_START, "MRS_WHITE");
+    COL_MUSTARD(StartingLocation.COL_MUSTARD_START),
+    PROF_PLUM(StartingLocation.PROF_PLUM_START),
+    MR_GREEN(StartingLocation.MR_GREEN_START),
+    MRS_PEACOCK(StartingLocation.MRS_PEACOCK_START),
+    MISS_SCARLET(StartingLocation.MISS_SCARLET_START),
+    MRS_WHITE(StartingLocation.MRS_WHITE_START);
 
     private final StartingLocation startingLocation;
-    private final String description;
 
-    private Suspect(StartingLocation startingLocation, String description)
+    private Suspect(StartingLocation startingLocation)
     {
         this.startingLocation = startingLocation;
-        this.description = description;
     }
 
     /**
@@ -33,8 +31,10 @@ public enum Suspect implements Item
     {
         return startingLocation;
     }
+
+    @Override
     public String getDescription()
     {
-        return description;
+        return this.name();
     }
 }

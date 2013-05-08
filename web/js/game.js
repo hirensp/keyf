@@ -48,7 +48,7 @@ $(document).ready($.ajax({
             type: 'GET',
             dataType: 'json',
             success: function(data) {
-                
+
             },
             error: function(data) {
                 alert("poll failed");
