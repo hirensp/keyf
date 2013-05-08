@@ -20,7 +20,7 @@
         <%-- This gives us jQuery and must be at the top of all our pages that use jQuery --%>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script src="js/index.js"></script>
-        
+
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <title>Welcome to Keyf Clue-Less Board Game</title>
     </head>
@@ -39,34 +39,35 @@
                 <%
                     List<Suspect> suspects = Arrays.asList(Suspect.values());
                     Iterator<Suspect> iterator = suspects.iterator();
-                    
+
                     GameManager _manager = (GameManager)request.getServletContext().getAttribute(ServletContextAttributeKeys.GAME_MANAGER);
                     Suspect suspect = iterator.next();
-                    
+
                     // Show all Suspects
                     out.println("<tr align='center'>");
                     while (suspect != null)
-                    {                           
+                    {
                         out.println("<td>");
-                        
+
                         out.println("<img "
                                 + "src='images/"+ suspect.name() +".jpg' "
                                 + "alt='"+ suspect.name()
                                 + "' width='70' height='100'>");
-                        
+
                         out.print("<div style='display:table-cell; vertical-align:bottom; padding:5px;' ><input type='radio' "
                                 + "name='suspect' "
-                                + "value='"+ suspect.name() +"' ");
-                        
+                                + "value='"+ suspect.name() +"' "
+                                + "required='required'");
+
                         if (_manager.checkCurrentSuspect(suspect)){
                             out.print(" disabled='disabled' > </div>");
                         }
                         else{
                             out.print("></div>");
                         }
-                        
+
                         out.println("</td>");
-                        
+
                         if(iterator.hasNext())
                             suspect = iterator.next();
                         else
