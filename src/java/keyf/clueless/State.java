@@ -12,6 +12,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
@@ -173,10 +174,17 @@ public class State
         public String getJsonString()
         {
             JSONObject json = new JSONObject();
+           
+            for(Movement movement : thingsThatMoved)
+            {
+                json.accumulate("movements", movement.getJsonString());
+            }
+            for(OfferAction action : availableActions)
+            {
+                json.accumulate("actions", action.getJsonString());
+            }
             json.put("suspectMessage", suspectMessage);
-            json.put("logMessage", logMessage);              
-            json.put("actions", availableActions);
-            json.put("things that moved", thingsThatMoved);
+            json.put("logMessage", logMessage);      
             return json.toString();
         }
 

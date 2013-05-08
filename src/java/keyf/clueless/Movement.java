@@ -29,12 +29,12 @@ public class Movement
         return where;
     }
 
-    public String toJsonString()
+    public String getJsonString()
     {
         JSONObject json = new JSONObject();
         
-        json.put("what", this.getWhat());
-        json.put("where", this.getWhere());
+        json.put("what", what.getDescription());
+        json.put("where", where.getDescription());
         return json.toString();
     }
 }
