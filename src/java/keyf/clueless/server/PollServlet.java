@@ -14,6 +14,7 @@ import keyf.clueless.Game;
 import keyf.clueless.State;
 import keyf.clueless.action.offer.OfferMove;
 import keyf.clueless.data.Player;
+import keyf.clueless.data.location.Location;
 import org.json.JSONArray;
 
 /**
@@ -75,7 +76,10 @@ public class PollServlet extends HttpServlet
     {
         JSONArray possibleRooms = new JSONArray();
 
-        possibleRooms.put("BALLROOM");
+        for(Location poss : offerMove.getPossibleLocations())
+        {
+            possibleRooms.put(poss);
+        }
 
         return possibleRooms.toString();
     }
