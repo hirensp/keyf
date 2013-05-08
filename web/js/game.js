@@ -75,11 +75,14 @@ var lastStateId = 'not an id';
                             .attr('method', 'GET')
                             .append($('<p style="float: left"/>').text(action.message));
 
-                        if ('options' in data) {
-                            $.each(data.options, function(index1, subOptions) {
+                        if ('options' in action) {
+                            $.each(action.options, function(index1, subOptions) {
                                 $.each(subOptions, function(index2, option) {
-                                    $('<select style="float: left"/>')
-                                        .append($('<option/>').text(option));
+                                    subActionForm.append(
+                                        $('<select style="float: left"/>')
+                                            .append($('<option/>')
+                                                .attr('value', option)
+                                                .text(option)));
                                 });
                             });
                         }

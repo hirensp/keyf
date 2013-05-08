@@ -67,6 +67,7 @@ public class PollServlet extends HttpServlet
             {
                 json.accumulate("actions", action.getJsonString());
             }
+            
             // TODO more stuff about which players moved and weapons too
 
             response.setContentType("application/json");
