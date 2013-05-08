@@ -3,18 +3,30 @@
  */
 $(document).ready($.ajax({
     url: 'InitializeGame',
-    type: 'post',
+    type: 'POST',
     dataType: 'json',
     success: function(data) {
         $.each(data.players, function(index, player) {
-            alert(JSON.stringify(player));
-            var playerSplash = document.getElementById('players');
-            playerSplash.appendChild($('<div/>').html(player).contents());
+            var jsonPlayer = $.parseJSON(player);
+
+            var newDiv = $('<div style="float: left"></div>');
+
+            newDiv.append($('<img />').attr(
+                    {src: jsonPlayer.image,
+                     height: jsonPlayer.height,
+                     width: jsonPlayer.width}));
+
+            newDiv.append($('<p />', {text: jsonPlayer.name}));
+
+            $("#players").append(newDiv);
         });
 
         $.each(data.cards, function(index, card) {
-            var playerCards = document.getElementById('cards');
-            playerCards.appendChild($('<div/>').html(card).contents());
+            $("#cards")
+                .append($('<div></div>')/*.css("float: left") */
+                    .append($('<img />').attr('src' ,card.image)
+                                        .attr('height', card.height)
+                                        .attr('width', card.width)));
         });
     },
     error: function() {
