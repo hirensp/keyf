@@ -15,7 +15,7 @@ import keyf.clueless.action.Move;
 public class OfferMove implements OfferAction
 {
     private final Set<Location> possibleLocations;
-    
+
     /**
      * Creates a new OfferMove.
      *
@@ -35,5 +35,19 @@ public class OfferMove implements OfferAction
     public boolean isMatchingAction(Action action)
     {
         return action instanceof Move;
+    }
+
+    /**
+     * {
+     *     "name": "Move",
+     *     "options": [[ -set of places to move (look in Board)- ]],
+     *     "message": "Move to: "
+     * }
+     * @return
+     */
+    @Override
+    public String getJsonString()
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

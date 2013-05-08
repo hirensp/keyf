@@ -2,7 +2,6 @@ package keyf.clueless.action.offer;
 
 import keyf.clueless.action.Accusation;
 import keyf.clueless.action.Action;
-import keyf.clueless.action.offer.OfferAction;
 
 /**
  *
@@ -14,5 +13,20 @@ public class OfferAccusation implements OfferAction
     public boolean isMatchingAction(Action action)
     {
         return action instanceof Accusation;
+    }
+
+    /**
+     * {
+     *     "name": "Accuse",
+     *     "options": [ [ All Suspects ], [ All Weapons ], [ All Rooms ] ],
+     *     "message": " I accuse: "
+     * }
+     *
+     * @return the above
+     */
+    @Override
+    public String getJsonString()
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

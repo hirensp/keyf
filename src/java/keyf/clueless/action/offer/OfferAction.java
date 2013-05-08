@@ -6,7 +6,7 @@ import keyf.clueless.data.Player;
 /**
  * Represents something a {@link Player} can do (such as Move, Suggest, Accuse,
  * etc). Allows the player to form a corresponding {@link Action}.
- * 
+ *
  * @author justin
  */
 public interface OfferAction
@@ -21,4 +21,18 @@ public interface OfferAction
      *     OfferAction}, {@code false} otherwise.
      */
     boolean isMatchingAction(Action action);
+
+    /**
+     * Returns a JSON representation of this object to send to clients.
+     * All should be soemthing like:
+     * {
+     *     "name": "Human Readable Name",
+     *     // might be empty
+     *     "options": [[ -set of options- ], [ -another set of options- ]],
+     *     "message": "some kind of message that gives meaning to the options"
+     * }
+     *
+     * @return never {@code null}.
+     */
+    String getJsonString();
 }
