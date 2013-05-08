@@ -64,12 +64,12 @@ public class InitializeGameServlet extends HttpServlet
 
         for (Player player : players)
         {
-            json.accumulate("players", getPlayerHtml(player));
+            json.accumulate("players", getPlayerJsonString(player));
         }
 
         for (Item card : cards)
         {
-            json.accumulate("cards", getCardHtml(card));
+            json.accumulate("cards", getCardJsonString(card));
         }
 
         String jsonString = json.toString();
@@ -78,7 +78,7 @@ public class InitializeGameServlet extends HttpServlet
 
     /**
      * Returns a JSON string that contains information about the card (image)
-     * @param item The item to make the HTML string for.
+     * @param item The item to make the JSON string for.
      * {
      *     "image": "images/COL_MUSTARD.jpg",
      *     "height": 155,
@@ -86,7 +86,7 @@ public class InitializeGameServlet extends HttpServlet
      * }
      * @return never {@code null}
      */
-    private String getCardHtml(Item item)
+    private String getCardJsonString(Item item)
     {
         JSONObject jsonCard = new JSONObject();
 
@@ -107,11 +107,11 @@ public class InitializeGameServlet extends HttpServlet
      *     "name": Kuporific
      * }
      *
-     * @param player The player to make the HTML string for.
+     * @param player The player to make the JSON string for.
      *
      * @return never {@code null}.
      */
-    private String getPlayerHtml(Player player)
+    private String getPlayerJsonString(Player player)
     {
         JSONObject jsonPlayer = new JSONObject();
 
