@@ -15,16 +15,22 @@ import java.util.Set;
  */
 public enum Room implements Location, Item
 {
-    STUDY,
-    HALL,
-    LOUNGE,
-    LIBRARY,
-    BILLIARD_ROOM,
-    DINING_ROOM,
-    CONSERVATORY,
-    BALLROOM,
-    KITCHEN;
-
+    STUDY("STUDY"),
+    HALL("HALL"),
+    LOUNGE ("LOUNGE"),
+    LIBRARY("LIBRARY"),
+    BILLIARD_ROOM("BILLIARD_ROOM"),
+    DINING_ROOM("DINING_ROOM"),
+    CONSERVATORY("CONSERVATORY"),
+    BALLROOM("BALLROOM"),
+    KITCHEN("KITCHEN");
+    
+    private final String description;
+    
+    private Room(String description)
+    {
+        this.description = description;
+    }
     // Neighbors have to be declaired here instead of as a Constructor argument
     // because of illigal foward referencing (some Rooms have other Rooms as
     // neighbors).
@@ -109,5 +115,10 @@ public enum Room implements Location, Item
     public boolean isSingleOccupancy()
     {
         return false;
+    }
+    
+    public String getDescription()
+    {
+        return description;
     }
 }

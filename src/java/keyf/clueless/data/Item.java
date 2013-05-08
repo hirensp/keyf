@@ -7,5 +7,5 @@ package keyf.clueless.data;
  */
 public interface Item
 {
-
+    String getDescription();
 }
