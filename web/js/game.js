@@ -8,25 +8,25 @@ $(document).ready($.ajax({
     success: function(data) {
         $.each(data.players, function(index, player) {
             var jsonPlayer = $.parseJSON(player);
-
-            var newDiv = $('<div style="float: left"></div>');
-
-            newDiv.append($('<img />').attr(
-                    {src: jsonPlayer.image,
-                     height: jsonPlayer.height,
-                     width: jsonPlayer.width}));
-
-            newDiv.append($('<p />', {text: jsonPlayer.name}));
-
-            $("#players").append(newDiv);
+            $("#players")
+                .append($('<div/>')
+                    .css("float", "left")
+                    .append($('<img />')
+                        .attr('src', jsonPlayer.image)
+                        .attr('height', jsonPlayer.height)
+                        .attr('width', jsonPlayer.width))
+                    .append($('<p />').text(jsonPlayer.name)));
         });
 
         $.each(data.cards, function(index, card) {
+            var jsonCard = $.parseJSON(card);
             $("#cards")
-                .append($('<div></div>')/*.css("float: left") */
-                    .append($('<img />').attr('src' ,card.image)
-                                        .attr('height', card.height)
-                                        .attr('width', card.width)));
+                .append($('<div/>')
+                    .css("float", "left")
+                    .append($('<img />')
+                        .attr('src' ,jsonCard.image)
+                        .attr('height', jsonCard.height)
+                        .attr('width', jsonCard.width)));
         });
     },
     error: function() {
