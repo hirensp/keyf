@@ -3,7 +3,11 @@ package keyf.clueless.action.offer;
 import keyf.clueless.action.Action;
 import keyf.clueless.action.Suggestion;
 import keyf.clueless.action.offer.OfferAction;
+import keyf.clueless.data.Suspect;
+import keyf.clueless.data.Weapon;
 import keyf.clueless.data.location.Room;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  *
@@ -43,6 +47,22 @@ public class OfferSuggestion implements OfferAction
     @Override
     public String getJsonString()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        JSONObject json = new JSONObject();
+        json.put("name", "Suggestion");
+        json.put("Room options", possibleRoom);
+        
+        for(Suspect possSus : Suspect.values())
+        {
+            json.put("Suspect options", new JSONArray().put(new JSONArray(possSus)));
+        }
+        
+        for(Weapon possWeap : Weapon.values())
+        {
+            json.put("Weapon options", new JSONArray().put(new JSONArray(possWeap)));
+        }
+        
+        json.put("message", "I will suggest:");
+        return json.toString();
     }
+    
 }
