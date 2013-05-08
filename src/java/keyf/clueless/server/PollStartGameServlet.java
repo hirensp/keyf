@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import keyf.clueless.GameManager;
+import org.json.JSONObject;
 
 /**
  * The start page polls constantly until the game is able to start. This returns
@@ -20,7 +21,7 @@ public class PollStartGameServlet extends HttpServlet
      * Returns a JSON object that answers whether or not the game is ready to
      * start:
      * { "canCreateGame": true/false }
-     * 
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -39,9 +40,19 @@ public class PollStartGameServlet extends HttpServlet
         GameManager gameManager = (GameManager) request.getServletContext()
                 .getAttribute(ServletContextAttributeKeys.GAME_MANAGER);
 
+        boolean canCreateGame;
+        boolean gameInProgress = null != request.getServletContext()
+                .getAttribute(ServletContextAttributeKeys.GAME);
+
         synchronized (gameManager)
         {
-            out.write("{ \"canCreateGame\": " + gameManager.canCreateGame() + " }");
+            canCreateGame = gameManager.canCreateGame();
         }
+
+        out.write(
+                new JSONObject()
+                        .put("canCreateGame", canCreateGame)
+                        .put("gameInProgress", gameInProgress)
+                        .toString());
     }
 }

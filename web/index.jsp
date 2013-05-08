@@ -18,60 +18,14 @@
 
         <%-- This gives us jQuery and must be at the top of all our pages that use jQuery --%>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-
+        <script src="js/index.js"></script>
+        
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <title>Welcome to Keyf Clue-Less Board Game</title>
     </head>
     <body>
         <%-- TODO This should be in its own file --%>
-        <script>
-$(function() {
-    $("#PlayerSelection").submit(function(event) {
 
-      /* stop form from submitting normally */
-      event.preventDefault();
-
-      /* Send the data using post and put the results in a div */
-        $.ajax({
-          url: "GameManagerAddingPlayers",
-          type: "post",
-          data: { name:    $('input[name=name]').val(),
-                  suspect: $('input[name=suspect]:checked').val()},
-          success: function() {
-              elm = document.getElementById('PlayerSelection');
-              elm.parentNode.removeChild(elm);
-              $("#waiting").text('waiting on other players...');
-          },
-          error: function() {
-              alert("failure");
-          }
-        });
-    });
-});
-        </script>
-        <script>
-(function poll() {
-    setTimeout(function() {
-        $.ajax({
-            url: 'PollStartGame',
-            type: 'GET',
-            success: function(data) {
-                if (data.canCreateGame) {
-                    $("#waiting").hide();
-                    $('#startGame').show();
-                }
-            },
-            error: function(data) {
-                //alert("poll failed");
-            },
-            dataType: 'json',
-            // Poll until we are able to create the game.
-            complete: poll,
-            timeout: 1000
-        });
-    }, 2000);
-})();
-        </script>
 
         <h1>Welcome to Keyf Clue-Less Board Game</h1>
         <form  method="POST" id="PlayerSelection">
