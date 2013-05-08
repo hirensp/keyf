@@ -36,7 +36,7 @@ $(function() {
           url: "GameManagerAddingPlayers",
           type: "post",
           data: { name:    $('input[name=name]').val(),
-                  suspect: $('input[name=suspect]').val()},
+                  suspect: $('input[name=suspect]:checked').val()},
           success: function() {
               elm = document.getElementById('PlayerSelection');
               elm.parentNode.removeChild(elm);

@@ -1,7 +1,3 @@
-<!--
-To change this template, choose Tools | Templates
-and open the template in the editor.
--->
 <!DOCTYPE html>
 <html>
     <head>
@@ -10,26 +6,8 @@ and open the template in the editor.
 
         <link rel="stylesheet" href="css/game.css" />
 
-        <script>
-            window.onload = $($.ajax({
-                url: 'InitializeGame',
-                type: 'post',
-                dataType: 'json',
-                success: function(data) {
-                    $.each(data.players, function(index, player) {
-                        var playerSplash = document.getElementById('players');
-                        playerSplash.appendChild($('<div/>').html(player).contents());
-                    });
-
-                    $.each(data.cards, function(index, card) {
-                        var playerCards = document.getElementById('cards');
-                        playerCards.appendChild($('<div/>').html(card).contents());
-                    });
-                },
-                error: function() {
-                    alert('failure');
-                }}));
-        </script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script src="js/game.js" ></script>
     </head>
     <body>
         <table id="main" class="fullPage" border="0">

@@ -52,10 +52,12 @@ public class InitializeGameServlet extends HttpServlet
         {
             players = game.getPlayers();
 
-            cards = game.getPlayerByName(
-                    (String) request.getSession().getAttribute(
-                            ServletContextAttributeKeys.SESSION_PLAYER_ID))
-                                    .getCards();
+            String playerId = (String) request.getSession().getAttribute(
+                            ServletContextAttributeKeys.SESSION_PLAYER_ID);
+
+            Player currentPlayer = game.getPlayerByName(playerId);
+            
+            cards = currentPlayer.getCards();
         }
 
         JSONObject json = new JSONObject();
@@ -70,6 +72,7 @@ public class InitializeGameServlet extends HttpServlet
             json.accumulate("cards", getCardHtml(card));
         }
 
+        String jsonString = json.toString();
         out.write(json.toString());
     }
 
@@ -88,7 +91,9 @@ public class InitializeGameServlet extends HttpServlet
      */
     private String getCardHtml(Item item)
     {
-        return "";
+        return "<div id=\"RopeCard\" style=\"float: left\">"
+               + "<img src=\"images/Rope.jpg\" alt=\"Rope\" hight=\"155\" width=\"100\" />"
+                + "</div>";
     }
 
     /**
@@ -110,6 +115,9 @@ public class InitializeGameServlet extends HttpServlet
      */
     private String getPlayerHtml(Player player)
     {
-        return "";
+        return "<div id=\"" + player.getIdentifier() + "\" style=\"float: left\">"
+               + "<img src=\"images/COL_MUSTARD.jpg\" alt=\"Col Mustard\" hight=\"155\" width=\"100\" />"
+               + "<p>" + player.getIdentifier() + "</p>"
+                + "</div>";
     }
 }

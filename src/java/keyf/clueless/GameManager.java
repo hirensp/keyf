@@ -49,8 +49,8 @@ public class GameManager
             // If there are less than six, start the game with that number of
             //     players.
             // Otherwise, start the game with 6 players (0 through 5)
-            int numberOfPlayers = prePlayers.size() <= 6
-                                  ? prePlayers.size() - 1 : 5;
+            int numberOfPlayers = prePlayers.size() < 6
+                                  ? prePlayers.size() : 6;
 
             List<PrePlayer> gamePlayers = new ArrayList<PrePlayer>(
                     prePlayers.subList(0, numberOfPlayers));
