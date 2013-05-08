@@ -51,7 +51,7 @@ $(document).ready($.ajax({
 
             },
             error: function(data) {
-                alert("poll failed");
+                //alert("poll failed");
             },
             // Poll until we are able to create the game.
             complete: poll,
