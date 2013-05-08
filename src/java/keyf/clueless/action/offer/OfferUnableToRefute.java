@@ -2,6 +2,7 @@ package keyf.clueless.action.offer;
 
 import keyf.clueless.action.Action;
 import keyf.clueless.action.UnableToRefute;
+import org.json.JSONObject;
 
 /**
  * Allows a Player to say that he/she cannot refute a Suggestion.
@@ -25,6 +26,9 @@ public class OfferUnableToRefute implements OfferAction
     @Override
     public String getJsonString()
     {
-        return "{ \"name\": \"Unable to Refute\"";
+        JSONObject json = new JSONObject();
+        json.put("name", "Unable to Refute");
+        json.put("action", "UnableToRefute");
+        return json.toString();
     }
 }

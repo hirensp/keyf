@@ -29,7 +29,8 @@ public interface OfferAction
      *     "name": "Human Readable Name",
      *     // might be empty
      *     "options": [[ -set of options- ], [ -another set of options- ]],
-     *     "message": "some kind of message that gives meaning to the options"
+     *     "message": "some kind of message that gives meaning to the options",
+     *     "action": "ServletName"
      * }
      *
      * @return never {@code null}.

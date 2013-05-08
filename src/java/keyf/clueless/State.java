@@ -10,10 +10,11 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.UUID;
 
 /**
  * Represents the state of a {@link Game} for a particular {@link Player}.
- * 
+ *
  * @author justin
  */
 public class State
@@ -32,7 +33,7 @@ public class State
 
     // TODO --we might need a parameter that indicates who is saying the
     //        "suspectMessage"
-    
+
     /**
      * A format string used for the speech bubble of a Character (may be
      * different for each Player)
@@ -43,6 +44,11 @@ public class State
      * Message that appears in the game log (will be the same for each player).
      */
     private final String logMessage;
+
+    /**
+     * An ID so that we can tell one state from another
+     */
+    private final UUID id;
 
     /**
      * Creates a new state.
@@ -66,10 +72,12 @@ public class State
         this.temporarilyUnavailableActions = Collections.unmodifiableSet(
                 requireNonNullAndContainsNonNull(
                         temporarilyUnavailableActions));
-        
+
         this.suspectMessage = suspectMessage;
 
         this.logMessage = logMessage;
+
+        this.id = UUID.randomUUID();
     }
 
     public Set<OfferAction> getAvailableActions()
@@ -90,6 +98,11 @@ public class State
     public String getLogMessage()
     {
         return logMessage;
+    }
+
+    public UUID getId()
+    {
+        return id;
     }
 
     /**
@@ -141,7 +154,7 @@ public class State
          * Removes the {@code action} from the list of availableActions.
          *
          * @param action the action to remove
-         * 
+         *
          * @return this Builder instance.
          */
         public Builder removeAction(Action action)
@@ -156,7 +169,7 @@ public class State
                     break;
                 }
             }
-            
+
             return this;
         }
 
@@ -181,7 +194,7 @@ public class State
 
         /**
          * Makes all actions available.
-         * 
+         *
          * @return this Builder instance.
          */
         public Builder makeAllActionsAvailable()
@@ -193,7 +206,7 @@ public class State
 
         /**
          * Builds the new State.
-         * 
+         *
          * @return the new State object.
          */
         public State build()

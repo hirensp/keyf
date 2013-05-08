@@ -58,24 +58,28 @@ public class PollServlet extends HttpServlet
 
         State state = null;
 
-        synchronized(game)
+        if (game != null)
         {
-            // Get the current player's state
-            state = game.getLatestState(
-                    game.getPlayerByName(currentPlayerName));
+            synchronized(game)
+            {
+                // Get the current player's state
+                state = game.getLatestState(
+                        game.getPlayerByName(currentPlayerName));
+            }
+
+            JSONObject json = new JSONObject();
+            json.put("id", state.getId().toString());
+            json.put("suspectMessage", state.getSuspectMessage());
+            json.put("logMessage", state.getLogMessage());
+
+            for (OfferAction action : state.getAvailableActions())
+            {
+                json.accumulate("actions", action.getJsonString());
+            }
+            // TODO more stuff about which players moved and weapons too
+
+            response.setContentType("application/json");
+            response.getWriter().write(json.toString());
         }
-
-        JSONObject json = new JSONObject();
-        json.put("suspectMessage", state.getSuspectMessage());
-        json.put("logMessage", state.getLogMessage());
-
-        for (OfferAction action : state.getAvailableActions())
-        {
-            json.accumulate("actions", action.getJsonString());
-        }
-        // TODO more stuff about which players moved and weapons too
-
-        response.setContentType("application/json");
-        response.getWriter().write(json.toString());
     }
 }

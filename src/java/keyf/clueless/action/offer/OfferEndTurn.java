@@ -2,6 +2,7 @@ package keyf.clueless.action.offer;
 
 import keyf.clueless.action.Action;
 import keyf.clueless.action.EndTurn;
+import org.json.JSONObject;
 
 /**
  * Allows a Player to end his/her turn.
@@ -25,6 +26,9 @@ public class OfferEndTurn implements OfferAction
     @Override
     public String getJsonString()
     {
-        return "{\"name\": \"End Turn\"}";
+        JSONObject json = new JSONObject();
+        json.put("name", "End Turn");
+        json.put("action", "EndTurn");
+        return json.toString();
     }
 }

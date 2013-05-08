@@ -65,6 +65,8 @@ public class OfferSuggestion implements OfferAction
         json.accumulate("options", jsonRooms);
 
         json.put("message", "I will suggest:");
+        json.put("action", "OfferSuggestion");
+        
         return json.toString();
     }
 

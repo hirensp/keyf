@@ -38,11 +38,13 @@ $(document).ready($.ajax({
        alert('failure');
    }}));
 
+/* Used by the poll */
+var lastStateId = 'not an id';
+
 /*
  * Polls for updates to the game
  */
 (function poll() {
-    var lastStateId = '';
     setTimeout(function() {
         $.ajax({
             url: 'Poll',
@@ -50,21 +52,34 @@ $(document).ready($.ajax({
             dataType: 'json',
             success: function(data) {
                 if (lastStateId !== data.id) {
+                    lastStateId = data.id;
                     $('#suspectMessage').text(data.suspectMessage);
                     $('#log').append($('<p />').text(data.logMessage));
 
-                    for (var actionString in data.actions) {
+                    $('#actions').empty(); // clear the previous actions
+                    $('#subActions').empty();
+                    $.each(data.actions, function(index, actionString) {
                         var action = $.parseJSON(actionString);
 
-                        $('#actions').append(
-                            $('<input/>')
-                                .attr('type', 'button')
-                                .attr('value', action.name));
-                    }
-                    /* todo figure out how to setup sub action stuff */
-                    /* $('#subActions') */
+                        $('#actions').append($('<button style="float: left"/>')
+                                .text(action.name)
+                                .click(function(event) {
+                                    $('#actions').hide();
+                                    $(document.getElementById(action.name)).show();
+                                }));
 
-                    /* more crap about which characters and weapons and stuff moved where! */
+                        /* todo figure out how to setup sub action stuff */
+                        $('#subActions').append($('<form/>')
+                            .attr('id', action.name)
+                            .attr('action', action.action)
+                            .attr('method', 'GET')
+                            .append($('<p style="float: left"/>').text(action.message))
+                            .append($('<input style="float: left"/>')
+                                .attr('type', 'submit')
+                                .attr('value', action.name)).hide());
+
+                        /* more crap about which characters and weapons and stuff moved where! */
+                    });
                 }
             },
             error: function(data) {
