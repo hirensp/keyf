@@ -12,10 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import keyf.clueless.Game;
 import keyf.clueless.State;
+import keyf.clueless.action.offer.OfferAction;
 import keyf.clueless.action.offer.OfferMove;
 import keyf.clueless.data.Player;
 import keyf.clueless.data.location.Location;
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  *
@@ -47,42 +49,31 @@ public class PollServlet extends HttpServlet
                          HttpServletResponse response)
             throws ServletException, IOException
     {
+        response.setContentType("application/json");
+
         Game game = (Game) request.getServletContext().getAttribute(
                 ServletContextAttributeKeys.GAME);
 
-        HttpSession session = request.getSession();
+        String currentPlayerName= (String) request.getSession()
+                .getAttribute(ServletContextAttributeKeys.SESSION_PLAYER_ID);
+
+        State state = null;
 
         synchronized(game)
         {
-            // The Player that's polling
-            Player player  = game.getPlayerByName(
-                    (String) session.getAttribute("name"));
-
-            // Get this player's state.
-            State state = game.getLatestState(player);
-
-            response.setContentType("application/json");
+            // Get the current player's state
+            state = game.getLatestState(
+                    game.getPlayerByName(currentPlayerName));
         }
-    }
 
-    /**
-     * Returns a JSON representation of an {@link OfferMove}
-     * [ "BALLROOM", "DINNING_ROOM", ...]
-     *
-     * @param offerMove
-     * @return
-     */
-    private String getOfferMoveJsonString(OfferMove offerMove)
-    {
-        JSONArray possibleRooms = new JSONArray();
+        JSONObject json = new JSONObject();
+        json.put("suspectMessage", state.getSuspectMessage());
+        json.put("logMessage", state.getLogMessage());
 
-        for(Location poss : offerMove.getPossibleLocations())
+        for (OfferAction action : state.getAvailableActions())
         {
-            possibleRooms.put(poss);
+            json.accumulate("actions", action.getJsonString());
         }
-
-        return possibleRooms.toString();
+        // TODO more stuff about which players moved and weapons too
     }
-
-
 }

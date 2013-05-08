@@ -51,7 +51,10 @@ public class OfferMove implements OfferAction
     {
         JSONObject json = new JSONObject();
         json.put("name", "Move");
-        json.put("options", new JSONArray().put(new JSONArray(possibleLocations)));
+        for (Location location : possibleLocations)
+        {
+            json.put("options", new JSONArray().put(new JSONArray(possibleLocations)));
+        }
         json.put("message", "I will move to:");
         return json.toString();
     }

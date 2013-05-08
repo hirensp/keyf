@@ -32,24 +32,31 @@ public class OfferAccusation implements OfferAction
     @Override
     public String getJsonString()
     {
-  
+
         JSONObject json = new JSONObject();
         json.put("name", "Accuse");
-        
-        for(Suspect possSus : Suspect.values())
+
+        JSONArray jsonSuspects = new JSONArray();
+        for(Suspect suspect : Suspect.values())
         {
-            json.put("Suspect options", new JSONArray().put(new JSONArray(possSus)));
+            jsonSuspects.put(suspect.toString());
         }
-        
-        for(Weapon possWeap : Weapon.values())
+        json.accumulate("options", jsonSuspects);
+
+        JSONArray jsonWeapons = new JSONArray();
+        for(Weapon weapon : Weapon.values())
         {
-            json.put("Weapon options", new JSONArray().put(new JSONArray(possWeap)));
+            jsonWeapons.put(weapon.toString());
         }
-        
-        for(Room possRoom : Room.values())
+        json.accumulate("options", jsonWeapons);
+
+        JSONArray jsonRooms = new JSONArray();
+        for(Room room : Room.values())
         {
-            json.put("Room options", new JSONArray().put(new JSONArray(possRoom)));
+            jsonRooms.put(room.toString());
         }
+        json.accumulate("options", jsonRooms);
+
         json.put("message", "I will Accuse:");
         return json.toString();
     }

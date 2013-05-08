@@ -26,6 +26,6 @@ public class OfferEndTurn implements OfferAction
     @Override
     public String getJsonString()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return "{\"name\": \"End Turn\"}";
     }
 }

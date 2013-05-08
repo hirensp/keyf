@@ -1,12 +1,19 @@
 package keyf.clueless;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import keyf.clueless.action.offer.OfferAccusation;
+import keyf.clueless.action.offer.OfferAction;
+import keyf.clueless.action.offer.OfferEndTurn;
+import keyf.clueless.action.offer.OfferMove;
 import keyf.clueless.data.Item;
 import keyf.clueless.data.Player;
 
@@ -52,7 +59,7 @@ public class Game
     /**
      * Creates a new game. The true criminal, murder weapon, and room are
      * decided, and all cards are assigned to the {@code players}.
-     * 
+     *
      * @param identifier Uniquely identifies this game within the server.
      * @param players The players of this game in turn order
      */
@@ -67,7 +74,41 @@ public class Game
         this.players = getPlayers(players, dealer);
         this.turnManager = new TurnManager(this.players);
         this.currentState = new HashMap<Player, Deque<State>>();
-        // TODO initialize current states.
+
+        for (Player player : this.players)
+        {
+            currentState.put(player, new LinkedList<State>());
+        }
+
+        initializeStates();
+    }
+
+    private void initializeStates()
+    {
+        Iterator<Player> player = players.iterator();
+
+        Player firstPlayer = player.next();
+
+        Set<OfferAction> firstActions = new HashSet<OfferAction>();
+
+        firstActions.add(new OfferMove(board.getAvailableLocations(
+                firstPlayer.getSuspect())));
+
+        firstActions.add(new OfferAccusation());
+
+        firstActions.add(new OfferEndTurn());
+
+        State state = new State(firstActions, Collections.<OfferAction>emptySet(), "", "");
+
+        addState(firstPlayer, state);
+
+        // fill in the remaining player's state
+        while (player.hasNext())
+        {
+            addState(player.next(), new State(
+                    Collections.<OfferAction>emptySet(),
+                    Collections.<OfferAction>emptySet(), "", ""));
+        }
     }
 
     public Board getBoard()
@@ -103,7 +144,7 @@ public class Game
 
         return desiredPlayer;
     }
-    
+
     public TurnManager getTurnManager()
     {
         return turnManager;
@@ -156,7 +197,7 @@ public class Game
     /**
      * Adds the {@code state} to the end of the queue of {@link State}s for the
      * given {@code player}.
-     * 
+     *
      * @param player the player whose state is updated
      * @param state the state of that player
      */
@@ -174,7 +215,7 @@ public class Game
      * Assigns {@link Item}s to each of the {@code prePlayers}, and returns
      * fully formed {@link Player}s. The returned list will have the same order
      * as {@code prePlayers}.
-     * 
+     *
      * @param prePlayers information needed to form a list of {@link Player}s
      * @param dealer used to assign {@codeItem}s to the returned {@link Player}s
      *
@@ -193,7 +234,7 @@ public class Game
 
         WrappingIterator<PrePlayer> prePlayerIterator
                 = new WrappingIterator<PrePlayer>(prePlayers);
-        
+
         while (dealer.hasMore())
         {
             PrePlayer prePlayer = prePlayerIterator.next();
@@ -218,7 +259,7 @@ public class Game
                             prePlayer.getSuspect(),
                             assignedCards.get(prePlayer)));
         }
-                
+
         return players;
     }
 }
