@@ -7,7 +7,6 @@
  *                            adds all the cards of the current client player
  */
 $(document).ready($.ajax({
-<<<<<<< HEAD
    url: 'InitializeGame',
    type: 'POST',
    dataType: 'json',
@@ -57,33 +56,6 @@ $(document).ready($.ajax({
             // Poll until we are able to create the game.
             complete: poll,
             timeout: 1000
-=======
-    url: 'InitializeGame',
-    type: 'POST',
-    dataType: 'json',
-    success: function(data) {
-        $.each(data.players, function(index, player) {
-            var jsonPlayer = $.parseJSON(player);
-
-            var newDiv = $('<div style="float: left"></div>');
-
-            newDiv.append($('<img />').attr(
-                    {src: jsonPlayer.image,
-                     height: jsonPlayer.height,
-                     width: jsonPlayer.width}));
-
-            newDiv.append($('<p />', {text: jsonPlayer.name}));
-
-            $("#players").append(newDiv);
-        });
-
-        $.each(data.cards, function(index, card) {
-            $("#cards")
-                .append($('<div></div>')/*.css("float: left") */
-                    .append($('<img />').attr('src' ,card.image)
-                                        .attr('height', card.height)
-                                        .attr('width', card.width)));
->>>>>>> parent of f6ba02d... Cards now properly populate on intiailization of the game.html
         });
     }, 2000);
 })();
