@@ -1,6 +1,11 @@
 /*
  * JavaScript for the game.html page
  */
+
+/*
+ * On first load of the page: adds all the players to the top of the Game,
+ *                            adds all the cards of the current client player
+ */
 $(document).ready($.ajax({
     url: 'InitializeGame',
     type: 'POST',
@@ -32,3 +37,25 @@ $(document).ready($.ajax({
     error: function() {
         alert('failure');
     }}));
+
+/*
+ * Polls for updates to the game
+ */
+(function poll() {
+    setTimeout(function() {
+        $.ajax({
+            url: 'PollStartGame',
+            type: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                
+            },
+            error: function(data) {
+                alert("poll failed");
+            },
+            // Poll until we are able to create the game.
+            complete: poll,
+            timeout: 1000
+        });
+    }, 2000);
+})();

@@ -21,12 +21,21 @@ import keyf.clueless.data.Player;
 public class PollServlet extends HttpServlet
 {
     /**
-     * Handles the HTTP
-     * <code>GET</code> method.
-     * <p/>
+     * Returns a JSON object that describes the state of the current player
+     * (that is, the player whose Name is in the Session).
+     *
+     * {
+     *     "suspectMessage": "I shot the sheriff",
+     *     "logMessage": "But Bob Marley did not shoot the deputy",
+     *     // All of the following actions are optional...
+     *     "move": ["STUDY", ...]"
+     *     "suggest": {"weapons": [ "ROPE" ], "suspects": ["COL_MUSTARD", ... ]},
+     *     "accuse": {"weapons": [ "ROPE" ], "suspects": ["COL_MUSTARD", ... ], "rooms", [ "STUDY", ...]},
+     *
+     *
      * @param request servlet request
      * @param response servlet response
-     * <p/>
+     *
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */

@@ -22,11 +22,17 @@ $(function() {
     });
 });
 
+/*
+* Polls for updates.
+* If there are enough players to start a game, show the * "start game" button.
+* If a Game is already in progress, redirect to the game.
+ */
 (function poll() {
     setTimeout(function() {
         $.ajax({
             url: 'PollStartGame',
             type: 'GET',
+            dataType: 'json',
             success: function(data) {
                 if (data.canCreateGame) {
                     $("#waiting").hide();
@@ -40,7 +46,6 @@ $(function() {
             error: function(data) {
                 //alert("poll failed");
             },
-            dataType: 'json',
             // Poll until we are able to create the game.
             complete: poll,
             timeout: 1000
