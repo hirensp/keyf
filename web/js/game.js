@@ -72,7 +72,7 @@ var lastStateId = 'not an id';
                         var subActionForm = $('<form/>')
                             .attr('id', action.name)
                             .attr('action', action.action)
-                            .attr('method', 'GET')
+                            .attr('method', 'POST')
                             .append($('<p style="float: left"/>').text(action.message));
 
                         if ('options' in action) {
@@ -88,8 +88,18 @@ var lastStateId = 'not an id';
                         }
 
                         subActionForm.append($('<input style="float: left"/>')
+                            .attr('id', action.name + "input")
+                            .attr('method', 'POST')
                             .attr('type', 'submit')
                             .attr('value', action.name));
+
+                        subActionForm.submit($.ajax({
+                            url: action.action,
+                            type: 'POST',
+                            dataType: 'json',
+                            success: function(data) {
+                                alert(JSON.stringify(data));
+                            }}));
 
                         subActionForm.append($('<button>').text('cancle'));
 

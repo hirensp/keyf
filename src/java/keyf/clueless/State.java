@@ -129,6 +129,33 @@ public class State
     }
 
     /**
+     * {
+     *     "suspectMessage": "message",
+     *     "logMessage": "log message",
+     *     "actions": [ available actions ],
+     *     "thingsThatMoved": [ things that moved ]
+     * }
+     *
+     * @return
+     */
+    public String getJsonString()
+    {
+        JSONObject json = new JSONObject();
+
+        for(Movement movement : thingsThatMoved)
+        {
+            json.accumulate("movements", movement.getJsonString());
+        }
+        for(OfferAction action : availableActions)
+        {
+            json.accumulate("actions", action.getJsonString());
+        }
+        json.put("suspectMessage", suspectMessage);
+        json.put("logMessage", logMessage);
+        return json.toString();
+    }
+
+    /**
      * A convenient way to build new {@list State}s from preexisting {@list
      * State}s.
      */
@@ -159,33 +186,6 @@ public class State
         {
             this.suspectMessage = suspectMessage;
             return this;
-        }
-
-        /**
-         * {
-         *     "suspectMessage": "message",
-         *     "logMessage": "log message",
-         *     "actions": [ available actions ],
-         *     "thingsThatMoved": [ things that moved ]
-         * }
-         *
-         * @return
-         */
-        public String getJsonString()
-        {
-            JSONObject json = new JSONObject();
-           
-            for(Movement movement : thingsThatMoved)
-            {
-                json.accumulate("movements", movement.getJsonString());
-            }
-            for(OfferAction action : availableActions)
-            {
-                json.accumulate("actions", action.getJsonString());
-            }
-            json.put("suspectMessage", suspectMessage);
-            json.put("logMessage", logMessage);      
-            return json.toString();
         }
 
         /**

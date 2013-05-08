@@ -59,7 +59,7 @@ public class OfferMove implements OfferAction
         json.put("options", new JSONArray().put(jsonLocations));
 
         json.put("message", "I will move to:");
-        json.put("action", "OfferMove");
+        json.put("action", "Move");
 
         return json.toString();
     }

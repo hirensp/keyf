@@ -58,7 +58,7 @@ public class OfferAccusation implements OfferAction
         json.accumulate("options", jsonRooms);
 
         json.put("message", "I will Accuse:");
-        json.put("action", "OfferAccusation");
+        json.put("action", "Accusation");
 
         return json.toString();
     }
