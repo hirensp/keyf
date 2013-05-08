@@ -24,7 +24,7 @@ public interface OfferAction
 
     /**
      * Returns a JSON representation of this object to send to clients.
-     * All should be soemthing like:
+     * All should be something like:
      * {
      *     "name": "Human Readable Name",
      *     // might be empty
