@@ -4,6 +4,7 @@
     Author     : hp
 --%>
 
+<%@page import="keyf.clueless.server.ServletContextAttributeKeys"%>
 <%@page import="keyf.clueless.data.Suspect"%>
 <%@page import="keyf.clueless.data.Item"%>
 <!DOCTYPE html>
@@ -38,32 +39,38 @@
                 <%
                     List<Suspect> suspects = Arrays.asList(Suspect.values());
                     Iterator<Suspect> iterator = suspects.iterator();
-
+                    
+                    GameManager _manager = (GameManager)request.getServletContext().getAttribute(ServletContextAttributeKeys.GAME_MANAGER);
+                    Suspect suspect = iterator.next();
+                    
                     // Show all Suspects
-                    out.println("<tr>");
-                    while (iterator.hasNext())
-                    {
-                        Suspect suspect = iterator.next();
+                    out.println("<tr align='center'>");
+                    while (suspect != null)
+                    {                           
                         out.println("<td>");
+                        
                         out.println("<img "
                                 + "src='images/"+ suspect.name() +".jpg' "
                                 + "alt='"+ suspect.name()
-                                + "' width='70' height='100' >");
-                        out.println("</td>");
-                    }
-                    out.println("</tr>");
-
-                    // generate an iterator that will be the same order
-                    iterator = suspects.iterator();
-                    // show the radio buttons
-                    out.println("<tr>");
-                    while (iterator.hasNext())
-                    {
-                        out.println("<td>");
-                        out.print("<input type='radio' "
+                                + "' width='70' height='100'>");
+                        
+                        out.print("<div style='display:table-cell; vertical-align:bottom; padding:5px;' ><input type='radio' "
                                 + "name='suspect' "
-                                + "value='"+ iterator.next().name() +"'>");
+                                + "value='"+ suspect.name() +"' ");
+                        
+                        if (_manager.checkCurrentSuspect(suspect)){
+                            out.print(" disabled='disabled' > </div>");
+                        }
+                        else{
+                            out.print("></div>");
+                        }
+                        
                         out.println("</td>");
+                        
+                        if(iterator.hasNext())
+                            suspect = iterator.next();
+                        else
+                            suspect = null;
                     }
                     out.println("</tr>");
                 %>

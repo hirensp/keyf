@@ -2,6 +2,7 @@ package keyf.clueless;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.ListIterator;
 import keyf.clueless.data.Suspect;
 
 /**
@@ -67,5 +68,19 @@ public class GameManager
             throw new IllegalStateException(
                     "Verify canMakeGame() before calling createGame()");
         }
+    }
+    
+    public boolean checkCurrentSuspect(Suspect card){
+        //Get list of players
+        ListIterator<PrePlayer> pList = prePlayers.listIterator();
+        
+        //Iterate through list of players
+        while(pList.hasNext()){
+            //if suspect exists return
+            if(pList.next().getSuspect().name().equals(card.name()))
+                return true;
+        }
+        //no suspect found return
+        return false; 
     }
 }
