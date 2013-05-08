@@ -19,7 +19,7 @@ public class OfferAccusation implements OfferAction
      * {
      *     "name": "Accuse",
      *     "options": [ [ All Suspects ], [ All Weapons ], [ All Rooms ] ],
-     *     "message": " I accuse: "
+     *     "message": " I will accuse: "
      * }
      *
      * @return the above

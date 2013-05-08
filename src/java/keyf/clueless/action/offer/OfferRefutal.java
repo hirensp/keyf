@@ -42,6 +42,13 @@ public class OfferRefutal implements OfferAction
         return action instanceof Refute;
     }
 
+    /**
+     * {
+     *     "name": "Refute",
+     *     "options:" [ [ Items ] ],
+     *     "message:" "I will refute with: "
+     * }
+     */
     @Override
     public String getJsonString()
     {

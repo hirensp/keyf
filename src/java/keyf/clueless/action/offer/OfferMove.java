@@ -7,6 +7,8 @@ import java.util.Collections;
 import java.util.Set;
 import keyf.clueless.action.Action;
 import keyf.clueless.action.Move;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  *
@@ -40,14 +42,17 @@ public class OfferMove implements OfferAction
     /**
      * {
      *     "name": "Move",
-     *     "options": [[ -set of places to move (look in Board)- ]],
-     *     "message": "Move to: "
+     *     "options": [[ -set of places to move- ]],
+     *     "message": "I will move to: "
      * }
-     * @return
      */
     @Override
     public String getJsonString()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        JSONObject json = new JSONObject();
+        json.put("name", "Move");
+        json.put("options", new JSONArray().put(new JSONArray(possibleLocations)));
+        json.put("message", "I will move to:");
+        return json.toString();
     }
 }

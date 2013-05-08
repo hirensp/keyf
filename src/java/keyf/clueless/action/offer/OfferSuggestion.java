@@ -33,6 +33,13 @@ public class OfferSuggestion implements OfferAction
         return action instanceof Suggestion;
     }
 
+    /**
+     * {
+     *     "name": "Suggest",
+     *     "options": [ [ suspects ], [ weapons ] ],
+     *     "message": "I will suggest:"
+     * }
+     */
     @Override
     public String getJsonString()
     {

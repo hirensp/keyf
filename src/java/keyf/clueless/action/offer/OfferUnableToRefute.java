@@ -17,4 +17,15 @@ public class OfferUnableToRefute implements OfferAction
     {
         return action instanceof UnableToRefute;
     }
+
+    /**
+     * {
+     *     "name": "Unable to Refute"
+     * }
+     */
+    @Override
+    public String getJsonString()
+    {
+        return "";
+    }
 }
