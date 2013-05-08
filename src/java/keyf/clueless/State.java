@@ -12,6 +12,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
+import org.json.JSONObject;
 
 /**
  * Represents the state of a {@link Game} for a particular {@link Player}.
@@ -171,8 +172,12 @@ public class State
          */
         public String getJsonString()
         {
-            // YONI!!!
-            return "";
+            JSONObject json = new JSONObject();
+            json.put("suspectMessage", suspectMessage);
+            json.put("logMessage", logMessage);              
+            json.put("actions", availableActions);
+            json.put("things that moved", thingsThatMoved);
+            return json.toString();
         }
 
         /**

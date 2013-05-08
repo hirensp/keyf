@@ -2,6 +2,7 @@ package keyf.clueless;
 
 import keyf.clueless.data.Item;
 import keyf.clueless.data.location.Location;
+import org.json.JSONObject;
 
 /**
  *
@@ -30,7 +31,10 @@ public class Movement
 
     public String toJsonString()
     {
-        // YONI!!!!!!
-        return null;
+        JSONObject json = new JSONObject();
+        
+        json.put("what", this.getWhat());
+        json.put("where", this.getWhere());
+        return json.toString();
     }
 }
