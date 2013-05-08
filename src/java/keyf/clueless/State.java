@@ -9,6 +9,7 @@ import keyf.clueless.data.Player;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -51,6 +52,11 @@ public class State
     private final UUID id;
 
     /**
+     * The set of things that have moved since the previous state
+     */
+    private final Set<Movement> thingsThatMoved = new HashSet<Movement>();
+
+    /**
      * Creates a new state.
      *
      * @param availableActions actions that are currently available to the
@@ -65,7 +71,20 @@ public class State
                  String suspectMessage,
                  String logMessage)
     {
-        this.availableActions = Collections.unmodifiableSet(
+        this(availableActions,
+             temporarilyUnavailableActions,
+             suspectMessage,
+             logMessage,
+             Collections.<Movement>emptySet());
+    }
+
+    public State(Set<OfferAction> availableActions,
+                 Set<OfferAction> temporarilyUnavailableActions,
+                 String suspectMessage,
+                 String logMessage,
+                 Set<Movement> thingsThatMoved)
+    {
+                this.availableActions = Collections.unmodifiableSet(
                 requireNonNullAndContainsNonNull(
                         availableActions));
 
@@ -78,6 +97,8 @@ public class State
         this.logMessage = logMessage;
 
         this.id = UUID.randomUUID();
+
+        this.thingsThatMoved.addAll(thingsThatMoved);
     }
 
     public Set<OfferAction> getAvailableActions()
@@ -115,6 +136,7 @@ public class State
         private final Set<OfferAction> temporarilyUnavailableActions;
         private String suspectMessage;
         private String logMessage;
+        private final Set<Movement> thingsThatMoved = new HashSet<Movement>();
 
         public Builder(State state)
         {
@@ -135,6 +157,22 @@ public class State
         {
             this.suspectMessage = suspectMessage;
             return this;
+        }
+
+        /**
+         * {
+         *     "suspectMessage": "message",
+         *     "logMessage": "log message",
+         *     "actions": [ available actions ],
+         *     "thingsThatMoved": [ things that moved ]
+         * }
+         *
+         * @return
+         */
+        public String getJsonString()
+        {
+            // YONI!!!
+            return "";
         }
 
         /**
@@ -204,6 +242,12 @@ public class State
             return this;
         }
 
+        public Builder setThingsThatMoved(Set<Movement> moved)
+        {
+            thingsThatMoved.addAll(moved);
+            return this;
+        }
+
         /**
          * Builds the new State.
          *
@@ -215,7 +259,8 @@ public class State
                     availableActions,
                     temporarilyUnavailableActions,
                     suspectMessage,
-                    logMessage);
+                    logMessage,
+                    thingsThatMoved);
         }
     }
 }

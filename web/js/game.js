@@ -69,16 +69,30 @@ var lastStateId = 'not an id';
                                 }));
 
                         /* todo figure out how to setup sub action stuff */
-                        $('#subActions').append($('<form/>')
+                        var subActionForm = $('<form/>')
                             .attr('id', action.name)
                             .attr('action', action.action)
                             .attr('method', 'GET')
-                            .append($('<p style="float: left"/>').text(action.message))
-                            .append($('<input style="float: left"/>')
-                                .attr('type', 'submit')
-                                .attr('value', action.name)).hide());
+                            .append($('<p style="float: left"/>').text(action.message));
 
-                        /* more crap about which characters and weapons and stuff moved where! */
+                        if ('options' in data) {
+                            $.each(data.options, function(index1, subOptions) {
+                                $.each(subOptions, function(index2, option) {
+                                    $('<select style="float: left"/>')
+                                        .append($('<option/>').text(option));
+                                });
+                            });
+                        }
+
+                        subActionForm.append($('<input style="float: left"/>')
+                            .attr('type', 'submit')
+                            .attr('value', action.name));
+
+                        subActionForm.append($('<button>').text('cancle'));
+
+                        subActionForm.hide();
+
+                        $('#subActions').append(subActionForm);
                     });
                 }
             },
