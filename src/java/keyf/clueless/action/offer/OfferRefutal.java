@@ -8,6 +8,8 @@ import java.util.HashSet;
 import java.util.Set;
 import keyf.clueless.action.Action;
 import keyf.clueless.action.Refute;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  * Allows a Player to refute a {@link Suggestion}.
@@ -52,6 +54,13 @@ public class OfferRefutal implements OfferAction
     @Override
     public String getJsonString()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        JSONObject json = new JSONObject();
+        json.put("name", "Refute");
+        for(Item card : cards)
+        {
+            json.put("options", new JSONArray().put(new JSONArray(card)));
+        }
+        json.put("message", "I will refute with:");
+        return json.toString();
     }
 }
