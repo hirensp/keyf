@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import keyf.clueless.Game;
 import keyf.clueless.State;
+import keyf.clueless.action.offer.OfferMove;
 import keyf.clueless.data.Player;
+import org.json.JSONArray;
 
 /**
  *
@@ -60,5 +62,21 @@ public class PollServlet extends HttpServlet
 
             response.setContentType("application/json");
         }
+    }
+
+    /**
+     * Returns a JSON representation of an {@link OfferMove}
+     * [ "BALLROOM", "DINNING_ROOM", ...]
+     *
+     * @param offerMove
+     * @return
+     */
+    private String getOfferMoveJsonString(OfferMove offerMove)
+    {
+        JSONArray possibleRooms = new JSONArray();
+
+        possibleRooms.put("BALLROOM");
+
+        return possibleRooms.toString();
     }
 }
