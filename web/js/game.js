@@ -77,10 +77,11 @@ var lastStateId = 'not an id';
 
                         if ('options' in action) {
                             $.each(action.options, function(index1, subOptions) {
+                                var options = $('<select style="float: left"/>');
                                 $.each(subOptions, function(index2, option) {
                                     subActionForm.append(
-                                        $('<select style="float: left"/>')
-                                            .append($('<option/>')
+
+                                            options.append($('<option/>')
                                                 .attr('value', option)
                                                 .text(option)));
                                 });
@@ -96,6 +97,7 @@ var lastStateId = 'not an id';
                         subActionForm.submit($.ajax({
                             url: action.action,
                             type: 'POST',
+                            data: dataByName(action.action),
                             dataType: 'json',
                             success: function(data) {
                                 alert(JSON.stringify(data));
@@ -117,3 +119,36 @@ var lastStateId = 'not an id';
         });
     }, 2000);
 })();
+
+function dataByName(name) {
+
+    var data;
+
+    if (name === "Move") {
+        data = moveData();
+    } else if (name === "Suggest") {
+        data = suggestData();
+    } else if (name === "Accuse") {
+        data = accuseData();
+    } else if (name === "Refute") {
+        data = refuteData();
+    }
+
+    return data;
+}
+
+function moveData() {
+
+}
+
+function suggestData() {
+
+}
+
+function accuseData() {
+
+}
+
+function refuteData() {
+
+}
