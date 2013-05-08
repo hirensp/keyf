@@ -56,10 +56,14 @@ public class OfferRefutal implements OfferAction
     {
         JSONObject json = new JSONObject();
         json.put("name", "Refute");
+
+        JSONArray jsonCards = new JSONArray();
         for(Item card : cards)
         {
-            json.put("options", new JSONArray().put(new JSONArray(card)));
+            jsonCards.put(card.getDescription());
         }
+        json.put("options", new JSONArray().put(cards));
+
         json.put("message", "I will refute with:");
         return json.toString();
     }

@@ -99,4 +99,10 @@ public enum Hallway implements Location
     {
         return true;
     }
+
+    @Override
+    public String getDesciription()
+    {
+        return this.name();
+    }
 }

@@ -2,8 +2,6 @@ package keyf.clueless.action.offer;
 
 import keyf.clueless.action.Action;
 import keyf.clueless.action.Suggestion;
-import keyf.clueless.action.offer.OfferAction;
-import keyf.clueless.data.Suspect;
 import keyf.clueless.data.Weapon;
 import keyf.clueless.data.location.Room;
 import org.json.JSONArray;

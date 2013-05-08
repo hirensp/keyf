@@ -1,6 +1,5 @@
 package keyf.clueless.action.offer;
 
-import keyf.clueless.action.offer.OfferAction;
 import keyf.clueless.data.location.Location;
 
 import java.util.Collections;
@@ -51,10 +50,14 @@ public class OfferMove implements OfferAction
     {
         JSONObject json = new JSONObject();
         json.put("name", "Move");
+
+        JSONArray jsonLocations = new JSONArray();
         for (Location location : possibleLocations)
         {
-            json.put("options", new JSONArray().put(new JSONArray(possibleLocations)));
+            jsonLocations.put(location.getDesciription());
         }
+        json.put("options", new JSONArray().put(jsonLocations));
+
         json.put("message", "I will move to:");
         return json.toString();
     }

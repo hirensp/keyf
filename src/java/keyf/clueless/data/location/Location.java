@@ -20,7 +20,7 @@ public interface Location
      *
      * @return {@link Location}s that are reachable from this {@link Location}.
      */
-    public Set<? extends Location> getNeighbors();
+    Set<? extends Location> getNeighbors();
 
     /**
      * Returns whether or not this location can hold one occupant ({@link
@@ -31,5 +31,7 @@ public interface Location
      * @return {@code true} if this room can only hold a single occupant, {@code
      *     false} otherwise.
      */
-    public boolean isSingleOccupancy();
+    boolean isSingleOccupancy();
+
+    String getDesciription();
 }
