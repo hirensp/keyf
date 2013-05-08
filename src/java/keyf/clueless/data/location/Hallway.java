@@ -101,7 +101,7 @@ public enum Hallway implements Location
     }
 
     @Override
-    public String getDesciription()
+    public String getDescription()
     {
         return this.name();
     }

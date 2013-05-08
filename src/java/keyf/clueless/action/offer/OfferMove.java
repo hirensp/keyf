@@ -54,7 +54,7 @@ public class OfferMove implements OfferAction
         JSONArray jsonLocations = new JSONArray();
         for (Location location : possibleLocations)
         {
-            jsonLocations.put(location.getDesciription());
+            jsonLocations.put(location.getDescription());
         }
         json.put("options", new JSONArray().put(jsonLocations));
 

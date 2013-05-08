@@ -49,4 +49,12 @@ public enum StartingLocation implements Location
     {
         return true;
     }
+
+    @Override
+    public String getDescription()
+    {
+        return this.name();
+    }
+
+
 }

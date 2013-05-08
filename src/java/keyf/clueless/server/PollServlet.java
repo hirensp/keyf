@@ -5,6 +5,7 @@
 package keyf.clueless.server;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -49,8 +50,6 @@ public class PollServlet extends HttpServlet
                          HttpServletResponse response)
             throws ServletException, IOException
     {
-        response.setContentType("application/json");
-
         Game game = (Game) request.getServletContext().getAttribute(
                 ServletContextAttributeKeys.GAME);
 
@@ -75,5 +74,8 @@ public class PollServlet extends HttpServlet
             json.accumulate("actions", action.getJsonString());
         }
         // TODO more stuff about which players moved and weapons too
+
+        response.setContentType("application/json");
+        response.getWriter().write(json.toString());
     }
 }

@@ -42,24 +42,30 @@ $(document).ready($.ajax({
  * Polls for updates to the game
  */
 (function poll() {
+    var lastStateId = '';
     setTimeout(function() {
         $.ajax({
             url: 'Poll',
             type: 'GET',
             dataType: 'json',
             success: function(data) {
-                $('#suspectMessage').text(data.suspectMessage);
-                $('#log').append($('<p />').text(data.logMessage));
+                if (lastStateId !== data.id) {
+                    $('#suspectMessage').text(data.suspectMessage);
+                    $('#log').append($('<p />').text(data.logMessage));
 
-                for (var actionString in data.actions) {
-                    var action = $.parseJSON(actionString);
+                    for (var actionString in data.actions) {
+                        var action = $.parseJSON(actionString);
 
-                    $('<input/>').attr("type", "button").attr("value", action.name);
+                        $('#actions').append(
+                            $('<input/>')
+                                .attr('type', 'button')
+                                .attr('value', action.name));
+                    }
                     /* todo figure out how to setup sub action stuff */
-                }
-                $('#actions').html(/* complicated crap */);
+                    /* $('#subActions') */
 
-                /* more crap about which characters and weapons and stuff moved where! */
+                    /* more crap about which characters and weapons and stuff moved where! */
+                }
             },
             error: function(data) {
                 //alert("poll failed");

@@ -33,10 +33,6 @@ public class PollStartGameServlet extends HttpServlet
             HttpServletResponse response)
             throws ServletException, IOException
     {
-        response.setContentType("application/json");
-
-        PrintWriter out = response.getWriter();
-
         GameManager gameManager = (GameManager) request.getServletContext()
                 .getAttribute(ServletContextAttributeKeys.GAME_MANAGER);
 
@@ -49,7 +45,8 @@ public class PollStartGameServlet extends HttpServlet
             canCreateGame = gameManager.canCreateGame();
         }
 
-        out.write(
+        response.setContentType("application/json");
+        response.getWriter().write(
                 new JSONObject()
                         .put("canCreateGame", canCreateGame)
                         .put("gameInProgress", gameInProgress)

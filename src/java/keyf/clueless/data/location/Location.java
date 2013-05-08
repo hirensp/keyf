@@ -33,5 +33,5 @@ public interface Location
      */
     boolean isSingleOccupancy();
 
-    String getDesciription();
+    String getDescription();
 }
