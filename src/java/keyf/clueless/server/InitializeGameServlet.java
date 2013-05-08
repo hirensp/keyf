@@ -22,8 +22,8 @@ public class InitializeGameServlet extends HttpServlet
     /**
      * Returns a json object in the following manner:
      * {
-     *     "players": [ #html#, #html, ... ],
-     *     "cards": [#html, #html, ...]
+     *     "players": [ {player info...}, ... ],
+     *     "cards": [ {card info...}, ...]
      * }
      *
      * Handles the HTTP <code>POST</code> method.
@@ -56,7 +56,7 @@ public class InitializeGameServlet extends HttpServlet
                             ServletContextAttributeKeys.SESSION_PLAYER_ID);
 
             Player currentPlayer = game.getPlayerByName(playerId);
-            
+
             cards = currentPlayer.getCards();
         }
 
@@ -77,37 +77,35 @@ public class InitializeGameServlet extends HttpServlet
     }
 
     /**
-     * Returns a string of HTML describing the {@code item} as a card. This
-     * appears in the list of cards.
-     *
-     * Example return value:
-     * <div id="RopeCard" style="float: left">
-     *     <img src="imges/Rope.jpg" alt="Rope" hight="155" width="100" />
-     * </div>
-     *
+     * Returns a JSON string that contains information about the card (image)
      * @param item The item to make the HTML string for.
-     *
+     * {
+     *     "image": "images/COL_MUSTARD.jpg",
+     *     "height": 155,
+     *     "width": 100
+     * }
      * @return never {@code null}
      */
     private String getCardHtml(Item item)
     {
-        return "<div id=\"RopeCard\" style=\"float: left\">"
-               + "<img src=\"images/Rope.jpg\" alt=\"Rope\" hight=\"155\" width=\"100\" />"
-                + "</div>";
+        JSONObject jsonCard = new JSONObject();
+
+        jsonCard.put("image", "images/COL_MUSTARD.jpg")
+                .put("height", 155)
+                .put("width", 100);
+
+        return jsonCard.toString();
     }
 
     /**
-     * Returns a string of HTML describing a player. This appears at the top of
-     * the game board (on the game.html page).
-     *
-     * Example return value (I don't know if this is exactly what you'll need,
-     * but I'll try to get the piping all in place so you can test):
-     * <div id="player.getIdentifier()" style="float: left">
-     *     <img src="images/COL_MUSTARD.jpg" alt="Col Mustard" hight="155" width="100" />
-     *     <p>
-     *         Player ID (name) from player.getIdentifier().
-     *     </p>
-     * </div>
+     * Returns a JSON string that contains information about each player
+     * (picture and name)
+     * {
+     *     "image": "images/COL_MUSTARD.jpg",
+     *     "height": 155,
+     *     "width": 100,
+     *     "name": Kuporific
+     * }
      *
      * @param player The player to make the HTML string for.
      *
@@ -115,9 +113,19 @@ public class InitializeGameServlet extends HttpServlet
      */
     private String getPlayerHtml(Player player)
     {
-        return "<div id=\"" + player.getIdentifier() + "\" style=\"float: left\">"
-               + "<img src=\"images/COL_MUSTARD.jpg\" alt=\"Col Mustard\" hight=\"155\" width=\"100\" />"
-               + "<p>" + player.getIdentifier() + "</p>"
-                + "</div>";
+        JSONObject jsonPlayer = new JSONObject();
+
+        jsonPlayer.put("image", "images/COL_MUSTARD.jpg")
+                .put("height", 155)
+                .put("width", 100)
+                .put("name", player.getIdentifier());
+
+        return jsonPlayer.toString();
+    }
+
+    // HINT!!!!
+    private JSONObject getImageInformation()
+    {
+        return null;
     }
 }
