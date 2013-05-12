@@ -44,19 +44,5 @@ public class UnableToRefuteServlet extends HttpServlet
 
             unableToRefute.performAction(game);
         }
-
-        request.getRequestDispatcher("UnableToRefute.jsp")
-                .forward(request, response);
-    }
-
-    /**
-     * Returns a short description of the servlet.
-     * <p/>
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo()
-    {
-        return "Short description";
     }
 }

@@ -41,23 +41,12 @@ public class GameManagerAddingPlayersServlet extends HttpServlet
         request.getSession().setAttribute(
                 ServletContextAttributeKeys.SESSION_PLAYER_ID,
                 name);
-        
+
         synchronized (gameManager)
         {
             gameManager.addClientData(
                     name,
                     Suspect.valueOf((String) request.getParameter("suspect")));
         }
-    }
-
-    /**
-     * Returns a short description of the servlet.
-     * <p/>
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo()
-    {
-        return "Short description";
     }
 }

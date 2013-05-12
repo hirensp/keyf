@@ -59,19 +59,5 @@ public class MoveServlet extends PostListStringServlet
         {
             move.performAction(game);
         }
-
-        // TODO...
-//        request.getRequestDispatcher("/Poll").forward(request, response);
-    }
-
-    /**
-     * Returns a short description of this servlet.
-     * <p/>
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo()
-    {
-        return "Handles a Move request";
     }
 }

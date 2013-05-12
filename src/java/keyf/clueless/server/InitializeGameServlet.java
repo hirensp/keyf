@@ -88,13 +88,7 @@ public class InitializeGameServlet extends HttpServlet
      */
     private String getCardJsonString(Item item)
     {
-        JSONObject jsonCard = new JSONObject();
-        String description = item.getDescription();
-        jsonCard.put("image", "images/"+description+".jpg")
-                .put("height", 155)
-                .put("width", 100);
-
-        return jsonCard.toString();
+        return getImageInformation(item.getDescription()).toString();
     }
 
     /**
@@ -113,19 +107,16 @@ public class InitializeGameServlet extends HttpServlet
      */
     private String getPlayerJsonString(Player player)
     {
-        JSONObject jsonPlayer = new JSONObject();
-        String suspect = player.getSuspect().getDescription();
-        jsonPlayer.put("image", "images/"+suspect+".jpg")
-                .put("height", 155)
-                .put("width", 100)
-                .put("name", player.getIdentifier());
-
-        return jsonPlayer.toString();
+        return getImageInformation(player.getSuspect().getDescription())
+                .put("name", player.getIdentifier())
+                .toString();
     }
 
-    // HINT!!!!
-    private JSONObject getImageInformation()
+    private JSONObject getImageInformation(String imageName)
     {
-        return null;
+        return new JSONObject()
+                .put("image", "images/" + imageName + ".jpg")
+                .put("height", 155)
+                .put("width", 100);
     }
 }

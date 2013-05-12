@@ -55,9 +55,5 @@ public class AccusationServlet extends PostListStringServlet
         {
             accusation.performAction(game);
         }
-
-        // TODO...
-//        request.getRequestDispatcher("Accusation.jsp")
-//                .forward(request, response);
     }
 }

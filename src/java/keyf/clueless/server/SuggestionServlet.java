@@ -9,7 +9,6 @@ import keyf.clueless.Game;
 import keyf.clueless.action.Suggestion;
 import keyf.clueless.data.Suspect;
 import keyf.clueless.data.Weapon;
-import keyf.clueless.data.location.Room;
 
 /**
  *
@@ -32,12 +31,8 @@ public class SuggestionServlet extends PostListStringServlet
                                   List<String> bodyParameters)
              throws ServletException, IOException
     {
-        Game game = (Game) request.getServletContext().getAttribute(
-                ServletContextAttributeKeys.GAME);
-
         Suspect suspect = null;
         Weapon weapon = null;
-        Room room = null;
 
         for (String parameter : bodyParameters)
         {
@@ -50,20 +45,16 @@ public class SuggestionServlet extends PostListStringServlet
             {
                 weapon = Weapon.valueOf(parameter);
             }
-
-            if (Room.isValid(parameter))
-            {
-                room = Room.valueOf(parameter);
-            }
         }
 
-        Suggestion suggestion = new Suggestion(suspect, weapon, room);
+        Suggestion suggestion = new Suggestion(suspect, weapon);
+
+         Game game = (Game) request.getServletContext().getAttribute(
+                ServletContextAttributeKeys.GAME);
 
         synchronized(game)
         {
             suggestion.performAction(game);
         }
-
-        // todo forward to the poller
     }
 }

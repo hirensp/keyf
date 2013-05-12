@@ -27,24 +27,25 @@ public class Suggestion implements Action
 
     private final Suspect suspect;
     private final Weapon weapon;
-    private final Room room;
 
-    public Suggestion(Suspect suspect, Weapon weapon, Room room)
+    public Suggestion(Suspect suspect, Weapon weapon)
     {
         this.suspect = requireNonNull(suspect);
         this.weapon = requireNonNull(weapon);
-        this.room = requireNonNull(room);
     }
 
     @Override
     public void performAction(Game game)
     {
-        game.getBoard().setLocation(suspect, room);
-        game.getBoard().setRoom(weapon, room);
-
         TurnManager turnManager = game.getTurnManager();
 
         Player currentPlayer = turnManager.getCurrentPlayer();
+
+        // TODO don't cast like this: although we know that it has to be a Room
+        //      if this method was called in the first place.
+        Room room = (Room) game.getBoard().getLocation(currentPlayer.getSuspect());
+        game.getBoard().setLocation(suspect, room);
+        game.getBoard().setRoom(weapon, room);
 
         // Set the next player active; this Player will have to answer the
         // suggestion.

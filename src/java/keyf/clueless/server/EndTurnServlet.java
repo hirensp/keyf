@@ -30,7 +30,7 @@ public class EndTurnServlet extends HttpServlet
             throws ServletException, IOException
     {
         EndTurn endTurn = new EndTurn();
-        
+
         Game game = (Game) request.getServletContext().getAttribute(
                 ServletContextAttributeKeys.GAME);
 
@@ -38,18 +38,5 @@ public class EndTurnServlet extends HttpServlet
         {
             endTurn.performAction(game);
         }
-
-        request.getRequestDispatcher("EndTurn.jsp").forward(request, response);
-    }
-
-    /**
-     * Returns a short description of the servlet.
-     * <p/>
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo()
-    {
-        return "Short description";
     }
 }
