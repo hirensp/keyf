@@ -1,6 +1,7 @@
 package keyf.clueless.server;
 
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -8,12 +9,15 @@ import javax.servlet.http.HttpServletResponse;
 import keyf.clueless.Game;
 import keyf.clueless.action.Refute;
 import keyf.clueless.data.Item;
+import keyf.clueless.data.Suspect;
+import keyf.clueless.data.Weapon;
+import keyf.clueless.data.location.Room;
 
 /**
  *
  * @author justin
  */
-public class RefuteServlet extends HttpServlet
+public class RefuteServlet extends PostListStringServlet
 {
     /**
      * Handles the HTTP
@@ -25,37 +29,42 @@ public class RefuteServlet extends HttpServlet
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @Override
-    protected void doPost(HttpServletRequest request,
-                          HttpServletResponse response)
-            throws ServletException, IOException
+     @Override
+    protected void completeDoPost(HttpServletRequest request,
+                                  HttpServletResponse response,
+                                  List<String> bodyParameters)
+             throws ServletException, IOException
     {
+        Item item = null;
+
+        for (String parameter : bodyParameters)
+        {
+            if (Suspect.isValid(parameter))
+            {
+                item = Suspect.valueOf(parameter);
+            }
+
+            if (Weapon.isValid(parameter))
+            {
+                item = Weapon.valueOf(parameter);
+            }
+
+            if (Room.isValid(parameter))
+            {
+                item = Room.valueOf(parameter);
+            }
+        }
+
+        Refute refute = new Refute(item);
+
         Game game = (Game) request.getServletContext().getAttribute(
                 ServletContextAttributeKeys.GAME);
 
         synchronized(game)
         {
-            String itemParameter = request.getParameter("Item");
-
-            Item item = null;
-
-            // TODO how will we get the item without a bunch of try/catch junk?
-            
-            Refute refute = new Refute(item);
             refute.performAction(game);
         }
 
         request.getRequestDispatcher("Refute.jsp").forward(request, response);
     }
-
-    /**
-     * Returns a short description of the servlet.
-     * <p/>
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo()
-    {
-        return "Short description";
-    }// </editor-fold>
 }

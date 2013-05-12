@@ -5,19 +5,13 @@
 package keyf.clueless.server;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import keyf.clueless.Game;
 import keyf.clueless.State;
 import keyf.clueless.action.offer.OfferAction;
-import keyf.clueless.action.offer.OfferMove;
-import keyf.clueless.data.Player;
-import keyf.clueless.data.location.Location;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
@@ -49,29 +43,36 @@ public class PollServlet extends HttpServlet
 
         State state = null;
 
-        if (game != null)
+        try
         {
-            synchronized(game)
+            if (game != null)
             {
-                // Get the current player's state
-                state = game.getLatestState(
-                        game.getPlayerByName(currentPlayerName));
+                synchronized (game)
+                {
+                    // Get the current player's state
+                    state = game.getLatestState(
+                            game.getPlayerByName(currentPlayerName));
+                }
+
+                JSONObject json = new JSONObject();
+                json.put("id", state.getId().toString());
+                json.put("suspectMessage", state.getSuspectMessage());
+                json.put("logMessage", state.getLogMessage());
+
+                for (OfferAction action : state.getAvailableActions())
+                {
+                    json.accumulate("actions", action.getJsonString());
+                }
+
+                // TODO more stuff about which players moved and weapons too
+
+                response.setContentType("application/json");
+                response.getWriter().write(json.toString());
             }
-
-            JSONObject json = new JSONObject();
-            json.put("id", state.getId().toString());
-            json.put("suspectMessage", state.getSuspectMessage());
-            json.put("logMessage", state.getLogMessage());
-
-            for (OfferAction action : state.getAvailableActions())
-            {
-                json.accumulate("actions", action.getJsonString());
-            }
-            
-            // TODO more stuff about which players moved and weapons too
-
-            response.setContentType("application/json");
-            response.getWriter().write(json.toString());
+        }
+        catch (Error e)
+        {
+            e.printStackTrace();
         }
     }
 }

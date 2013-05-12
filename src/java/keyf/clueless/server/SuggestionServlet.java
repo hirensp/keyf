@@ -1,8 +1,8 @@
 package keyf.clueless.server;
 
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import keyf.clueless.Game;
@@ -15,7 +15,7 @@ import keyf.clueless.data.location.Room;
  *
  * @author jonathanpomper
  */
-public class SuggestionServlet extends HttpServlet
+public class SuggestionServlet extends PostListStringServlet
 {
     /**
      * Processes requests for both HTTP
@@ -27,25 +27,43 @@ public class SuggestionServlet extends HttpServlet
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request,
-                                  HttpServletResponse response)
-            throws ServletException, IOException
+    protected void completeDoPost(HttpServletRequest request,
+                                  HttpServletResponse response,
+                                  List<String> bodyParameters)
+             throws ServletException, IOException
     {
         Game game = (Game) request.getServletContext().getAttribute(
                 ServletContextAttributeKeys.GAME);
 
+        Suspect suspect = null;
+        Weapon weapon = null;
+        Room room = null;
+
+        for (String parameter : bodyParameters)
+        {
+            if (Suspect.isValid(parameter))
+            {
+                suspect = Suspect.valueOf(parameter);
+            }
+
+            if (Weapon.isValid(parameter))
+            {
+                weapon = Weapon.valueOf(parameter);
+            }
+
+            if (Room.isValid(parameter))
+            {
+                room = Room.valueOf(parameter);
+            }
+        }
+
+        Suggestion suggestion = new Suggestion(suspect, weapon, room);
+
         synchronized(game)
         {
-            Suggestion suggestion= new Suggestion(
-                    Suspect.valueOf(request.getParameter("Suspect")),
-                    Weapon.valueOf(request.getParameter("Weapon")),
-                    Room.valueOf(request.getParameter("Room")));
-
             suggestion.performAction(game);
         }
-        
-        request.getRequestDispatcher("Suggestion.jsp")
-                .forward(request, response);
+
+        // todo forward to the poller
     }
 }
-    

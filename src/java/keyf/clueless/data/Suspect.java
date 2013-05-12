@@ -37,4 +37,30 @@ public enum Suspect implements Item
     {
         return this.name();
     }
+
+
+    /**
+     * Returns {@code true} if this {@code enum} contains a value with the given
+     * {@code name}
+     *
+     * @param itemName The name of the {@code enum}.
+     *
+     * @return {@code true} if the {@code enum} contains a value with the given
+     *     {@code name}, {@code false} otherwise.
+     */
+    public static boolean isValid(String name)
+    {
+        boolean valid = false;
+
+        for (Suspect suspect : Suspect.values())
+        {
+            if (suspect.name().equals(name))
+            {
+                valid = true;
+                break;
+            }
+        }
+
+        return valid;
+    }
 }

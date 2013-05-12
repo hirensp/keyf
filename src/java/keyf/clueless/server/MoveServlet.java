@@ -1,8 +1,8 @@
 package keyf.clueless.server;
 
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import keyf.clueless.Game;
@@ -15,7 +15,7 @@ import keyf.clueless.data.location.Room;
  *
  * @author justin
  */
-public class MoveServlet extends HttpServlet
+public class MoveServlet extends PostListStringServlet
 {
     /**
      * Handles the HTTP
@@ -28,37 +28,40 @@ public class MoveServlet extends HttpServlet
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request,
-                          HttpServletResponse response)
+    protected void completeDoPost(HttpServletRequest request,
+                                  HttpServletResponse response,
+                                  List<String> bodyParameters)
             throws ServletException, IOException
     {
+        String locationString = bodyParameters.get(0);
+
+        Location location = null;
+        try
+        {
+            location = Room.valueOf(locationString);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        if (location == null)
+        {
+            location = Hallway.valueOf(locationString);
+        }
+
+        Move move = new Move(location);
+
         Game game = (Game) request.getServletContext().getAttribute(
                 ServletContextAttributeKeys.GAME);
 
         synchronized(game)
         {
-            String locationString = request.getParameter("Location");
-            Location location = null;
-
-            try
-            {
-                location = Room.valueOf(locationString);
-            }
-            catch (Exception e)
-            {
-                e.printStackTrace();
-            }
-
-            if (location == null)
-            {
-                location = Hallway.valueOf(locationString);
-            }
-
-            Move move = new Move(location);
             move.performAction(game);
         }
 
-        request.getRequestDispatcher("Move.jsp").forward(request, response);
+        // TODO...
+//        request.getRequestDispatcher("/Poll").forward(request, response);
     }
 
     /**

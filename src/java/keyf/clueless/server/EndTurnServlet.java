@@ -29,12 +29,13 @@ public class EndTurnServlet extends HttpServlet
                           HttpServletResponse response)
             throws ServletException, IOException
     {
+        EndTurn endTurn = new EndTurn();
+        
         Game game = (Game) request.getServletContext().getAttribute(
                 ServletContextAttributeKeys.GAME);
 
         synchronized(game)
         {
-            EndTurn endTurn = new EndTurn();
             endTurn.performAction(game);
         }
 

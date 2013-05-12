@@ -11,6 +11,7 @@ $(document).ready($.ajax({
    type: 'POST',
    dataType: 'json',
    success: function(data) {
+       // Initialize players at the top of the screen
        $.each(data.players, function(index, player) {
            var jsonPlayer = $.parseJSON(player);
            $("#players")
@@ -22,7 +23,7 @@ $(document).ready($.ajax({
                        .attr('width', jsonPlayer.width))
                    .append($('<p />').text(jsonPlayer.name)));
        });
-
+       // Initialize cards
        $.each(data.cards, function(index, card) {
            var jsonCard = $.parseJSON(card);
            $("#cards")
@@ -35,16 +36,16 @@ $(document).ready($.ajax({
        });
    },
    error: function() {
-       alert('failure');
+       alert('failure'); // for debugging.
    }}));
 
-/* Used by the poll */
+// Used by the poll: only States with a new ID are processed
 var lastStateId = 'not an id';
 
 /*
  * Polls for updates to the game
  */
-(function poll() {
+$(document).ready(function poll() {
     setTimeout(function() {
         $.ajax({
             url: 'Poll',
@@ -55,100 +56,95 @@ var lastStateId = 'not an id';
                     lastStateId = data.id;
                     $('#suspectMessage').text(data.suspectMessage);
                     $('#log').append($('<p />').text(data.logMessage));
-
-                    $('#actions').empty(); // clear the previous actions
-                    $('#subActions').empty();
-                    $.each(data.actions, function(index, actionString) {
-                        var action = $.parseJSON(actionString);
-
-                        $('#actions').append($('<button style="float: left"/>')
-                                .text(action.name)
-                                .click(function(event) {
-                                    $('#actions').hide();
-                                    $(document.getElementById(action.name)).show();
-                                }));
-
-                        /* todo figure out how to setup sub action stuff */
-                        var subActionForm = $('<form/>')
-                            .attr('id', action.name)
-                            .attr('action', action.action)
-                            .attr('method', 'POST')
-                            .append($('<p style="float: left"/>').text(action.message));
-
-                        if ('options' in action) {
-                            $.each(action.options, function(index1, subOptions) {
-                                var options = $('<select style="float: left"/>');
-                                $.each(subOptions, function(index2, option) {
-                                    subActionForm.append(
-
-                                            options.append($('<option/>')
-                                                .attr('value', option)
-                                                .text(option)));
-                                });
-                            });
-                        }
-
-                        subActionForm.append($('<input style="float: left"/>')
-                            .attr('id', action.name + "input")
-                            .attr('method', 'POST')
-                            .attr('type', 'submit')
-                            .attr('value', action.name));
-
-                        subActionForm.submit($.ajax({
-                            url: action.action,
-                            type: 'POST',
-                            data: dataByName(action.action),
-                            dataType: 'json',
-                            success: function(data) {
-                                alert(JSON.stringify(data));
-                            }}));
-
-                        subActionForm.append($('<button>').text('cancle'));
-
-                        subActionForm.hide();
-
-                        $('#subActions').append(subActionForm);
-                    });
+                    createActions(data);
                 }
             },
             error: function(data) {
-                //alert("poll failed");
+                // TODO is this failing for a good reason?
+                // alert("poll failed"); // for debugging
             },
+            // call this function again on completion
             complete: poll,
-            timeout: 1000
-        });
-    }, 2000);
-})();
+            // wait time for response to server
+            timeout: 1000});
+    },
+    2000); // time between calls to this function);
+});
 
-function dataByName(name) {
+/*
+ * Creates the line of Actions available to the Player
+ */
+function createActions(data) {
+    // clear the previous actions and subActions
+    $('#actions').empty();
+    $('#subActions').empty();
 
-    var data;
+    $.each(data.actions, function(index, actionString) {
+        var action = $.parseJSON(actionString);
 
-    if (name === "Move") {
-        data = moveData();
-    } else if (name === "Suggest") {
-        data = suggestData();
-    } else if (name === "Accuse") {
-        data = accuseData();
-    } else if (name === "Refute") {
-        data = refuteData();
-    }
+        var actionId = action.name;
 
-    return data;
-}
+        $('#actions').append($('<button style="float: left"/>')
+                .text(action.name)
+                .click(function(event) {
+                    $('#actions').hide();
+                    $('#' + actionId).show();
+        }));
 
-function moveData() {
+        // create the options available when an action button is clicked.
+        var subActionForm = $('<form/>')
+                .attr('id', actionId)
+                .attr('action', action.action)
+                .attr('method', 'POST')
+                .append($('<p style="float: left"/>').text(action.message));
 
-}
+        var optionName = action.name + 'option';
 
-function suggestData() {
+        // create the options (Dropdowns) if they're present
+        if ('options' in action) {
+            $.each(action.options, function(index1, subOptions) {
+                var options = $('<select name="' + optionName + '" style="float: left"/>');
+                $.each(subOptions, function(index2, option) {
+                    subActionForm.append(
+                            options.append($('<option/>')
+                            .attr('value', option)
+                            .text(option)));
+                });
+            });
+        }
 
-}
+        // Add the button to the subAction that will actually submit the request
+        subActionForm.append($('<input style="float: left"/>')
+                .attr('method', 'POST')
+                .attr('type', 'submit')
+                .attr('value', action.name)
+                .submit(function() {
+            $.ajax({
+                url: action.action,
+                type: 'POST',
+                data: function() {
+                    var data = new Array();
+                    // accumulate the seleted items
+                    $('select[name="' + optionName + '"] select:selected').each(
+                            function(index) { data[index] = $(this).text(); });
+                    return JSON.stringify(data);
 
-function accuseData() {
+                },
+                dataType: 'json',
+                success: function(data) {
+                    alert(JSON.stringify(data));
+                }});
+        }));
 
-}
+        // Cancel button to return the player to action selection
+        subActionForm.append($('<button type="button" />').text('cancel').click(function() {
+            $('#' + actionId).hide();
+            $('#actions').show();
+        }));
 
-function refuteData() {
+        // initially, the subAction forms are not visible
+        subActionForm.hide();
 
-}
+        $('#subActions').append(subActionForm);
+    });
+};
