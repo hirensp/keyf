@@ -52,15 +52,4 @@ public class StartGameServlet extends HttpServlet
         // forward to the Game page servlet.
         request.getRequestDispatcher("game.html").forward(request, response);
     }
-
-    /**
-     * Returns a short description of the servlet.
-     * <p/>
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo()
-    {
-        return "Short description";
-    }
 }

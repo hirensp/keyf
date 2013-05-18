@@ -35,19 +35,21 @@ public class MoveServlet extends PostListStringServlet
     {
         String locationString = bodyParameters.get(0);
 
-        Location location = null;
-        try
+        Location location;
+
+        if (Room.isValid(locationString))
         {
             location = Room.valueOf(locationString);
         }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-
-        if (location == null)
+        else if (Hallway.isValid(locationString))
         {
             location = Hallway.valueOf(locationString);
+        }
+        else
+        {
+            throw new IllegalArgumentException(
+                    locationString + " is neither a " + Hallway.class.getName()
+                    + " or a " + Room.class.getName());
         }
 
         Move move = new Move(location);

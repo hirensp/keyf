@@ -161,7 +161,7 @@ public class Game
      * @return the latest {@link State} of the {@code player}, never {@code
      *     null}
      */
-    public State getLatestState(Player player)
+    public State getOldestState(Player player)
     {
         State state;
 

@@ -54,7 +54,7 @@ public class Refute implements Action
         for (Player player : game.getPlayers())
         {
             State.Builder stateBuilder 
-                    = new State.Builder(game.getLatestState(player));
+                    = new State.Builder(game.getOldestState(player));
 
             if (player.equals(currentPlayer))
             {

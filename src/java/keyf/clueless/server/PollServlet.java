@@ -41,7 +41,7 @@ public class PollServlet extends HttpServlet
         String currentPlayerName= (String) request.getSession()
                 .getAttribute(ServletContextAttributeKeys.SESSION_PLAYER_ID);
 
-        State state = null;
+        State state;
 
         try
         {
@@ -50,7 +50,7 @@ public class PollServlet extends HttpServlet
                 synchronized (game)
                 {
                     // Get the current player's state
-                    state = game.getLatestState(
+                    state = game.getOldestState(
                             game.getPlayerByName(currentPlayerName));
                 }
 

@@ -38,7 +38,7 @@ public class EndTurn implements Action
         for (Player player : game.getPlayers())
         {
             State.Builder builder = new State.Builder(
-                    game.getLatestState(player));
+                    game.getOldestState(player));
 
             if (currentPlayer.equals(player))
             {

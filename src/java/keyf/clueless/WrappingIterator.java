@@ -30,6 +30,7 @@ public class WrappingIterator<T>
     {
         this.iterable = makeCollection(requireNonNull(iterable));
         this.iterator = iterable.iterator();
+        this.current = iterator.next();
     }
 
     /**
@@ -77,7 +78,7 @@ public class WrappingIterator<T>
         {
             list.add(item);
         }
-        
+
         return list;
     }
 }

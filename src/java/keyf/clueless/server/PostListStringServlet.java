@@ -76,26 +76,13 @@ abstract class PostListStringServlet extends HttpServlet
     {
         List<String> parameters = new ArrayList<String>();
 
-        int indexOfEq = body.indexOf('=');
-        int indexOfAmp = body.indexOf('&');
+        JSONArray array = new JSONArray(body);
 
-        while (indexOfEq > 0)
+        for (int i = 0; i < array.length(); i++)
         {
-            if (indexOfAmp > 0)
-            {
-                parameters.add(body.substring(indexOfEq + 1, indexOfAmp));
-                body = body.substring(indexOfAmp + 1);
-            }
-            else
-            {
-                parameters.add(body.substring(indexOfEq + 1));
-                body = "";
-            }
-
-            indexOfEq = body.indexOf('=');
-            indexOfAmp = body.indexOf('&');
+            parameters.add(array.getString(i));
         }
-
+        
         return parameters;
     }
 }

@@ -59,7 +59,7 @@ public class Accusation implements Action
         for (Player player : game.getPlayers())
         {
             State.Builder stateBuilder = new State.Builder(
-                    game.getLatestState(player));
+                    game.getOldestState(player));
 
 
             if (player.equals(currentPlayer))
