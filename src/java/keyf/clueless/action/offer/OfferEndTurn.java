@@ -19,7 +19,8 @@ public class OfferEndTurn implements OfferAction
 
     /**
      * {
-     *     "name": "End Turn"
+     *     "name": "End Turn",
+     *     "action": "EndTurn"
      * }
      * @return
      */

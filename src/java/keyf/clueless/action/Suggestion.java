@@ -54,7 +54,7 @@ public class Suggestion implements Action
         for (Player player : game.getPlayers())
         {
             State.Builder stateBuilder
-                    = new State.Builder(game.getOldestState(player));
+                    = new State.Builder(game.getNewestState(player));
 
             if (currentPlayer.equals(player))
             {

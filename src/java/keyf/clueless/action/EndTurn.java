@@ -7,6 +7,7 @@ import keyf.clueless.Board;
 import keyf.clueless.Game;
 import keyf.clueless.State;
 import keyf.clueless.TurnManager;
+import keyf.clueless.action.offer.OfferEndTurn;
 import keyf.clueless.data.Player;
 import keyf.clueless.data.Suspect;
 import keyf.clueless.data.location.Location;
@@ -28,17 +29,15 @@ public class EndTurn implements Action
     @Override
     public void performAction(Game game)
     {
-        // TODO-set the next player's actions in the State here? Probably...
-
         TurnManager turnManager = game.getTurnManager();
 
         Player currentPlayer = turnManager.getCurrentPlayer();
         Player nextPlayer = turnManager.nextPlayer();
-        
+
         for (Player player : game.getPlayers())
         {
             State.Builder builder = new State.Builder(
-                    game.getOldestState(player));
+                    game.getNewestState(player));
 
             if (currentPlayer.equals(player))
             {
@@ -53,9 +52,8 @@ public class EndTurn implements Action
                 Suspect suspect = nextPlayer.getSuspect();
                 Location currentLocation = board.getLocation(suspect);
 
-                
-                builder.addAction(new OfferMove(
-                        board.getAvailableLocations(suspect)));
+                builder.addAction(
+                        new OfferMove(board.getAvailableLocations(suspect)));
 
                 // If it is a room (hallways are single occupancy) add the
                 // suggest action
@@ -67,8 +65,7 @@ public class EndTurn implements Action
                 }
 
                 builder.addAction(new OfferAccusation());
-
-//                builder.addAction(new OfferEndTurn());
+                builder.addAction(new OfferEndTurn());
             }
 
             builder.setSuspectMessage(SUSPECT_MESSAGE);
@@ -76,7 +73,5 @@ public class EndTurn implements Action
 
             game.addState(player, builder.build());
         }
-
-        
     }
 }

@@ -11,7 +11,7 @@ import java.util.Set;
 /**
  * Manages whose players turn it is, as well as who action is currently waiting
  * on.
- * 
+ *
  * @author justin
  */
 public class TurnManager
@@ -33,7 +33,7 @@ public class TurnManager
     public TurnManager(List<Player> players)
     {
         requireNonNullAndContainsNonNull(players);
-        
+
         this.currentPlayer = new WrappingIterator<Player>(players);
         this.currentlyActivePlayer = new WrappingIterator<Player>(players);
     }
@@ -74,7 +74,7 @@ public class TurnManager
         {
             currentPlayer.next();
         }
-        while (!disqualifiedPlayers.contains(currentPlayer.getCurrent()));
+        while (disqualifiedPlayers.contains(currentPlayer.getCurrent()));
 
         // The player whose turn it now is is also the active player.
         setCurrentPlayerActive();

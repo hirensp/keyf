@@ -11,11 +11,11 @@ import static keyf.util.ParamUtil.*;
  * Action that refutes another Player's suggestion. A Player should only see
  * this action if they have a card that can refute the Suggestion. (The card(s)
  * that can refute the Suggestion may or may not be identified in some way.)
- * 
+ *
  * @author jonathanpomper
  */
 public class Refute implements Action
-{    
+{
     private final Item refuteItem;
 
     private final static  String REFUTAL_MESSAGE
@@ -26,17 +26,17 @@ public class Refute implements Action
 
     /**
      * The item that refutes a suggestion.
-     * 
+     *
      * @param item The item
      */
     public Refute(Item item)
     {
         this.refuteItem = requireNonNull(item);
     }
-    
+
     /**
      * Response to a suggestion
-     * 
+     *
      * @param game
      */
     @Override
@@ -49,12 +49,12 @@ public class Refute implements Action
 
         // This is the player that needs to see the refutal
         Player currentPlayer = turnManager.getCurrentPlayer();
-        
+
         // Create a new state for each player
         for (Player player : game.getPlayers())
         {
-            State.Builder stateBuilder 
-                    = new State.Builder(game.getOldestState(player));
+            State.Builder stateBuilder
+                    = new State.Builder(game.getNewestState(player));
 
             if (player.equals(currentPlayer))
             {

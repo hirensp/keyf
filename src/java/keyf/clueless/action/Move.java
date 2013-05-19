@@ -39,11 +39,11 @@ public class Move implements Action
         Player currentPlayer = game.getTurnManager().getCurrentPlayer();
 
         game.getBoard().setLocation(currentPlayer.getSuspect(), location);
-        
+
         for (Player player : game.getPlayers())
         {
             State.Builder stateBuilder
-                    = new State.Builder(game.getOldestState(player));
+                    = new State.Builder(game.getNewestState(player));
 
             if (player.equals(currentPlayer))
             {

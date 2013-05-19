@@ -16,17 +16,17 @@ import static keyf.util.ParamUtil.requireNonNull;
  */
 public class Accusation implements Action
 {
-    private final static String HE_WON_MESSAGE 
+    private final static String HE_WON_MESSAGE
             = "I was correct! It was {0} in the {1} with the {2}. I won!";
 
     private final static String GAME_WIN_MESSAGE = "{0} wins the game!";
 
     private final static String YOU_WON_MESSAGE = "Congraulations! You Won!";
 
-    private final static String YOU_LOST_MESSAGE 
+    private final static String YOU_LOST_MESSAGE
             = "I'm sorry, your accusation was incorrect. You have lost the game";
 
-    private final static String HE_LOST_MESSAGE 
+    private final static String HE_LOST_MESSAGE
             = "{0} has made a false accusation. He has lost the game.";
 
     private final Suspect suspect;
@@ -59,7 +59,7 @@ public class Accusation implements Action
         for (Player player : game.getPlayers())
         {
             State.Builder stateBuilder = new State.Builder(
-                    game.getOldestState(player));
+                    game.getNewestState(player));
 
 
             if (player.equals(currentPlayer))
@@ -73,7 +73,7 @@ public class Accusation implements Action
                 else
                 {
                     stateBuilder.setSuspectMessage(YOU_LOST_MESSAGE);
-                    // Disqualify the current player (they can no longer move, 
+                    // Disqualify the current player (they can no longer move,
                     // make suggestions, but have to answer others' suggestions)
                     // and set the next player.
                     turnManager.disqualifyCurrentPlayer();

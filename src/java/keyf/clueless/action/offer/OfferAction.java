@@ -26,11 +26,13 @@ public interface OfferAction
      * Returns a JSON representation of this object to send to clients.
      * All should be something like:
      * {
+     *     // required
      *     "name": "Human Readable Name",
-     *     // might be empty
+     *     "action": "ServletName"
+     *
+     *     // optional
      *     "options": [[ -set of options- ], [ -another set of options- ]],
      *     "message": "some kind of message that gives meaning to the options",
-     *     "action": "ServletName"
      * }
      *
      * @return never {@code null}.

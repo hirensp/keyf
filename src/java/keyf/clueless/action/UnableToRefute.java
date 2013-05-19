@@ -62,7 +62,7 @@ public class UnableToRefute implements Action
         for (Player player : game.getPlayers())
         {
             State.Builder stateBuilder
-                    = new State.Builder(game.getOldestState(player));
+                    = new State.Builder(game.getNewestState(player));
 
             if (formerlyActive.equals(player))
             {
