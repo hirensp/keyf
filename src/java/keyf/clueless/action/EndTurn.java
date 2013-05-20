@@ -13,6 +13,8 @@ import keyf.clueless.data.Suspect;
 import keyf.clueless.data.location.Location;
 import keyf.clueless.data.location.Room;
 
+import java.text.MessageFormat;
+
 /**
  * Ends the {@link TurnManager#getCurrentPlayer() current player's} turn.
  *
@@ -69,7 +71,8 @@ public class EndTurn implements Action
             }
 
             builder.setSuspectMessage(SUSPECT_MESSAGE);
-            builder.setLogMessage(LOG_MESSAGE);
+            builder.setLogMessage(MessageFormat.format(
+                    LOG_MESSAGE, currentPlayer.getIdentifier()));
 
             game.addState(player, builder.build());
         }

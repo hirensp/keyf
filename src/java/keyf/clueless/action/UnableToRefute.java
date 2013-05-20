@@ -2,6 +2,8 @@ package keyf.clueless.action;
 
 import keyf.clueless.action.offer.OfferRefutal;
 import keyf.clueless.action.offer.OfferUnableToRefute;
+
+import java.text.MessageFormat;
 import java.util.Set;
 import keyf.clueless.Game;
 import keyf.clueless.State;
@@ -97,8 +99,8 @@ public class UnableToRefute implements Action
 
             stateBuilder.setSuspectMessage(SUSPECT_MESSAGE);
 
-            stateBuilder.setLogMessage(
-                    String.format(LOG_MESSAGE, formerlyActive.getIdentifier()));
+            stateBuilder.setLogMessage(MessageFormat.format(
+                    LOG_MESSAGE, formerlyActive.getIdentifier()));
 
             game.addState(player, stateBuilder.build());
         }

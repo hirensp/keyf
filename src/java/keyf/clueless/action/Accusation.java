@@ -10,6 +10,8 @@ import keyf.clueless.data.Weapon;
 import keyf.clueless.data.location.Room;
 import static keyf.util.ParamUtil.requireNonNull;
 
+import java.text.MessageFormat;
+
 /**
  *
  * @author justin
@@ -21,7 +23,7 @@ public class Accusation implements Action
 
     private final static String GAME_WIN_MESSAGE = "{0} wins the game!";
 
-    private final static String YOU_WON_MESSAGE = "Congraulations! You Won!";
+    private final static String YOU_WON_MESSAGE = "Congratulations! You Won!";
 
     private final static String YOU_LOST_MESSAGE
             = "I'm sorry, your accusation was incorrect. You have lost the game";
@@ -83,21 +85,20 @@ public class Accusation implements Action
             {
                 if (won)
                 {
-                    stateBuilder.setSuspectMessage(String.format(HE_WON_MESSAGE,
-                          suspect, room, weapon));
+                    stateBuilder.setSuspectMessage(MessageFormat.format(
+                            HE_WON_MESSAGE, suspect, room, weapon));
                     // No one can do anything.
                     stateBuilder.clearActions();
                 }
                 else
                 {
-                   stateBuilder.setSuspectMessage(String.format(HE_LOST_MESSAGE,
-                           player));
+                   stateBuilder.setSuspectMessage(MessageFormat.format(
+                           HE_LOST_MESSAGE, player.getIdentifier()));
                 }
             }
 
-            stateBuilder.setLogMessage(String.format(
-                    GAME_WIN_MESSAGE,
-                    player));
+            stateBuilder.setLogMessage(MessageFormat.format(
+                    GAME_WIN_MESSAGE, player.getIdentifier()));
 
             game.addState(player, stateBuilder.build());
         }

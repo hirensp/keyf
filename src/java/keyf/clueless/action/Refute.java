@@ -7,6 +7,8 @@ import keyf.clueless.data.Item;
 import keyf.clueless.data.Player;
 import static keyf.util.ParamUtil.*;
 
+import java.text.MessageFormat;
+
 /**
  * Action that refutes another Player's suggestion. A Player should only see
  * this action if they have a card that can refute the Suggestion. (The card(s)
@@ -18,8 +20,11 @@ public class Refute implements Action
 {
     private final Item refuteItem;
 
-    private final static  String REFUTAL_MESSAGE
-            = "I can refute that suggestion! {0}";
+    private final static String REFUTAL_MESSAGE
+            = "I can refute that suggestion!";
+
+    private final static String REFUTAL_ITEM_MESSAGE
+            = " My evidence disqualifies the {0}";
 
     private final static String LOG_MESSAGE
             = "{0} refuted the suggestion.";
@@ -60,8 +65,8 @@ public class Refute implements Action
             {
                 // For the player that made the suggestion, add the refuteItem
                 // to the message
-                stateBuilder.setSuspectMessage(
-                        String.format(REFUTAL_MESSAGE, refuteItem))
+                stateBuilder.setSuspectMessage(MessageFormat.format(
+                        REFUTAL_MESSAGE + REFUTAL_ITEM_MESSAGE, refuteItem))
                         .makeAllActionsAvailable();
             }
             else
@@ -73,7 +78,7 @@ public class Refute implements Action
             }
 
             // Add the log message to all player's states.
-            stateBuilder.setLogMessage(String.format(
+            stateBuilder.setLogMessage(MessageFormat.format(
                     LOG_MESSAGE, currentlyActivePlayer.getIdentifier()));
 
             //Updates messages and log all players via game.setState().

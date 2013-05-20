@@ -2,6 +2,8 @@ package keyf.clueless.action;
 
 import keyf.clueless.action.offer.OfferRefutal;
 import keyf.clueless.action.offer.OfferUnableToRefute;
+
+import java.text.MessageFormat;
 import java.util.Set;
 import keyf.clueless.Game;
 import keyf.clueless.State;
@@ -79,11 +81,11 @@ public class Suggestion implements Action
                 }
             }
 
-            stateBuilder.setSuspectMessage(
-                    String.format(SUSPECT_MESSAGE, suspect, weapon, room));
+            stateBuilder.setSuspectMessage(MessageFormat.format(
+                    SUSPECT_MESSAGE, suspect, weapon, room));
 
-            stateBuilder.setLogMessage(
-                    String.format(LOG_MESSAGE, suspect, weapon, room));
+            stateBuilder.setLogMessage(MessageFormat.format(
+                    LOG_MESSAGE, suspect, weapon, room));
 
             game.addState(player, stateBuilder.build());
         }

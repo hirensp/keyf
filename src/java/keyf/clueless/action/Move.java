@@ -6,6 +6,8 @@ import keyf.clueless.data.Player;
 import keyf.clueless.data.location.Location;
 import static keyf.util.ParamUtil.requireNonNull;
 
+import java.text.MessageFormat;
+
 /**
  *
  * @author justin
@@ -52,12 +54,12 @@ public class Move implements Action
             }
             else
             {
-                stateBuilder.setSuspectMessage(String.format(
+                stateBuilder.setSuspectMessage(MessageFormat.format(
                         MOVE_MESSAGE, location));
             }
 
             // add log message for all players.
-            stateBuilder.setLogMessage(String.format(
+            stateBuilder.setLogMessage(MessageFormat.format(
                     LOG_MESSAGE, currentPlayer.getIdentifier(), location));
 
             game.addState(player, stateBuilder.build());
