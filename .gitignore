@@ -2,6 +2,7 @@
 /build/
 /dist/
 .DS_Store
+/out
 
 # Product Files (just in case these exist outside the Product Directories)
 *.class
