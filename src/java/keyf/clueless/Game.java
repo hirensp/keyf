@@ -89,7 +89,7 @@ public class Game
 
         Player firstPlayer = player.next();
 
-        Set<OfferAction> firstActions = new HashSet<OfferAction>();
+        List<OfferAction> firstActions = new ArrayList<OfferAction>();
 
         firstActions.add(new OfferMove(board.getAvailableLocations(
                 firstPlayer.getSuspect())));
@@ -98,7 +98,7 @@ public class Game
 
         firstActions.add(new OfferEndTurn());
 
-        State state = new State(firstActions, Collections.<OfferAction>emptySet(), "", "");
+        State state = new State(firstActions, Collections.<OfferAction>emptyList(), "", "");
 
         addState(firstPlayer, state);
 
@@ -106,8 +106,8 @@ public class Game
         while (player.hasNext())
         {
             addState(player.next(), new State(
-                    Collections.<OfferAction>emptySet(),
-                    Collections.<OfferAction>emptySet(), "", ""));
+                    Collections.<OfferAction>emptyList(),
+                    Collections.<OfferAction>emptyList(), "", ""));
         }
     }
 

@@ -1,5 +1,6 @@
 package keyf.clueless;
 
+import java.util.ArrayList;
 import static keyf.util.ParamUtil.requireNonNullAndContainsNonNull;
 
 import keyf.clueless.action.Action;
@@ -12,7 +13,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
@@ -23,16 +23,17 @@ import org.json.JSONObject;
 public class State
 {
     /**
-     * All actions that a Player can currently make.
+     * All actions that a Player can currently make, in the order which they
+     * should be seen from left to right.
      */
-    private final Set<OfferAction> availableActions;
+    private final List<OfferAction> availableActions;
 
     /**
      * Actions that a player will still be able to make, but should not
      * currently have access to (such as when the player is waiting for a
      * response from a suggestion).
      */
-    private final Set<OfferAction> temporarilyUnavailableActions;
+    private final List<OfferAction> temporarilyUnavailableActions;
 
     // TODO --we might need a parameter that indicates who is saying the
     //        "suspectMessage"
@@ -68,8 +69,8 @@ public class State
      * @param suspectMessage message as said by the suspect
      * @param logMessage message displayed in the log
      */
-    public State(Set<OfferAction> availableActions,
-                 Set<OfferAction> temporarilyUnavailableActions,
+    public State(List<OfferAction> availableActions,
+                 List<OfferAction> temporarilyUnavailableActions,
                  String suspectMessage,
                  String logMessage)
     {
@@ -80,19 +81,17 @@ public class State
              Collections.<Movement>emptySet());
     }
 
-    public State(Set<OfferAction> availableActions,
-                 Set<OfferAction> temporarilyUnavailableActions,
+    public State(List<OfferAction> availableActions,
+                 List<OfferAction> temporarilyUnavailableActions,
                  String suspectMessage,
                  String logMessage,
                  Set<Movement> thingsThatMoved)
     {
-                this.availableActions = Collections.unmodifiableSet(
-                requireNonNullAndContainsNonNull(
-                        availableActions));
+        this.availableActions = Collections.unmodifiableList(
+                requireNonNullAndContainsNonNull(availableActions));
 
-        this.temporarilyUnavailableActions = Collections.unmodifiableSet(
-                requireNonNullAndContainsNonNull(
-                        temporarilyUnavailableActions));
+        this.temporarilyUnavailableActions = Collections.unmodifiableList(
+                requireNonNullAndContainsNonNull(temporarilyUnavailableActions));
 
         this.suspectMessage = suspectMessage;
 
@@ -103,12 +102,12 @@ public class State
         this.thingsThatMoved.addAll(thingsThatMoved);
     }
 
-    public Set<OfferAction> getAvailableActions()
+    public List<OfferAction> getAvailableActions()
     {
         return availableActions;
     }
 
-    public Set<OfferAction> getTemporarilyUnavailableActions()
+    public List<OfferAction> getTemporarilyUnavailableActions()
     {
         return temporarilyUnavailableActions;
     }
@@ -161,18 +160,18 @@ public class State
      */
     public static class Builder
     {
-        private final Set<OfferAction> availableActions;
-        private final Set<OfferAction> temporarilyUnavailableActions;
+        private final List<OfferAction> availableActions;
+        private final List<OfferAction> temporarilyUnavailableActions;
         private String suspectMessage;
         private String logMessage;
         private final Set<Movement> thingsThatMoved = new HashSet<Movement>();
 
         public Builder(State state)
         {
-            this.availableActions = new HashSet<OfferAction>(
+            this.availableActions = new ArrayList<OfferAction>(
                     state.getAvailableActions());
 
-            this.temporarilyUnavailableActions = new HashSet<OfferAction>(
+            this.temporarilyUnavailableActions = new ArrayList<OfferAction>(
                     state.getTemporarilyUnavailableActions());
         }
 
