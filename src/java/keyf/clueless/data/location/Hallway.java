@@ -74,10 +74,8 @@ public enum Hallway implements Location
      */
     private Hallway(Room room1, Room... room2)
     {
-        Set<Room> neighbors = EnumSet.of(room1, room2);
-
         // Make unmodifiable so that we don't accidentally change it!
-        this.neighbors = Collections.unmodifiableSet(neighbors);
+        this.neighbors = Collections.unmodifiableSet(EnumSet.of(room1, room2));
     }
 
     /**

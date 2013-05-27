@@ -7,6 +7,8 @@ import keyf.clueless.data.location.Location;
 import static keyf.util.ParamUtil.requireNonNull;
 
 import java.text.MessageFormat;
+import keyf.clueless.action.offer.OfferSuggestion;
+import keyf.clueless.data.location.Room;
 
 /**
  *
@@ -51,12 +53,17 @@ public class Move implements Action
             {
                 // remove "Move" from the possible actions in State
                 stateBuilder.removeAction(this);
+
+                // If the player has just moved into a room, allow them to make
+                // a suggestion
+                if (location instanceof Room)
+                {
+                    stateBuilder.addAction(new OfferSuggestion((Room) location));
+                }
             }
-            else
-            {
-                stateBuilder.setSuspectMessage(MessageFormat.format(
-                        MOVE_MESSAGE, location));
-            }
+
+            stateBuilder.setSuspectMessage(MessageFormat.format(
+                    MOVE_MESSAGE, location));
 
             // add log message for all players.
             stateBuilder.setLogMessage(MessageFormat.format(

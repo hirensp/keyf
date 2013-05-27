@@ -48,7 +48,7 @@ public class OfferSuggestion implements OfferAction
         JSONObject json = new JSONObject();
         json.put("name", "Suggestion");
 
-        json.put("options", new JSONArray(possibleRoom.toString()));
+        json.accumulate("options", possibleRoom.toString());
 
         JSONArray jsonWeapons = new JSONArray();
         for(Weapon weapon : Weapon.values())
