@@ -79,14 +79,17 @@ function createActions(data) {
 
             if ('options' in action) {
 
+                var buttonId = action.name + 'Button';
+
                 $('#actions')
                         .append($('<button style="float: left"/>')
+                        .attr('id', buttonId)
                         .text(action.name));
 
                 createSubActions(action);
 
                 // Hide the actions and show the options for the clicked action.
-                $('#actions').click(function() {
+                $('#' + buttonId).click(function() {
                     $('#actions').hide();
                     $('#' + action.name).show();
                 });
