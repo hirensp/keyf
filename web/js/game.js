@@ -70,7 +70,7 @@ $(document).ready(function poll() {
  */
 function createActions(data) {
     // clear the previous actions and subActions
-    $('#actions').empty();
+    $('#actions').empty().show();
     $('#subActions').empty();
 
     if ('actions' in data) {
